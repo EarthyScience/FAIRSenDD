@@ -6,7 +6,7 @@ A project from the Max-Planck-Institute for Biogeochemistry to create a FAIR def
 
 This repository contains code and documentation for a FAIR workflow originally described in ([Cremer et al. 2020](http://dx.doi.org/10.1109/JSTARS.2020.3019333)).
 
-## Fundung
+## Funding
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/ESA_logo.svg" align="left" height="50" />
 This project was funded by the European Space Agency in the Science Result Long-Term Availability & Reusability Demonstrator Initiative.
