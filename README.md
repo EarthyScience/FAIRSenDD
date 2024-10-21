@@ -9,4 +9,7 @@ This repository contains code and documentation for a FAIR workflow originally d
 ## Funding
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/ESA_logo.svg" align="left" height="50" />
+<img src="https://ovl.oceandatalab.com/resources/ESA_NoR_logo.svg" align="left" height="50" />
+
 This project was funded by the European Space Agency in the Science Result Long-Term Availability & Reusability Demonstrator Initiative.
+In addition, this project was supported by the ESA Network of Resources Initiative.
