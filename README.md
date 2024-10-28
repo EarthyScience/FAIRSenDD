@@ -12,4 +12,4 @@ This repository contains code and documentation for a FAIR workflow based on the
 <img src="https://raw.githubusercontent.com/EarthyScience/FAIRSenDD/refs/heads/main/assets/ESA_NoR_logo.svg" align="left" height="50px" style="filter: contrast(0);"/>
 
 This project was funded by the European Space Agency in the Science Result Long-Term Availability & Reusability Demonstrator Initiative.
-In addition, this project was supported by the ESA Network of Resources Initiative.
+In addition, this project was supported by the ESA Network of Resources.
