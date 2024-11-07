@@ -4,3 +4,5 @@ packages:
   - vim
 runcmd:
   - date > /date.txt
+mounts:
+  - ["/dev/vdc", "/data", "auto", "defaults"]
