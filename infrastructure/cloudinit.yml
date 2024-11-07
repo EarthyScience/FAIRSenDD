@@ -1,8 +1,13 @@
 apt_update: true
 apt_upgrade: true
 packages:
-  - vim
+  - nfs-common
 runcmd:
-  - date > /date.txt
+  - mount -a # retry mount after edit of hosts
 mounts:
   - ["/dev/vdc", "/data", "auto", "defaults"]
+  - ["eo-storage01.eodc:/", "/eodc", "nfs4", "rw", "0", "0"]
+write_files:
+  - path: /etc/hosts
+    content: 10.250.23.242   eo-storage01.eodc
+    append: true
