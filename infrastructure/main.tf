@@ -94,7 +94,7 @@ resource "openstack_compute_instance_v2" "gateway" {
 
 resource "openstack_compute_instance_v2" "node1" {
   name            = "node1"
-  image_id        = "7c2a5f8f-e563-41f8-b09d-e187bdffff3a" # EODC_Debian11_RC_v2.0.15
+  image_id        = "0a9ce0a0-2c53-49aa-b73d-8aa6a042dd7a" # debian-12-genericcloud-amd64-20241004-1890 
   flavor_id       = var.flavor_big
   key_pair        = var.key_pair
   user_data       = data.template_cloudinit_config.init_script.rendered
