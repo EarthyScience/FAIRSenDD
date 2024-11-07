@@ -1,0 +1,6 @@
+apt_update: true
+apt_upgrade: true
+packages:
+  - vim
+runcmd:
+  - date > /date.txt
