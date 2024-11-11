@@ -3,6 +3,9 @@ on: [push]
 jobs:
   deploy-infrastructure:
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_application_credential_id: ${{ secrets.TF_VAR_application_credential_id }}
+      TF_VAR_application_credential_secret: ${{ secrets.TF_VAR_application_credential_secret }}
     steps:
       - uses: hashicorp/setup-terraform@v3
         with:
