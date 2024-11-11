@@ -1,0 +1,12 @@
+name: Deploy infrastructure
+on: [push]
+jobs:
+  deploy-infrastructure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+      - uses: actions/checkout@v4
+      - run: terraform -chdir=infrastructure init
+      - run: terraform -chdir=infrastructure plan
