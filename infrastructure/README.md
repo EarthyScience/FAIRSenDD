@@ -19,5 +19,5 @@ terraform apply
 ## Access nodes
 
 1. Import the ssh key pair from openstack to your local system
-2. Run `ssh -J debian@fairsendd.eodchosting.eu node1`
+2. Run `ssh -J debian@fairsendd.eodchosting.eu debian@node1`
 ```

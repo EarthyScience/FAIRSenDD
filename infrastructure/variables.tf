@@ -42,8 +42,8 @@ variable "flavor_big" {
 
 variable "default_image_id" {
   type        = string
-  description = "id of image debian-12-genericcloud-amd64-20241004-1890"
-  default     = "0a9ce0a0-2c53-49aa-b73d-8aa6a042dd7a"
+  description = "id of default instance image"
+  default     = "0a9ce0a0-2c53-49aa-b73d-8aa6a042dd7a" # debian-12-genericcloud-amd64-20241004-1890 @ cloud.eodc.eu
 }
 
 variable "external_network_id" {

@@ -14,7 +14,3 @@ write_files:
       10.250.23.242   eo-storage01.eodc
       10.10.29.10     gateway
       10.10.29.11     node1
-users:
-  - name: debian
-    groups: users,sudo
-    shell: /bin/bash
