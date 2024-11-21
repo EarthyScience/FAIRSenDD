@@ -1,7 +1,11 @@
 apt_update: true
 apt_upgrade: true
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
 packages:
   - nfs-common
+  - nginx
 runcmd:
   - mount -a # retry mount after edit of hosts
 mounts:

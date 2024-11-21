@@ -21,3 +21,11 @@ terraform apply
 1. Import the ssh key pair from openstack to your local system
 2. Run `ssh -J debian@fairsendd.eodchosting.eu debian@node1`
 ```
+
+## Features
+
+- gateway
+    - NFS eo-storage01.eodc mounted at /data
+    - nginx web server, default debian package
+- node
+    ⁻ NFS eo-storage01.eodc mounted at /data
