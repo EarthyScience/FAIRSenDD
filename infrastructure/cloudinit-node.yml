@@ -1,0 +1,16 @@
+apt_update: true
+apt_upgrade: true
+packages:
+  - nfs-common
+runcmd:
+  - mount -a # retry mount after edit of hosts
+mounts:
+  - ["/dev/vdc", "/data", "auto", "defaults"]
+  - ["eo-storage01.eodc:/", "/eodc", "nfs4", "rw", "0", "0"]
+write_files:
+  - path: /etc/hosts
+    append: true
+    content: |
+      10.250.23.242   eo-storage01.eodc
+      10.10.29.10     gateway
+      10.10.29.11     node1

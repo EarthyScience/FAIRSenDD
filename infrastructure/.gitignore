@@ -38,3 +38,4 @@ terraform.rc
 
 # secrets
 run.sh
+deploy.sh
