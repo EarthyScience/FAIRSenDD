@@ -58,3 +58,15 @@ resource "openstack_compute_instance_v2" "gateway" {
     uuid = openstack_networking_network_v2.network.id
   }
 }
+
+resource "openstack_compute_instance_v2" "node1" {
+  name            = "node1"
+  image_id        = var.default_image_id
+  flavor_id       = var.flavor_big
+  key_pair        = var.key_pair
+  security_groups = ["default"]
+
+  network {
+    uuid = openstack_networking_network_v2.network.id
+  }
+}
