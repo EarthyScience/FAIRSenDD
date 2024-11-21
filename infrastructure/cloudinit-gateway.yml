@@ -9,5 +9,12 @@ mounts:
   - ["eo-storage01.eodc:/", "/eodc", "nfs4", "rw", "0", "0"]
 write_files:
   - path: /etc/hosts
-    content: 10.250.23.242   eo-storage01.eodc
     append: true
+    content: |
+      10.250.23.242   eo-storage01.eodc
+      10.10.29.10     gateway
+      10.10.29.11     node1
+users:
+  - name: debian
+    groups: users,sudo
+    shell: /bin/bash
