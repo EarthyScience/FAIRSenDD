@@ -46,7 +46,7 @@ variable "default_image_id" {
   default     = "0a9ce0a0-2c53-49aa-b73d-8aa6a042dd7a" # debian-12-genericcloud-amd64-20241004-1890 @ cloud.eodc.eu
 }
 
-variable "external_network_id" {
+variable "router_id" {
   type    = string
-  default = "652e477b-b96f-4ad6-8c10-ea4fb0e9030a" # public1
+  default = "7c2c1644-d49e-47d7-8a1a-5871c677aae1" # fix router id to persist file export permissions
 }
