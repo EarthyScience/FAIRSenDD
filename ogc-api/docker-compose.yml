@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  app:
+    image: danlooo/fairsendd_ogc_api
+    build: .
+    container_name: ogc_api
+    ports:
+      - "80:80"
