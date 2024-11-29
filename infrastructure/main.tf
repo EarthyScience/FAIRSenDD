@@ -29,12 +29,8 @@ resource "openstack_networking_subnet_v2" "subnet" {
   gateway_ip = "10.10.29.1"
 }
 
-resource "openstack_networking_router_v2" "router" {
-  external_network_id = var.external_network_id
-}
-
 resource "openstack_networking_router_interface_v2" "router_interface" {
-  router_id = openstack_networking_router_v2.router.id
+  router_id = var.router_id
   subnet_id = openstack_networking_subnet_v2.subnet.id
 }
 
@@ -49,14 +45,14 @@ resource "openstack_compute_floatingip_associate_v2" "fip_assoc_1" {
 data "template_cloudinit_config" "init_script_gateway" {
   part {
     content_type = "text/cloud-config"
-    content      = file("cloudinit-gateway.yml")
+    content      = file("cloud-init/gateway.yml")
   }
 }
 
 data "template_cloudinit_config" "init_script_node" {
   part {
     content_type = "text/cloud-config"
-    content      = file("cloudinit-node.yml")
+    content      = file("cloud-init/node.yml")
   }
 }
 
@@ -80,7 +76,7 @@ resource "openstack_compute_instance_v2" "node1" {
   flavor_id       = var.flavor_big
   key_pair        = var.key_pair
   security_groups = ["default"]
-  user_data       = data.template_cloudinit_config.init_script_gateway.rendered
+  user_data       = data.template_cloudinit_config.init_script_node.rendered
 
   network {
     uuid        = openstack_networking_network_v2.network.id

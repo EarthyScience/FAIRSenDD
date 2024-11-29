@@ -20,12 +20,23 @@ terraform apply
 
 1. Import the ssh key pair from openstack to your local system
 2. Run `ssh -J debian@fairsendd.eodchosting.eu debian@node1`
-```
+
+## Webserver
+
+## Satellite input data
+
+- EODC shared Sentinel-1 Sigma0 data as a NFS share with the gateway host having the floating IP
+- `eo-storage01.eodc:/` is mounted at `gatweay:/eodc`
 
 ## Features
 
 - gateway
-    - NFS eo-storage01.eodc mounted at /data
-    - nginx web server, default debian package
+  - NFS eo-storage01.eodc mounted at /eodc
+  - nginx web server, default debian package
 - node
-    ⁻ NFS eo-storage01.eodc mounted at /data
+  ⁻ NFS eo-storage01.eodc mounted at /data
+
+## Notes
+
+- timings might be inaccurate within eodc cloud. Adjust NTP server accordingly
+- Some data is stored on tape. It can be requested to be on disk using `curl https://chiller.eodc.eu`

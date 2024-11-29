@@ -1,0 +1,53 @@
+
+server:
+    bind:
+        host: 0.0.0.0
+        port: 80
+    url: http://localhost
+    mimetype: application/json; charset=UTF-8
+    encoding: utf-8
+    gzip: false
+    language: en-US
+    cors: true
+    pretty_print: true
+    limit: 10
+    map:
+        url: https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+
+logging:
+    level: ERROR
+    logfile: /tmp/pygeoapi.log
+
+metadata:
+    identification:
+        title: OGC API to the FAIRSenDD workflow
+        description: "FAIRSenDD: FAIR workflow for Sentinel-1 based Deforestation Detection"
+        keywords:
+            - geospatial
+            - data
+            - api
+        keywords_type: theme
+        terms_of_service: https://creativecommons.org/licenses/by/4.0/
+        url: http://example.org
+    license:
+        name: CC-BY 4.0 license
+        url: https://creativecommons.org/licenses/by/4.0/
+    provider:
+        name: Organization Name
+        url: https://pygeoapi.io
+    contact:
+        name: Lastname, Firstname
+        position: Position Title
+        address: Hans-Knöll-Straße 10
+        postalcode: 07745
+        city: Jena
+        country: Germany
+        email: fairsendd@bgc-jena.mpg.de
+        url: https://github.com/EarthyScience/FAIRSenDD
+
+resources:
+    squared:
+        type: process
+        processor:
+            name: pygeoapi.process.squared.SquaredProcessor

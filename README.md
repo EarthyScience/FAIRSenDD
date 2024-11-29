@@ -6,11 +6,11 @@ A project from the Max-Planck-Institute for Biogeochemistry to create a FAIR def
 
 This repository contains code and documentation for a FAIR workflow based on the Julia package [RQADeforestation.jl](https://github.com/EarthyScience/RQADeforestation.jl).
 
-| directory | description |
-| ---- | ---- |
+| directory                                    | description                                   |
+| -------------------------------------------- | --------------------------------------------- |
 | [`RQADeforestation.jl`](RQADeforestation.jl) | git submodule to the underlying Julia package |
-| [`infrastructure`](infrastructure) | VM setup description using Terraform|
-
+| [`infrastructure`](infrastructure)           | VM setup description using Terraform          |
+| [`ogc-api`](ogc-api)                         | OGC API using pygeoapi                        |
 
 ## Funding
 
