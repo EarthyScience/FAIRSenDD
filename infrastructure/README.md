@@ -27,6 +27,7 @@ terraform apply
 
 - EODC shared Sentinel-1 Sigma0 data as a NFS share with the gateway host having the floating IP
 - `eo-storage01.eodc:/` is mounted at `gatweay:/eodc`
+- `ganesha-nfs` is used to proxy the NFS share across all VMs of the fairsendd network
 
 ## Features
 
