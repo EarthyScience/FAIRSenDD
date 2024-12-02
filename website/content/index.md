@@ -4,22 +4,23 @@ layout: home
 
 hero:
   name: "FAIRSenDD"
-  text: "FAIR workflow for Sentinel-1 based Deforestation Detection"
-  tagline: My great project tagline
+  description: "FAIR workflow for Sentinel-1 based Deforestation Detection"
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Overview
+      link: /overview
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: GitHub
+      link: https://github.com/EarthyScience/FAIRSenDD
+    - theme: alt
+      text: OGC API
+      link: http://ogc.api.fairsendd.eodchosting.eu/
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Fair
+    details: based on principles of Findability, Accessibility, Interoperability, and Reusability
+  - title: General
+    details: The deforestation detection algorithm can be applied to various forest types
+  - title: Scalable
+    details: Parallel workflow execution across multiple nodes
 ---
-
