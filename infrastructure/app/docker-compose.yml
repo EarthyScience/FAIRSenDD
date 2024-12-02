@@ -6,3 +6,9 @@ services:
     container_name: ogc_api
     ports:
       - "9001:80"
+  website:
+    image: danlooo/fairsendd_website
+    build: ../../website
+    container_name: website
+    ports:
+      - "9002:80"

@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  app:
+    image: danlooo/fairsendd_website
+    build: .
+    container_name: website
+    ports:
+      - "80:80"
