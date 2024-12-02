@@ -1,0 +1,36 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+    tags: ["*"]
+  pull_request:
+  workflow_dispatch:
+concurrency:
+  # Skip intermediate builds: always.
+  # Cancel intermediate builds: only if it is a pull request build.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+jobs:
+  deploy_app:
+    environment: default
+    runs-on: self-hosted
+    steps:
+      - name: Write SSH keys
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          host='app'
+          hosts="$(dig +short "$host" | grep -v '\.$' | sed -z 's|\n|,|g')$host"
+          ssh-keyscan -H "$hosts" > ~/.ssh/known_hosts
+      - uses: actions/checkout@v4
+      - name: Deploy website
+        run: |
+          ssh app sh <<EOF
+          cd FAIRSenDD
+          git pull
+          cd infrastructure/app
+          docker compose up --build --detach
+          EOF
