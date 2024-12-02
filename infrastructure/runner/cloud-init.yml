@@ -1,0 +1,52 @@
+apt_update: true
+apt_upgrade: true
+packages:
+  - nfs-common
+  - nfs-ganesha
+  - git
+  - parallel
+
+  # docker
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+  - unattended-upgrades
+mounts:
+  - ["eo-storage01.eodc:/", "/eodc", "nfs4", "ro", "0", "0"]
+  - ["/dev/vdc", "/home", "ext4", "rw", "0", "0"]
+write_files:
+  - path: /etc/cloud/templates/hosts.debian.tmpl
+    append: true
+    content: |
+      10.10.29.10     gateway
+      10.10.29.11     app
+      10.10.29.12     node1
+      10.250.23.242   eo-storage01.eodc
+      10.250.23.231   eo-storage02.eodc
+manage_etc_hosts: true
+runcmd:
+  # disks
+  - mkfs -t ext4 /dev/vdc
+  - mkdir /home
+  - mount -a
+
+  # docker
+  - install -m 0755 -d /etc/apt/keyrings
+  - curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+  - chmod a+r /etc/apt/keyrings/docker.asc
+  - echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+  - apt-get update
+  - apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+  # github actions runner
+  - cd ~
+  - curl -o actions-runner-linux-x64-2.321.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.321.0/actions-runner-linux-x64-2.321.0.tar.gz
+  - echo "ba46ba7ce3a4d7236b16fbe44419fb453bc08f866b24f04d549ec89f1722a29e  actions-runner-linux-x64-2.321.0.tar.gz" | shasum -a 256 -c
+
+  # config runner one by one
+  # parallel tar xzf ./actions-runner-linux-x64-2.321.0.tar.gz --one-top-level=runner-{1}-{2} ::: FAIRSenDD RQADeforestation.jl  ::: $(seq 3)
+  #- ./config.sh --url https://github.com/EarthyScience/FAIRSenDD --token ${GH_RUNNER_TOKEN} &
+  #- nohup ./run.sh &
+

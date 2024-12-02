@@ -67,6 +67,13 @@ data "template_cloudinit_config" "init_script_node" {
   }
 }
 
+data "template_cloudinit_config" "init_script_runner" {
+  part {
+    content_type = "text/cloud-config"
+    content      = file("runner/cloud-init.yml")
+  }
+}
+
 resource "openstack_compute_instance_v2" "gateway" {
   name            = "gateway"
   image_id        = var.default_image_id
@@ -95,6 +102,20 @@ resource "openstack_compute_instance_v2" "app" {
   }
 }
 
+resource "openstack_compute_instance_v2" "runner" {
+  name            = "runner"
+  image_id        = var.default_image_id
+  flavor_id       = var.flavor_middle
+  key_pair        = var.key_pair
+  security_groups = ["default"]
+  user_data       = data.template_cloudinit_config.init_script_runner.rendered
+
+  network {
+    uuid        = openstack_networking_network_v2.network.id
+    fixed_ip_v4 = "10.10.29.12"
+  }
+}
+
 resource "openstack_compute_instance_v2" "node1" {
   name            = "node1"
   image_id        = var.default_image_id
@@ -105,7 +126,7 @@ resource "openstack_compute_instance_v2" "node1" {
 
   network {
     uuid        = openstack_networking_network_v2.network.id
-    fixed_ip_v4 = "10.10.29.12"
+    fixed_ip_v4 = "10.10.29.21"
   }
 }
 
@@ -121,5 +142,18 @@ resource "openstack_blockstorage_volume_v3" "data" {
 resource "openstack_compute_volume_attach_v2" "data_node1" {
   instance_id = openstack_compute_instance_v2.node1.id
   volume_id   = openstack_blockstorage_volume_v3.data.id
+  device      = "/dev/vdc"
+}
+
+resource "openstack_blockstorage_volume_v3" "runner" {
+  region      = "RegionOne"
+  name        = "runner"
+  description = "working directory for github runner"
+  size        = 32
+}
+
+resource "openstack_compute_volume_attach_v2" "runner_runner" {
+  instance_id = openstack_compute_instance_v2.runner.id
+  volume_id   = openstack_blockstorage_volume_v3.runner.id
   device      = "/dev/vdc"
 }
