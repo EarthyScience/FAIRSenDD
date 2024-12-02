@@ -3,7 +3,6 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "FAIRSenDD",
-  description: "FAIR workflow for Sentinel-1 based Deforestation Detection",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
