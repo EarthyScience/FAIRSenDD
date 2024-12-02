@@ -1,0 +1,27 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+    tags: ["*"]
+  pull_request:
+  workflow_dispatch:
+concurrency:
+  # Skip intermediate builds: always.
+  # Cancel intermediate builds: only if it is a pull request build.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+jobs:
+  ci:
+    runs-on: self-hosted
+    steps:
+      - name: Write SSH keys
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_key
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_key
+          host='host.example.com'
+          hosts="$(dig +short "$host" | grep -v '\.$' | sed -z 's|\n|,|g')$host"
+          ssh-keyscan -H "$hosts" > ~/.ssh/known_hosts
+      - name: Deploy website
+        run: |
+          ssh app hostname
