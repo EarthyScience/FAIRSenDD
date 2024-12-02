@@ -12,7 +12,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 jobs:
-  ci:
+  deploy_app:
     environment: default
     runs-on: self-hosted
     steps:
@@ -28,4 +28,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Deploy website
         run: |
-          ssh app hostname
+          ssh app sh <<EOF
+          cd FAIRSenDD
+          git pull
+          cd infrastructure/app
+          docker compose up --build --detach
+          EOF
