@@ -5,6 +5,7 @@ packages:
   - nfs-ganesha
   - git
   - parallel
+  - dnsutils
 
   # docker
   - apt-transport-https
