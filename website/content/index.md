@@ -3,8 +3,9 @@
 layout: home
 
 hero:
-  name: "FAIRSenDD"
-  description: "FAIR workflow for Sentinel-1 based Deforestation Detection"
+  name: <img src="assets/logo-fairsendd.png" style="height:7rem"/>
+  description: FAIR workflow for Sentinel-1 based Deforestation Detection
+  tagline: "FAIR workflow for Sentinel-1 based\nDeforestation Detection"
   actions:
     - theme: brand
       text: Overview
@@ -22,5 +23,5 @@ features:
   - title: General
     details: The deforestation detection algorithm can be applied to various forest types
   - title: Scalable
-    details: Parallel workflow execution across multiple nodes
+    details: Parallel workflow execution across multiple nodes 
 ---

@@ -16,7 +16,8 @@ write_files:
     content: |
       10.10.29.10     gateway
       10.10.29.11     app
-      10.10.29.12     node1
+      10.10.29.12     runner
+      10.10.29.21     node1
       10.250.23.242   eo-storage01.eodc
       10.250.23.231   eo-storage02.eodc
   - path: /etc/exports
