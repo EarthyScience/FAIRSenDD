@@ -2,60 +2,60 @@
 
 $graph:
 - class: Workflow
-  label: add numbers
-  doc: Example workflow adding two numbers in Julia
+  label: rqa
+  doc: FAIRSenDD Recurrence Analysis for Sentinel-1 based Deforestation Detection
 
   inputs:
-    a:
-      label: a
-      doc: The first summand
-      type: double
-    b:
-      label: b
-      doc: The second summand
-      type: double
+    continent:
+      label: continent
+      doc: Continent ID within Equi7Grid. One of AF, AN, AS, EU, NA, OC, SA
+      type: string
+    tile:
+      label: tile
+      doc: tile ID of the area to be analyzed within Equi7Grid, e.g. E036N075T3
+      type: string
 
   outputs:
-    c:
-      doc: the sum of the two numbers
-      type: double
-      outputSource: add/c
+    out_cube:
+      doc: Path to output zarr data cube
+      type: string
+      outputSource: rqa/out_cube
 
   steps:
-    add:
+    rqa:
       in:
-        a: a
-        b: b
-      run: '#cmd-add'
+        continent: continent
+        tile: tile
+      run: '#cmd-rqa'
       out:
-      - c
-  id: add-numbers
+      - out_cube
+  id: rqa
 - class: CommandLineTool
 
   requirements:
     DockerRequirement:
-      dockerPull: danlooo/cwl-example:latest
+      dockerPull: danlooo/fairsendd:latest
     InlineJavascriptRequirement: {}
 
   inputs:
-    a:
-      type: double
+    continent:
+      type: string
       inputBinding:
         position: 1
-    b:
-      type: double
+    tile:
+      type: string
       inputBinding:
         position: 2
 
   outputs:
-    c:
-      type: double
+    out_cube:
+      type: string
       outputBinding:
         glob: stdout.txt
         outputEval: $(parseFloat(self[0].contents))
         loadContents: true
   stdout: stdout.txt
-  id: cmd-add
+  id: cmd-rqa
 $namespaces:
   edam: http://edamontology.org/
   s: https://schema.org/

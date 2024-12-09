@@ -8,12 +8,6 @@ using DimensionalData: (..)
 using Dates: Date
 using Distributed: addprocs, @everywhere
 
-YAXDefaults.workdir[] = "/mnt/felix1/worldmap/data"
-exeflags = `--threads=10 --heap-size-hint=8G`
-#addprocs(4;exeflags)
-#@everywhere using YAXArrays, RQADeforestation
-
-
 function parse_commandline()
     s = ArgParseSettings()
 
@@ -36,6 +30,10 @@ function parse_commandline()
         help = "One of: Orbit number, 'A' for ascending, 'D' for descending, '*' for all orbits"
         default = "*"
 
+        "--out-dir", "-d"
+        help = "Path to output zarr dataset"
+        default = "out.zarr"
+
         "continent"
         help = "continent code for the tile to be processed"
         required = true
@@ -50,13 +48,17 @@ end
 
 function main()
     parsed_args = parse_commandline()
-    @info parsed_args
 
     pol = parsed_args["polarisation"]
     orbit = parsed_args["orbit"]
     thresh = parsed_args["threshold"]
 
     indir = "/eodc/products/eodc.eu/S1_CSAR_IWGRDH/SIG0/"
+    outdir = parsed_args["out-dir"]
+
+    YAXDefaults.workdir[] = outdir
+    println(outdir)
+
     continent = parsed_args["continent"]
     tilefolder = parsed_args["tile"]
     folders = ["V01R01", "V0M2R4", "V1M0R1", "V1M1R1", "V1M1R2"]
@@ -69,13 +71,13 @@ function main()
 
     for relorbit in relorbits
         filenames = allfilenames[findall(contains("$(relorbit)_E"), allfilenames)]
-        @time cube = gdalcube(filenames)
-        path = joinpath(YAXDefaults.workdir[], "$(tilefolder)_rqatrend_$(pol)_$(relorbit)_thresh_$(thresh)_year_$(y)")
+
+        cube = gdalcube(filenames)
+        path = joinpath(outdir, "$(tilefolder)_rqatrend_$(pol)_$(relorbit)_thresh_$(thresh)_year_$(y)")
         ispath(path * ".done") && continue
         tcube = cube[Time=Date(y - 1, 7, 1) .. Date(y + 1, 7, 1)]
 
-        @time rqatrend(tcube; thresh, outpath=path * ".zarr", overwrite=true)
-        touch(path * ".done")
+        rqatrend(tcube; thresh, outpath=path * ".zarr", overwrite=true)
     end
 end
 
