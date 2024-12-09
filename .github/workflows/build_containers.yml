@@ -20,5 +20,5 @@ jobs:
       - name: Build containers
         run: |
           cd ogc-app-cwl
-          docker build -t danlooo/fairsendd:latest .
-          docker push danlooo/fairsendd:latest
+          sudo docker build -t danlooo/fairsendd:latest .
+          sudo docker push danlooo/fairsendd:latest
