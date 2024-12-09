@@ -1,0 +1,32 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+    tags: ["*"]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  build_containers:
+    name: Build and push Docker image
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ogc-app-cwl
+          push: true
+          tags: danlooo/fairsendd:latest
+          cache-from: type=registry,ref=danlooo/fairsendd:latest
+          cache-to: type=inline

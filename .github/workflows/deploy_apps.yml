@@ -11,8 +11,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 jobs:
-  deploy_app:
-    environment: default
+  deploy_apps:
     runs-on: self-hosted
     steps:
       - name: Write SSH keys
