@@ -26,6 +26,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ogc-app-cwl
-          pull: true
           push: true
           tags: danlooo/fairsendd:latest
+          cache-from: type=registry,ref=danlooo/fairsendd:latest
+          cache-to: type=inline
