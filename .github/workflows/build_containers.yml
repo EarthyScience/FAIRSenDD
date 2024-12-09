@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+    tags: ["*"]
+  pull_request:
+  workflow_dispatch:
+concurrency:
+  # Skip intermediate builds: always.
+  # Cancel intermediate builds: only if it is a pull request build.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+jobs:
+  build_containers:
+    environment: default
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build containers
+        run: |
+          cd ogc-app-cwl
+          docker build -t danlooo/fairsendd:latest .
+          docker push danlooo/fairsendd:latest
