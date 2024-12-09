@@ -6,20 +6,25 @@ on:
     tags: ["*"]
   pull_request:
   workflow_dispatch:
-concurrency:
-  # Skip intermediate builds: always.
-  # Cancel intermediate builds: only if it is a pull request build.
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 jobs:
   build_containers:
-    environment: default
+    name: Build and push Docker image
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v4
-      - name: Build containers
-        run: |
-          cd ogc-app-cwl
-          sudo docker login
-          sudo docker build -t danlooo/fairsendd:latest .
-          sudo docker push danlooo/fairsendd:latest
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ogc-app-cwl
+          push: true
+          tags: danlooo/fairsendd:latest
