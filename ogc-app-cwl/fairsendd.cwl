@@ -52,7 +52,7 @@ $graph:
       type: string
       outputBinding:
         glob: stdout.txt
-        outputEval: $(parseFloat(self[0].contents))
+        outputEval: self[0].contents
         loadContents: true
   stdout: stdout.txt
   id: cmd-rqa
