@@ -1,7 +1,8 @@
-#!/usr/bin/env -S julia --color=yes --startup-file=no --project=. --threads=auto
+#!/usr/bin/env -S julia --color=yes --startup-file=no --threads=auto
 
-using YAXArrays: YAXDefaults
+using Pkg
 using Glob: glob
+using YAXArrays: YAXDefaults
 using ArgParse
 using RQADeforestation: gdalcube, rqatrend
 using DimensionalData: (..)

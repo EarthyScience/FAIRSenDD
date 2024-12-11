@@ -18,7 +18,7 @@ $graph:
   outputs:
     out_cube:
       doc: Path to output zarr data cube
-      type: string
+      type: File
       outputSource: rqa/out_cube
 
   steps:
@@ -49,12 +49,7 @@ $graph:
 
   outputs:
     out_cube:
-      type: string
-      outputBinding:
-        glob: stdout.txt
-        outputEval: self[0].contents
-        loadContents: true
-  stdout: stdout.txt
+      type: stdout
   id: cmd-rqa
 $namespaces:
   edam: http://edamontology.org/
