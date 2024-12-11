@@ -5,7 +5,7 @@ using Glob: glob
 using YAXArrays: YAXDefaults
 using ArgParse
 using RQADeforestation: gdalcube, rqatrend
-using DimensionalData: (..)
+using DimensionalData
 using Dates: Date
 using Distributed: addprocs, @everywhere
 
@@ -35,6 +35,10 @@ function parse_commandline()
         help = "Path to output zarr dataset"
         default = "out.zarr"
 
+        "in-dir"
+        help = "Path to input"
+        required = true
+
         "continent"
         help = "continent code for the tile to be processed"
         required = true
@@ -54,18 +58,33 @@ function main()
     orbit = parsed_args["orbit"]
     thresh = parsed_args["threshold"]
 
-    indir = "/eodc/products/eodc.eu/S1_CSAR_IWGRDH/SIG0/"
+    indir = parsed_args["in-dir"]
+    readdir(indir) # check if inputdir is available
+
+    if isdir(indir) && isempty(indir)
+        @error "Input directory $indir must not be empty"
+    end
+
     outdir = parsed_args["out-dir"]
 
+    if isdir(outdir)
+        @warn "Resume from existing output directory"
+    else
+        mkdir(outdir)
+        @info "Write output to $outdir"
+    end
+
     YAXDefaults.workdir[] = outdir
-    println(outdir)
 
     continent = parsed_args["continent"]
-    tilefolder = parsed_args["tile"]
-    folders = ["V01R01", "V0M2R4", "V1M0R1", "V1M1R1", "V1M1R2"]
+    tile = parsed_args["tile"]
 
-    filenamelist = [glob("$(sub)/*$(continent)*20M/$(tilefolder)/*$(pol)_$(orbit)*.tif", indir) for sub in folders]
-    allfilenames = collect(Iterators.flatten(filenamelist))
+    pattern = "V*R*/EQUI7_$continent*20M/$tile/*"
+    allfilenames = glob(pattern, indir) |> collect
+
+    if length(allfilenames) == 0
+        error("No input files found for given tile $tile")
+    end
 
     relorbits = unique([split(basename(x), "_")[5][2:end] for x in allfilenames])
     y = parsed_args["year"]
@@ -74,7 +93,8 @@ function main()
         filenames = allfilenames[findall(contains("$(relorbit)_E"), allfilenames)]
 
         cube = gdalcube(filenames)
-        path = joinpath(outdir, "$(tilefolder)_rqatrend_$(pol)_$(relorbit)_thresh_$(thresh)_year_$(y)")
+        path = joinpath(outdir, "$(tile)_rqatrend_$(pol)_$(relorbit)_thresh_$(thresh)_year_$(y)")
+
         ispath(path * ".done") && continue
         tcube = cube[Time=Date(y - 1, 7, 1) .. Date(y + 1, 7, 1)]
 

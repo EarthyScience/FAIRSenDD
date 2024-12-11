@@ -10,6 +10,10 @@ $graph:
       label: continent
       doc: Continent ID within Equi7Grid. One of AF, AN, AS, EU, NA, OC, SA
       type: string
+    in-dir:
+      label: in-dir
+      doc: Path to input directory containing Sentinel-1 Sigma0 tile data
+      type: Directory
     tile:
       label: tile
       doc: tile ID of the area to be analyzed within Equi7Grid, e.g. E036N075T3
@@ -18,13 +22,14 @@ $graph:
   outputs:
     out_cube:
       doc: Path to output zarr data cube
-      type: File
+      type: Directory
       outputSource: rqa/out_cube
 
   steps:
     rqa:
       in:
         continent: continent
+        in-dir: in-dir
         tile: tile
       run: '#cmd-rqa'
       out:
@@ -35,21 +40,26 @@ $graph:
   requirements:
     DockerRequirement:
       dockerPull: danlooo/fairsendd:latest
-    InlineJavascriptRequirement: {}
 
   inputs:
     continent:
       type: string
       inputBinding:
+        position: 2
+    in-dir:
+      type: Directory
+      inputBinding:
         position: 1
     tile:
       type: string
       inputBinding:
-        position: 2
+        position: 3
 
   outputs:
     out_cube:
-      type: stdout
+      type: Directory
+      outputBinding:
+        glob: out.zarr
   id: cmd-rqa
 $namespaces:
   edam: http://edamontology.org/
