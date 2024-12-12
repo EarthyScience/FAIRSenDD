@@ -2,7 +2,7 @@
 
 julia_version = "1.11.2"
 manifest_format = "2.0"
-project_hash = "fcba262f40e7f619c7dd24e2647b2795d595bca9"
+project_hash = "c5fb35d827c7d4456361ae4b4a9d46d5b535215a"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "72af59f5b8f09faee36b4ec48e014a79210f2f4f"
@@ -975,9 +975,9 @@ version = "1.14.3+3"
 
 [[deps.HTTP]]
 deps = ["Base64", "CodecZlib", "ConcurrentUtilities", "Dates", "ExceptionUnwrapping", "Logging", "LoggingExtras", "MbedTLS", "NetworkOptions", "OpenSSL", "PrecompileTools", "Random", "SimpleBufferStream", "Sockets", "URIs", "UUIDs"]
-git-tree-sha1 = "6c22309e9a356ac1ebc5c8a217045f9bae6f8d9a"
+git-tree-sha1 = "627fcacdb7cb51dc67f557e1598cdffe4dda386d"
 uuid = "cd3eb016-35fb-5094-929b-558a96fad6f3"
-version = "1.10.13"
+version = "1.10.14"
 
 [[deps.HarfBuzz_jll]]
 deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "Glib_jll", "Graphite2_jll", "JLLWrappers", "Libdl", "Libffi_jll"]
@@ -1146,9 +1146,9 @@ weakdeps = ["Dates", "Test"]
     InverseFunctionsTestExt = "Test"
 
 [[deps.InvertedIndices]]
-git-tree-sha1 = "0dc7b50b8d436461be01300fd8cd45aa0274b038"
+git-tree-sha1 = "6da3c4316095de0f5ee2ebd875df8721e7e0bdbe"
 uuid = "41ab1584-1d38-5bbf-9106-f11c6c58b48f"
-version = "1.3.0"
+version = "1.3.1"
 
 [[deps.Ipopt]]
 deps = ["Ipopt_jll", "LinearAlgebra", "MathOptInterface", "OpenBLAS32_jll", "PrecompileTools"]
@@ -1427,9 +1427,9 @@ version = "2.16.0+0"
 
 [[deps.LogExpFunctions]]
 deps = ["DocStringExtensions", "IrrationalConstants", "LinearAlgebra"]
-git-tree-sha1 = "a2d09619db4e765091ee5c6ffe8872849de0feea"
+git-tree-sha1 = "13ca9e2586b89836fd20cccf56e57e2b9ae7f38f"
 uuid = "2ab3a3ac-af41-5b50-aa03-7779005ae688"
-version = "0.3.28"
+version = "0.3.29"
 
     [deps.LogExpFunctions.extensions]
     LogExpFunctionsChainRulesCoreExt = "ChainRulesCore"
@@ -1566,10 +1566,10 @@ version = "0.9.20"
     Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [[deps.ManifoldsBase]]
-deps = ["LinearAlgebra", "Markdown", "Printf", "Random", "Requires"]
-git-tree-sha1 = "2bddabebe8f7ec16cdd693ce8615fb5d3625af87"
+deps = ["LinearAlgebra", "Markdown", "Printf", "Random"]
+git-tree-sha1 = "57df0b7daa74bf82d3367702e133d936c28882ff"
 uuid = "3362f125-f0bb-47a3-aa74-596ffd7ef2fb"
-version = "0.15.22"
+version = "0.15.23"
 
     [deps.ManifoldsBase.extensions]
     ManifoldsBasePlotsExt = "Plots"
@@ -1820,9 +1820,9 @@ version = "3.2.4+0"
 
 [[deps.OpenJpeg_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libtiff_jll", "LittleCMS_jll", "libpng_jll"]
-git-tree-sha1 = "f4cb457ffac5f5cf695699f82c537073958a6a6c"
+git-tree-sha1 = "0a41c2d8e204a3ad713242139628e01a29556967"
 uuid = "643b3616-a352-519d-856d-80112ee9badc"
-version = "2.5.2+0"
+version = "2.5.3+0"
 
 [[deps.OpenLibm_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -2116,8 +2116,8 @@ version = "1.11.0"
 [[deps.RQADeforestation]]
 deps = ["ArchGDAL", "ArgParse", "CairoMakie", "ConstructionBase", "Dates", "DimensionalData", "DiskArrayEngine", "DiskArrayTools", "DiskArrays", "Distances", "Distributed", "Distributions", "Extents", "FillArrays", "GDAL", "GeoFormatTypes", "Glob", "KML", "LoggingExtras", "Missings", "NetCDF", "Proj", "Rasters", "RecurrenceAnalysis", "Statistics", "StatsBase", "TimeseriesSurrogates", "UnicodePlots", "YAXArrayBase", "YAXArrays", "Zarr"]
 git-tree-sha1 = "797418ea1c3f97e67364d6bd61d2f48cb6b81c39"
-repo-rev = "main"
-repo-url = "https://github.com/EarthyScience/RQADeforestation.jl#a611912"
+repo-rev = "a611912"
+repo-url = "https://github.com/EarthyScience/RQADeforestation.jl"
 uuid = "3f1d9318-18cc-4ffd-9937-04025ce33b74"
 version = "1.0.0-DEV"
 
@@ -2415,9 +2415,9 @@ version = "1.11.0"
 
 [[deps.SpecialFunctions]]
 deps = ["IrrationalConstants", "LogExpFunctions", "OpenLibm_jll", "OpenSpecFun_jll"]
-git-tree-sha1 = "2f5d4697f21388cbe1ff299430dd169ef97d7e14"
+git-tree-sha1 = "64cca0c26b4f31ba18f13f6c12af7c85f478cfde"
 uuid = "276daf66-3868-5448-9aa4-cd146d93841b"
-version = "2.4.0"
+version = "2.5.0"
 weakdeps = ["ChainRulesCore"]
 
     [deps.SpecialFunctions.extensions]
