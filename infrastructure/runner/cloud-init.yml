@@ -17,16 +17,6 @@ packages:
 mounts:
   - ["eo-storage01.eodc:/", "/eodc", "nfs4", "ro", "0", "0"]
   - ["/dev/vdc", "/home", "ext4", "rw", "0", "0"]
-write_files:
-  - path: /etc/cloud/templates/hosts.debian.tmpl
-    append: true
-    content: |
-      10.10.29.10     gateway
-      10.10.29.11     app
-      10.10.29.12     node1
-      10.250.23.242   eo-storage01.eodc
-      10.250.23.231   eo-storage02.eodc
-manage_etc_hosts: true
 runcmd:
   # disks
   - mkfs -t ext4 /dev/vdc

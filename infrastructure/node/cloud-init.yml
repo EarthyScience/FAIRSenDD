@@ -12,7 +12,7 @@ packages:
   - lsb-release
   - unattended-upgrades
 mounts:
-  - ["gateway:/eodc", "/eodc", "nfs4", "ro", "0", "0"]
+  - ["eo-storage01.eodc:/", "/eodc", "nfs4", "rw", "0", "0"]
   - ["/dev/vdc", "/data", "auto", "defaults"]
 write_files:
   - path: /etc/cloud/templates/hosts.debian.tmpl

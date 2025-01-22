@@ -105,7 +105,7 @@ resource "openstack_compute_instance_v2" "app" {
 resource "openstack_compute_instance_v2" "runner" {
   name            = "runner"
   image_id        = var.default_image_id
-  flavor_id       = var.flavor_middle
+  flavor_id       = var.flavor_bigger
   key_pair        = var.key_pair
   security_groups = ["default"]
   user_data       = data.template_cloudinit_config.init_script_runner.rendered
@@ -149,7 +149,7 @@ resource "openstack_blockstorage_volume_v3" "runner" {
   region      = "RegionOne"
   name        = "runner"
   description = "working directory for github runner"
-  size        = 32
+  size        = 128
 }
 
 resource "openstack_compute_volume_attach_v2" "runner_runner" {
