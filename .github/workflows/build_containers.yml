@@ -24,7 +24,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Download compiled packages
         run: gh run download --repo EarthyScience/RQADeforestation.jl -n binaries -d ogc-app-cwl/binaries
-        with:
+        env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
       - name: Build and push
         uses: docker/build-push-action@v6
