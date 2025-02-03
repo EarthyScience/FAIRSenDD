@@ -27,6 +27,6 @@ jobs:
         with:
           context: ogc-app-cwl
           push: true
-          tags: danlooo/fairsendd:latest, danlooo/fairsendd:${{ github.sha }}, danlooo/fairsendd:${{ github.ref_name }}
+          tags: danlooo/fairsendd:latest, danlooo/fairsendd:${{ github.sha }}
           cache-from: type=registry,ref=danlooo/fairsendd:latest
           cache-to: type=inline
