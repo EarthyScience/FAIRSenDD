@@ -23,7 +23,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Download compiled packages
-        run: gh run download --repo EarthyScience/RQADeforestation.jl -n binaries -d ogc-app-cwl/binaries
+        run: gh run download --repo EarthyScience/RQADeforestation.jl --name binaries --dir ogc-app-cwl/binaries
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
       - name: Build and push
