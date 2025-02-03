@@ -25,7 +25,8 @@ jobs:
       - name: Download compiled package
         uses: actions/download-artifact@v4
         with:
-          repository: EarthyScience/RQADeforestation.jlöööö
+          github-token: ${{ secrets.GH_PAT }}
+          repository: EarthyScience/RQADeforestation.jl
       - name: debug
         run: ls -l
       - name: Build and push
