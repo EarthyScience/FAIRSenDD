@@ -4,7 +4,6 @@ on:
     branches:
       - main
     tags: ["*"]
-  pull_request:
   workflow_dispatch:
 jobs:
   build_containers:
@@ -27,6 +26,6 @@ jobs:
         with:
           context: ogc-app-cwl
           push: true
-          tags: danlooo/fairsendd:latest
+          tags: danlooo/fairsendd:latest, danlooo/fairsendd:${{ github.sha }}
           cache-from: type=registry,ref=danlooo/fairsendd:latest
           cache-to: type=inline
