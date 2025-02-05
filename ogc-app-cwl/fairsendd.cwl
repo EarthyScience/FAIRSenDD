@@ -14,9 +14,9 @@ $graph:
       label: in-dir
       doc: Path to input directory containing Sentinel-1 Sigma0 tile data
       type: Directory
-    tile:
-      label: tile
-      doc: tile ID of the area to be analyzed within Equi7Grid, e.g. E036N075T3
+    tiles:
+      label: tiles
+      doc: tile IDs of the area to be analyzed within Equi7Grid, e.g. E036N075T3
       type: string
 
   outputs:
@@ -30,7 +30,7 @@ $graph:
       in:
         continent: continent
         in-dir: in-dir
-        tile: tile
+        tiles: tiles
       run: '#cmd-rqa'
       out:
       - out_cube
@@ -39,20 +39,23 @@ $graph:
 
   requirements:
     DockerRequirement:
-      dockerPull: danlooo/fairsendd:latest
+      dockerPull: danlooo/rqa_deforestation:latest
 
   inputs:
     continent:
       type: string
       inputBinding:
-        position: 2
+        prefix: --continent
+        position: 1
     in-dir:
       type: Directory
       inputBinding:
-        position: 1
-    tile:
+        prefix: --in-dir
+        position: 2
+    tiles:
       type: string
       inputBinding:
+        prefix: --tiles
         position: 3
 
   outputs:
