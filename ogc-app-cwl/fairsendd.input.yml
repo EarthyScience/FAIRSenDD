@@ -1,0 +1,5 @@
+continent: EU
+tiles: E051N018T3
+in-dir:
+  class: Directory
+  path: ../RQADeforestationTestData

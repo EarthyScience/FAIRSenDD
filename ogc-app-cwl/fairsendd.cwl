@@ -70,7 +70,7 @@ $namespaces:
 $schemas:
 - https://schema.org/version/latest/schemaorg-current-https.rdf
 - http://edamontology.org/EDAM_1.18.owl
-cwlVersion: v1.2
+cwlVersion: v1.0
 s:author:
 - class: s:Person
   s:email: fairsendd@bgc-jena.mpg.de
