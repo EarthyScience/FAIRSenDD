@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 jobs:
   validate:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Update git submodules
