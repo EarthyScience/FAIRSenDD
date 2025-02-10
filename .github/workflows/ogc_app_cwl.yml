@@ -15,7 +15,7 @@ jobs:
           git submodule update --remote --recursive
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.13.2
+          python-version: 3.10
       - run: pip install cwltool
       - name: Validate CWL workflow
         run: cwltool --validate ogc-app-cwl/fairsendd.cwl
