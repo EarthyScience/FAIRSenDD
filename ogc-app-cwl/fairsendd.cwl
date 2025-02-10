@@ -18,6 +18,10 @@ $graph:
       label: tiles
       doc: tile IDs of the area to be analyzed within Equi7Grid, e.g. E036N075T3
       type: string
+    years:
+      label: years
+      doc: years to be analyzed, e.g. 2021
+      type: string
 
   outputs:
     out_cube:
@@ -31,6 +35,7 @@ $graph:
         continent: continent
         in-dir: in-dir
         tiles: tiles
+        years: years
       run: '#cmd-rqa'
       out:
       - out_cube
@@ -39,7 +44,7 @@ $graph:
 
   requirements:
     DockerRequirement:
-      dockerPull: danlooo/rqa_deforestation:latest
+      dockerPull: danlooo/rqa_deforestation:a191ef3846793dd5304fe22ed0d990fda9749a28
 
   inputs:
     continent:
@@ -57,6 +62,11 @@ $graph:
       inputBinding:
         prefix: --tiles
         position: 3
+    years:
+      type: string
+      inputBinding:
+        prefix: --years
+        position: 4
 
   outputs:
     out_cube:

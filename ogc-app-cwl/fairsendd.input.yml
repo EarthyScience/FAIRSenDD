@@ -1,5 +1,6 @@
 continent: EU
 tiles: E051N018T3
+years: "2021"
 in-dir:
-  class: Directory
-  path: ../RQADeforestationTestData
+    class: Directory
+    path: ../RQADeforestationTestData
