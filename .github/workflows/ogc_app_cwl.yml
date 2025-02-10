@@ -1,0 +1,23 @@
+name: ogc_app_cwl
+on:
+  push:
+    paths:
+      - "ogc-app-cwl/**"
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Update git submodules
+        run: |
+          git pull --recurse-submodules
+          git submodule update --remote --recursive
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - run: pip install cwltool
+      - name: Validate CWL workflow
+        run: cwltool --validate ogc-app-cwl/fairsendd.cwl
+      - name: Run test CWL workflow
+        run: cwltool ogc-app-cwl/fairsendd.cwl#rqa ogc-app-cwl/fairsendd.input.yml
