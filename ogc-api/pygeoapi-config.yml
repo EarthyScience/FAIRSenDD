@@ -46,7 +46,7 @@ metadata:
         url: https://github.com/EarthyScience/FAIRSenDD
 
 resources:
-    squared:
+    rqa-deforestation:
         type: process
         processor:
-            name: pygeoapi.process.squared.SquaredProcessor
+            name: pygeoapi.process.rqa-deforestation.RQAProcessor

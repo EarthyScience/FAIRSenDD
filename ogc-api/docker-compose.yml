@@ -4,5 +4,9 @@ services:
     image: danlooo/fairsendd_ogc_api
     build: .
     container_name: ogc_api
+    network_mode: host
     ports:
       - "80:80"
+    volumes:
+      - ${HOME}/.kube:/root/.kube
+      - ${HOME}/.minikube:${HOME}/.minikube
