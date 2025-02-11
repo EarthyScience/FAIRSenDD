@@ -11,5 +11,6 @@ RUN apt-get update && \
 RUN pip3 install kubernetes==28.1.0 loguru && \
     pip3 install git+https://github.com/terradue/pycalrissian@0.6.3
 
+RUN curl -LO https://raw.githubusercontent.com/EarthyScience/FAIRSenDD/refs/heads/main/ogc-app-cwl/fairsendd.cwl
 COPY ./pygeoapi-config.yml /pygeoapi/local.config.yml
 COPY ./rqa-deforestation.py /pygeoapi/pygeoapi/process/
