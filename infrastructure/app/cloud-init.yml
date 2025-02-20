@@ -4,7 +4,7 @@ groups:
   - docker
 system_info:
   default_user:
-    groups: [ docker ]
+    groups: [docker]
 packages:
   - git
   - nginx
@@ -12,6 +12,8 @@ packages:
   - nfs-ganesha
 mounts:
   - ["eo-storage01.eodc:/", "/eodc", "nfs4", "rw", "0", "0"]
+  - ["/dev/vdc", "/data", "auto", "defaults"]
+
 write_files:
   - path: /etc/cloud/templates/hosts.debian.tmpl
     append: true
@@ -24,7 +26,7 @@ write_files:
 manage_etc_hosts: true
 runcmd:
   - mount -a # retry mount after edit of hosts
-  
+
   # docker
   - install -m 0755 -d /etc/apt/keyrings
   - curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
