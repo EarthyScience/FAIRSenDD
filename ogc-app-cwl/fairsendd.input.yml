@@ -4,3 +4,6 @@ years: "2021"
 in-dir:
     class: Directory
     path: ../RQADeforestationTestData
+out-dir:
+    class: Directory
+    path: out.zarr
