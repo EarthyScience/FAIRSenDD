@@ -8,5 +8,6 @@ services:
     ports:
       - "80:80"
     volumes:
+      - ${PWD}/../RQADeforestationTestData:/data
       - ${HOME}/.kube:/root/.kube
       - ${HOME}/.minikube:${HOME}/.minikube

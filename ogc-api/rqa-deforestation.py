@@ -73,6 +73,14 @@ PROCESS_METADATA = {
             "maxOccurs": 1,
             "metadata": None,
         },
+        "years": {
+            "title": "years",
+            "description": "Year in which the RQA Trend should be detected. We take a buffer of six month before and after the year to end up with two years of data.",
+            "schema": "string",
+            "minOccurs": 1,
+            "maxOccurs": 1,
+            "metadata": None,
+        },
     },
     "outputs": {
         "rqa-cube": {
@@ -81,7 +89,7 @@ PROCESS_METADATA = {
             "schema": {"type": "object", "contentMediaType": "application/json"},
         }
     },
-    "example": {"inputs": {"continent": "EU", "tiles": "E051N018T3"}},
+    "example": {"inputs": {"continent": "EU", "tiles": "E051N018T3", "years": "2021"}},
 }
 
 
@@ -106,10 +114,9 @@ class RQAProcessor(BaseProcessor):
             self.cwl = yaml.safe_load(stream)
 
     def execute(self, data, outputs):
-        print(1213)
-
-        tile = data.get("tile")
+        tiles = data.get("tiles")
         continent = data.get("continent")
+        years = data.get("years")
 
         continents = ["AF", "AN", "AS", "EU", "NA", "OC", "SA"]
         if continent not in continents:
@@ -117,13 +124,18 @@ class RQAProcessor(BaseProcessor):
                 f"continent must be one of {','.join(continents)}"
             )
 
-        print(1)
-
         params = {
             "continent": continent,
-            "tiles": tile,
-            "years": "2021",  # TODO: make this a parameter
-            "output": "s3://foo.bar",
+            "tiles": tiles,
+            "years": years,
+            "in-dir": {
+                "class": "Directory",
+                "path": "/calrissian/RQADeforestationTestData",
+            },
+            "out-dir": {
+                "class": "Directory",
+                "path": "/calrissian/out.zarr",
+            },
         }
 
         job = CalrissianJob(
@@ -134,14 +146,21 @@ class RQAProcessor(BaseProcessor):
             max_cores=10,
             max_ram="8G",
             tool_logs=True,
+            # debug=True,
         )
 
         execution = CalrissianExecution(job=job, runtime_context=session)
         execution.submit()
         execution.monitor()
+        print(execution.get_log())
 
         # TODO: get the output from the execution
-        outputs = {"id": "rqa-deforestation", "rqa-cube": 3}
+        outputs = {
+            "id": "rqa-deforestation",
+            "rqa-cube": 3,
+            "log": execution.get_log(),
+            "data": data,
+        }
 
         return "application/json", outputs
 
