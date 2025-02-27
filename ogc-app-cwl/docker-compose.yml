@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  rqa:
+    image: danlooo/fairsendd_rqa:${TAG}
+    environment:
+      - TAG=${GITHUB_SHA}
+    build: rqa
+  stage_out:
+    image: danlooo/fairsendd_stage_out:${TAG}
+    environment:
+      - TAG=${GITHUB_SHA}
+    build: stage_out

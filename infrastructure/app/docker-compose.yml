@@ -12,3 +12,18 @@ services:
     container_name: website
     ports:
       - "9002:80"
+  minio:
+    image: quay.io/minio/minio
+    container_name: minio
+    command: ["server", "/data", "--console-address", ":9001"]
+    ports:
+      - "9003:9000"
+      - "9004:9001"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    volumes:
+      - /data:/data
+      - minio_config:/root/.minio
+volumes:
+  minio_config:
