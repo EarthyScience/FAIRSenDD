@@ -2,25 +2,36 @@
 
 $graph:
 - class: Workflow
-  label: rqa
+  label: main
   doc: FAIRSenDD Recurrence Analysis for Sentinel-1 based Deforestation Detection
+
+  requirements:
+  - class: SubworkflowFeatureRequirement
 
   inputs:
     continent:
       label: continent
       doc: Continent ID within Equi7Grid. One of AF, AN, AS, EU, NA, OC, SA
       type: string
+    end-date:
+      label: end-date
+      doc: End date of the time series to analyze in ISO 8601 format YYYY-MM-DD
+      type: string
     in-dir:
       label: in-dir
       doc: Path to input directory containing Sentinel-1 Sigma0 tile data
       type: Directory
+    out-dir:
+      label: out-dir
+      doc: Path to output directory
+      type: string
+    start-date:
+      label: start-date
+      doc: Start date of the time series to analyze in ISO 8601 format YYYY-MM-DD
+      type: string
     tiles:
       label: tiles
       doc: tile IDs of the area to be analyzed within Equi7Grid, e.g. E036N075T3
-      type: string
-    years:
-      label: years
-      doc: years to be analyzed, e.g. 2021
       type: string
 
   outputs:
@@ -33,18 +44,29 @@ $graph:
     rqa:
       in:
         continent: continent
+        end-date: end-date
         in-dir: in-dir
+        start-date: start-date
         tiles: tiles
-        years: years
       run: '#cmd-rqa'
       out:
       - out_cube
+    stage_out:
+      id: stage_out
+      in:
+        continent: continent
+        data-dir: rqa/out_cube
+        end-date: end-date
+        start-date: start-date
+      run: '#cmd-stage_out'
+      out:
+      - stac
   id: rqa
 - class: CommandLineTool
 
   requirements:
     DockerRequirement:
-      dockerPull: danlooo/rqa_deforestation:a191ef3846793dd5304fe22ed0d990fda9749a28
+      dockerPull: danlooo/fairsendd_rqa:latest
 
   inputs:
     continent:
@@ -52,21 +74,26 @@ $graph:
       inputBinding:
         prefix: --continent
         position: 1
+    end-date:
+      type: string
+      inputBinding:
+        prefix: --end-date
+        position: 5
     in-dir:
       type: Directory
       inputBinding:
         prefix: --in-dir
         position: 2
+    start-date:
+      type: string
+      inputBinding:
+        prefix: --start-date
+        position: 4
     tiles:
       type: string
       inputBinding:
         prefix: --tiles
         position: 3
-    years:
-      type: string
-      inputBinding:
-        prefix: --years
-        position: 4
 
   outputs:
     out_cube:
@@ -74,6 +101,40 @@ $graph:
       outputBinding:
         glob: out.zarr
   id: cmd-rqa
+- class: CommandLineTool
+
+  requirements:
+    DockerRequirement:
+      dockerPull: danlooo/fairsendd_stage_out:latest
+
+  inputs:
+    continent:
+      type: string
+      inputBinding:
+        prefix: --continent
+        position: 2
+    data-dir:
+      type: Directory
+      inputBinding:
+        prefix: --data-dir
+        position: 1
+    end-date:
+      type: string
+      inputBinding:
+        prefix: --end-date
+        position: 4
+    start-date:
+      type: string
+      inputBinding:
+        prefix: --start-date
+        position: 3
+
+  outputs:
+    stac:
+      type: Directory
+      outputBinding:
+        glob: .
+  id: cmd-stage_out
 $namespaces:
   edam: http://edamontology.org/
   s: https://schema.org/

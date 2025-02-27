@@ -1,2 +1,2 @@
-FROM danlooo/rqa_deforestation:a191ef3846793dd5304fe22ed0d990fda9749a28
+FROM danlooo/rqa_deforestation:50a2ac3ce50ed3fab60a70a91a12a8dfaef4e30d
 # building and compilation done in https://github.com/EarthyScience/RQADeforestation.jl

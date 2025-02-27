@@ -1,9 +1,8 @@
 continent: EU
 tiles: E051N018T3
-years: "2021"
+start-date: "2021-01-01"
+end-date: "2022-01-01"
 in-dir:
     class: Directory
     path: ../RQADeforestationTestData
-out-dir:
-    class: Directory
-    path: out.zarr
+out-dir: out.zarr

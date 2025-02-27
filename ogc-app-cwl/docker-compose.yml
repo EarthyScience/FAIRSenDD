@@ -2,12 +2,12 @@ version: "3.8"
 
 services:
   rqa:
-    image: danlooo/fairsendd_rqa:${GITHUB_SHA}
+    image: danlooo/fairsendd_rqa:${TAG}
     environment:
-      - GITHUB_SHA=${GITHUB_SHA}
+      - TAG=${GITHUB_SHA}
     build: rqa
   stage_out:
-    image: danlooo/fairsendd_stage_out:${GITHUB_SHA}
+    image: danlooo/fairsendd_stage_out:${TAG}
     environment:
-      - GITHUB_SHA=${GITHUB_SHA}
+      - TAG=${GITHUB_SHA}
     build: stage_out

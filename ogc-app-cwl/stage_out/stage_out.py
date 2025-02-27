@@ -11,12 +11,14 @@ import click
 
 
 @click.command()
-@click.option("--out-dir")
+@click.option("--data-dir")
 @click.option("--continent")
 @click.option("--start-date", type=click.DateTime())
 @click.option("--end-date", type=click.DateTime())
-def main(out_dir, continent, start_date, end_date):
-    os.chdir(out_dir)
+def main(data_dir, continent, start_date, end_date):
+    os.chdir(data_dir)
+
+    os.system(f"du -h -d 0 {data_dir}")
 
     # see https://github.com/TUW-GEO/Equi7Grid
     epsg_codes = {"EU": "EPSG:27704"}  # Europe
@@ -32,7 +34,6 @@ def main(out_dir, continent, start_date, end_date):
 
     item_asset_path = "E051N018T3_rqatrend_VH_022_thresh_3.0_year_2021.zarr"
 
-    zarr.consolidate_metadata(item_asset_path)
     ds = xr.open_dataset(item_asset_path, engine="zarr")
 
     bbox = transformer.transform(
@@ -64,7 +65,7 @@ def main(out_dir, continent, start_date, end_date):
             roles=["data"],
             extra_fields={
                 "xarray:open_kwargs": {
-                    "consolidated": True,
+                    "consolidated": False,
                 },
                 "proj:code": epsg_codes[continent],
             },
@@ -73,7 +74,7 @@ def main(out_dir, continent, start_date, end_date):
     catalog.add_item(item)
 
     catalog.normalize_and_save(
-        root_href=out_dir, catalog_type=pystac.CatalogType.SELF_CONTAINED
+        root_href=data_dir, catalog_type=pystac.CatalogType.SELF_CONTAINED
     )
 
 
