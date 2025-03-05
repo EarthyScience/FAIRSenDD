@@ -28,7 +28,7 @@ jobs:
           file: Dockerfile
           tags: danlooo/fairsendd_rqa:${{ github.sha }}, danlooo/fairsendd_rqa:latest
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.13.1"
           architecture: "x64"
