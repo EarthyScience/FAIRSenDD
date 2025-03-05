@@ -1,8 +1,6 @@
 name: ogc_app_cwl
 on:
   push:
-    paths:
-      - "ogc-app-cwl/**"
   workflow_dispatch:
 jobs:
   validate:
