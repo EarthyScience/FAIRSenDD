@@ -29,6 +29,9 @@ jobs:
           tags: danlooo/fairsendd_rqa:${{ github.sha }}, danlooo/fairsendd_rqa:latest
 
       - uses: actions/setup-python@v2
+        with:
+          python-version: "3.11"
+          architecture: "x64"
       - run: pip install cwltool
 
       - name: Validate CWL workflow
