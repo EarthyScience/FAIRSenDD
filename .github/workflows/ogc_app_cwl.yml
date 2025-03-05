@@ -27,8 +27,6 @@ jobs:
       - run: pip install cwltool
       - name: Validate CWL workflow
         run: cwltool --validate ogc-app-cwl/fairsendd.cwl
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
       - name: Run test CWL workflow
         run: |
           cwltool ogc-app-cwl/fairsendd.cwl#rqa \
