@@ -1,6 +1,6 @@
 [submodule "RQADeforestation.jl"]
-	path = RQADeforestation.jl
-	url = git@github.com:EarthyScience/RQADeforestation.jl.git
+path = RQADeforestation.jl
+url = https://github.com/EarthyScience/RQADeforestation.jl
 [submodule "RQADeforestationTestData"]
-	path = RQADeforestationTestData
-	url = git@github.com:meggart/RQADeforestationTestData.git
+path = RQADeforestationTestData
+url = https://github.com/meggart/RQADeforestationTestData
