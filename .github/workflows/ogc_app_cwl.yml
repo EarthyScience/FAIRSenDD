@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push docker images
-        run: docker compose --project-directory ogc-app-cwl build --push
+        run: env && docker compose --project-directory ogc-app-cwl build --push
       - run: pip install cwltool
       - name: Validate CWL workflow
         run: cwltool --validate ogc-app-cwl/fairsendd.cwl
