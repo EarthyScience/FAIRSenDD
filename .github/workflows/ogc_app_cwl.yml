@@ -3,8 +3,8 @@ on:
   push:
   workflow_dispatch:
 jobs:
-  validate:
-    runs-on: ubuntu-latest
+  job:
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
         name: Checkout repository
