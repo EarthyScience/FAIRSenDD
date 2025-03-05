@@ -21,7 +21,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Build and push compiler docker image
-        uses: docker/build-push-action@v6.15
+        uses: docker/build-push-action@v6
         with:
           push: true
           context: "{{defaultContext}}:ogc-app-cwl/rqa"
