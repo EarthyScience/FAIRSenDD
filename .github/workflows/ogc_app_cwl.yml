@@ -7,10 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Update git submodules
-        run: |
-          git pull --recurse-submodules
-          git submodule update --remote --recursive
+      - name: Checkout repository
+        with:
+          submodules: "true"
       - uses: actions/setup-python@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
