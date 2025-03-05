@@ -28,11 +28,8 @@ jobs:
           file: Dockerfile
           tags: danlooo/fairsendd_rqa:${{ github.sha }}, danlooo/fairsendd_rqa:latest
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.13.1"
-          architecture: "x64"
-      - run: pip install cwltool
+      - name: Install cwltool
+        run: pip install cwltool
 
       - name: Validate CWL workflow
         run: cwltool --validate ogc-app-cwl/fairsendd.cwl
