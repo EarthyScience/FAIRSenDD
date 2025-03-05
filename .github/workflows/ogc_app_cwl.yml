@@ -21,7 +21,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push docker images
-        run: docker compose --project-directory ogc-app-cwl build --push
+        run: |
+          docker compose --project-directory ogc-app-cwl build --push && \
+          TAG=latest docker compose --project-directory ogc-app-cwl build --push
         env:
           TAG: ${{ github.sha }}
       - run: pip install cwltool
