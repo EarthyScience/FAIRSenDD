@@ -8,8 +8,20 @@ export default defineConfig({
 
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Overview', link: '/overview' },
+      { text: 'Documentation', link: '/overview' },
       { text: 'Imprint', link: 'https://www.bgc-jena.mpg.de/2299/imprint' }
+    ],
+
+    sidebar: [
+      {
+        items: [
+          {text: "Overview", link: "overview.md"},
+          {text: "Julia Library", link: "julia-library.md"},
+          {text: "CWL Workflow", link: "cwl-workflow.md"},
+          {text: "OGC API - Processes", link: "ogc-api.md"},
+          {text: "Development", link: "development.md"},
+        ]
+      }
     ],
 
     socialLinks: [

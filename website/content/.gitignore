@@ -2,3 +2,9 @@ node_modules
 docs
 .vitepress/dist
 .vitepress/cache
+*.md
+*.rmarkdown
+out.zarr
+*_files
+*quarte_ipynb
+/.quarto/
