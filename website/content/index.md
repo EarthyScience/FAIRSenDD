@@ -8,7 +8,7 @@ hero:
   tagline: "FAIR workflow for Sentinel-1 based\nDeforestation Detection"
   actions:
     - theme: brand
-      text: Overview
+      text: Documentation
       link: /overview
     - theme: alt
       text: GitHub
@@ -23,5 +23,5 @@ features:
   - title: General
     details: The deforestation detection algorithm can be applied to various forest types
   - title: Scalable
-    details: Parallel workflow execution across multiple nodes 
+    details: Parallel workflow execution across multiple nodes
 ---
