@@ -29,6 +29,6 @@ jobs:
           ssh app sh <<EOF
           cd FAIRSenDD
           git pull
-          cd infrastructure/app
-          docker compose up --build --detach
+          cd website
+          sh run.sh
           EOF
