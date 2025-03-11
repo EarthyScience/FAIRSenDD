@@ -11,3 +11,8 @@
   margin-left: 1.5em;
   filter: brightness(0) invert(1) brightness(0.5);
 }
+
+code {
+  font-size: small;
+  white-space: pre-wrap;
+}

@@ -1,0 +1,33 @@
+---
+title: "CWL Workflow"
+format: gfm
+engine: knitr
+---
+
+[Common Workflow Language (CWL)](https://www.commonwl.org/) is an open standard for describing command line applications to combine them together into workflows.
+The command line applications often packaged into Docker container to handle dependencies and versions of the corresponding binaries.
+CWL workflows are the keystone of [Earth Observation Application Packages](https://docs.ogc.org/bp/20-089r1.html) as standardized by OGC.
+
+## Real world data set
+
+This example is using Sentinel-1 Sigma Nought backscatter data as processed using [Wagner et al. 2021](https://www.mdpi.com/2072-4292/13/22/4622) in [Equi7Grid projection](https://github.com/TUW-GEO/Equi7Grid).
+Similar world wide data can be accessed via the [EODC STAC catalog](https://services.eodc.eu/browser/#/v1/collections/SENTINEL1_SIG0_20M).
+The following test dataset contains only a subset of a tile to make it faster to process.
+
+```{bash}
+git clone https://github.com/meggart/RQADeforestationTestData
+cwltool https://raw.githubusercontent.com/EarthyScience/FAIRSenDD/refs/heads/main/ogc-app-cwl/fairsendd.cwl#cmd-rqa \
+    --continent EU \
+    --tiles E051N018T3 \
+    --start-date 2021-01-01 \
+    --end-date 2022-01-01 \
+    --in-dir RQADeforestationTestData
+```
+
+List output files:
+
+```{bash}
+find out.zarr -maxdepth 2
+```
+
+The directory `out.zarr` forms a [Zarr Dataset](https://zarr.dev/datasets/) that can be opened as an n dimensional array in various ways, e.g. [xarray](https://docs.xarray.dev/en/stable/) in Pxthon and [YAXArrays](https://juliadatacubes.github.io/YAXArrays.jl/stable/) in Julia.
