@@ -46,15 +46,13 @@ as of 15 March 2025
 ## Background
 
 - Science builds on previous results
-
 - This requires work flows to to be FAIR so they can be extended and
   re-used by others
-
 - Implementing the algorithm alone is not sufficient
-
 - Long-term avaibility needced
-
+- EarthCODE is currently building a portal to host scientific workflows build by FAIR principles
 - Importance and relevance to the space agency's mission
+- Regulation on Deforestation-free Products (EUDR) guarantees that products consumed by EU citizens don't contribute to deforestation or forest degradation worldwise [(Eu comission 2023)](https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en). This requires freely accessible monitoring tools to detect forest change.
 
 ## Objectives
 
@@ -257,20 +255,19 @@ Submitted deliverables
 
 Expected: done
 
-Actual:
+Actual: done
 
-2.1 Set up working environment
+### 2.1 Set up working environment
 
 - Identify public repositories to store code, software containers, and
   custom data and select the best one according to FAIR principles
 
   - Main repo: https://github.com/EarthyScience/FAIRSenDD
 
+    - GitHub is the biggest platform to host open-source software, making the code findable and accessible.
+    - git is the de facto standard version control system, allowing interoperability.
+
   - dockerhub
-
-    - danlooo/julia_package_compiler_dev
-
-    - danlooo/rqa_deforestation
 
 - Create a custom example dataset with correct annotations to test the
   deforestation software
@@ -288,53 +285,61 @@ Actual:
 
   - Terraform for openStack for VM deployment
 
-    2.2 Make workflow FAIR
+### 2.2 Make workflow FAIR
 
-- Export deforestation events as a Zarr Data Cube according to the
-  xcube specification
+- FAIR Principles promote Findability, Accessibility, Interoperability, and Reuse of digital assets [Wilkinson et al 2016](https://www.nature.com/articles/sdata201618)
+- originally used in the context of scientific data
+- This project is about software development in which the terms open-source and free software are more common which focus on the freedom to use and improve the software.
+- FAIR principles extend these principles on interoperability and reusability so that improvement is not only allowed but also encouraged and simplified.
+- This is done by using well-established open standards.
 
+- we chose MIT licence, ensuring free use including commercial one. This also fits well in the license ecosystem of most Julia packages.
+
+- Export deforestation events as a Zarr Data Cube according to the xcube specification
   - RQADeforestation.jl uses YAXArrays.jl that uses zarr by default
-
 - Describe output with STAC metadata
+
+  - added staging out procedure that uploads the result data with its own STAC catalog as static JSON files as recommended by [OGC Best Practice for Earth Observation Application Package](https://docs.ogc.org/bp/20-089r1.html#toc27)
 
 - Develop the CWL file and docker images describing the entire
   workflow using OGC Best Practice for Earth Observation Application
   Package
 
-  - [<span
-    class="underline">https://github.com/EarthyScience/FAIRSenDD/tree/main/ogc-app-cwl</span>](https://github.com/EarthyScience/FAIRSenDD/tree/main/ogc-app-cwl)
-
-  - Docker images are build on CI at RQADeforestation
+  - Added CWL workflow [here](https://github.com/EarthyScience/FAIRSenDD/tree/main/ogc-app-cwl)
+  - Docker images are build on CI at RQADeforestation (danlooo/fairsendd_rqa, danlooo/fairsendd_stage_out, and danlooo/julia_package_compiler_dev)
 
 - Create unit tests for the individual functions and integration tests
   for the entire workflow
 
-  - Uses [<span
-    class="underline">https://github.com/julia-vscode/TestItemRunner.jl</span>](https://github.com/julia-vscode/TestItemRunner.jl)
-    , tests directly next to the function, results displayed within
+  - We used [TestItemRunner.jl](https://github.com/julia-vscode/TestItemRunner.jl) to put tests directly next to the function, results displayed within
     VSCode
 
-  - Runs [<span
-    class="underline">https://github.com/meggart/RQADeforestationTestData</span>](https://github.com/meggart/RQADeforestationTestData)
-    on created docker images during CI
+  - Integration test that runs the main function on the real world test dataset [meggart/RQADeforestationTestData](https://github.com/meggart/RQADeforestationTestData) on every code change as part of the CI test workflow.
 
-- Ensure data formats comply well with the ones used in the EarthCODE
-  community and FAIRprinciples
-
-  - <span
-    class="underline">https://terradue.github.io/app-package-training-bids23/fair/best-practice/</span>
-
+- Ensure data formats comply well with the ones used in the EarthCODE community and FAIR principles
+  - Add meta data about code, authors and license according to FAIR Application Packages recommendation [(terradue 2023)](https://terradue.github.io/app-package-training-bids23/).
   - added codemeta.json, AUTHORS, MIT LICENSE
+  - OGC Application Package suitable for future publishing in Open Science Catalog of EarthCODE, like the [POLARIS example](https://opensciencedata.esa.int/workflows/polaris-workflow/record)
 
-    2.3 Document workflow
+### 2.3 Document workflow
 
 - Create and host FAIR, standardized, and well-structured source code
   documentation
+
+  - we created the website http://fairsendd.eodchosting.eu/ hosting the documentation and APIs
+  - code to generate the documentation is published under MIT license at the [FAIRSenDD repository](https://github.com/EarthyScience/FAIRSenDD/tree/main/website)
+  - code examples are executed during documentation build as Quarto notebooks ensuring reproducibility of the documentation.
+  - Specific documentation about functions of the underlying Julia package RQADeforestation.jl using Documenter [here](https://earthyscience.github.io/RQADeforestation.jl/dev/)
 
 - Write a user tutorial including an easy-to-read summary of the
   theory, assumptions, links to published papers, and methods, code on
   how to execute the example, as well as a description and
   implications of user-defined parameters enabling parameter tuning
+
+  - Tutorials on how to run the Julia package, the CWL workflow and the OGC API
+  - Summary of the scientific background including description of the parameters
+
+- keep in mind that the documentation will probably change during the course of WP3: Code performance enhancement & Cloud platform integration
 
 Deliverables
 
@@ -461,7 +466,6 @@ D07: Service Verification & Validation document
 ## WP5: Project Coordination and Cooperation
 
 Expected: Ongoing
-
 Actual: Ongoing
 
 Objectives:
