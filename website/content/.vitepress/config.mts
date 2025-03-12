@@ -107,6 +107,13 @@ export default defineConfig({
       },
     },
   },
+  vite: {
+    server: {
+      allowedHosts: [
+        'fairsendd.eodchosting.eu',
+      ],
+    }
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
 
@@ -141,5 +148,5 @@ export default defineConfig({
         `,
       copyright: `© Copyright ${new Date().getUTCFullYear()}.`
     },
-  }
+  },
 })
