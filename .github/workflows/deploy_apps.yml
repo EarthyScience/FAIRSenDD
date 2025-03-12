@@ -27,8 +27,18 @@ jobs:
       - name: Deploy website
         run: |
           ssh app sh <<EOF
+
           cd FAIRSenDD
-          git pull
+          git fetch
+          git checkout ${{ github.sha }}
+
           cd website
-          sh run.sh
+          # render needs to be outside of docker build because docker is called itself
+          rm -rf content/out.zarr || :
+          ls content/*.qmd | xargs -i -P 4 quarto render {}     
+
+          cd ../infrastructure/app
+          docker compose build
+          docker compose push
+          docker compose up --detach
           EOF
