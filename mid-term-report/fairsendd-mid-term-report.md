@@ -27,25 +27,20 @@ as of 15 March 2025
 
 # Executive Summary
 
-- Brief overview of the project objectives.
-
-- Summary of progress and key findings.
-
-- Highlight any significant achievements or milestones.
-
-- Kick off meeting
-
-- Created OGC application package (container, CWL)
-
-- Optimized compiling and memory allocations
-
-- Submitted Talk to Living Planet Symposium
+-Brief overview of the project objectives.
+-Summary of progress and key findings.
+-Highlight any significant achievements or milestones.
+-Kick off meeting
+-Created OGC application package (container, CWL)
+-Optimized compiling and memory allocations
+-Submitted Talk to Living Planet Symposium
 
 # Introduction
 
 ## Background
 
-- Science builds on previous results
+-Science builds on previous results
+
 - This requires work flows to to be FAIR so they can be extended and
   re-used by others
 - Implementing the algorithm alone is not sufficient
@@ -56,7 +51,7 @@ as of 15 March 2025
 
 ## Objectives
 
-- Make an initial algorithm implementation FAIR
+-Make an initial algorithm implementation FAIR
 
 # Methodology
 
@@ -148,18 +143,17 @@ is available at Large-scale EO data handling – [EO College
 
 ## Julia Package
 
-- https://github.com/EarthyScience/RQADeforestation.jl
+-https://github.com/EarthyScience/RQADeforestation.jl
 
 ## OGC Application Package
 
-- Takes Julia package, puts them into docker container, puts them into
-  cwl workflow
+-Takes Julia package, puts them into docker container, puts them into
+cwl workflow
 
 # Implementation status
 
-- Done: WP1 and WP2
-
-- Ongoing: WP3, WP5
+-Done: WP1 and WP2
+-Ongoing: WP3, WP5
 
 <img src="media/image5.png" style="height:4.32431in" />
 
@@ -169,87 +163,68 @@ Expected: done
 Actual: done
 
 Tasks
-
-- Finalise technical requirements of the existing deforestation
-  detection software and its planned improvements
-
-- Analyse trade-offs between available platforms
-
-- Identify and select a suitable platform in NoR to run the workflow
-
-- Identify and select an external expert for technical code review
-
-- Prepare a cost estimation
-
-- Submit NoR sponsoring request
-
-- Create a presentation about the trade-off analysis and the selected
-  providers
+-Finalise technical requirements of the existing deforestation
+detection software and its planned improvements
+-Analyse trade-offs between available platforms
+-Identify and select a suitable platform in NoR to run the workflow
+-Identify and select an external expert for technical code review
+-Prepare a cost estimation
+-Submit NoR sponsoring request
+-Create a presentation about the trade-off analysis and the selected
+providers
 
 Select cloud provider
+-Must has S-1 Sigma0 (reprocessing would increase time overhead too
+much)
+-Focus on VMs with many CPU cores, &gt; ~160GB RAM (Embarrassingly
+parallel workflow)
+-Low price
+-Reviewed: EODC, CloudFerro, T-Systems
+-Selected: EODC
 
-- Must has S-1 Sigma0 (reprocessing would increase time overhead too
-  much)
+- Offers FAIR Sigma Nought datasets
 
-- Focus on VMs with many CPU cores, &gt; ~160GB RAM (Embarrassingly
-  parallel workflow)
+- But: Access will cost for future commercial uses
 
-- Low price
+- Data access faster than CDSE for time series (less tile overlap
+  in Equi7Grid)
 
-- Reviewed: EODC, CloudFerro, T-Systems
+- Cheap VM offer
 
-- Selected: EODC
+- Many collaborations with academia (e.g. Technical University of
+  Vienna)
 
-  - Offers FAIR Sigma Nought datasets
+- Assured payment processing for future users
 
-  - But: Access will cost for future commercial uses
+- Known file structure
 
-  - Data access faster than CDSE for time series (less tile overlap
-    in Equi7Grid)
-
-  - Cheap VM offer
-
-  - Many collaborations with academia (e.g. Technical University of
-    Vienna)
-
-  - Assured payment processing for future users
-
-  - Known file structure
-
-  - Successful collaboration in the past
+- Successful collaboration in the past
 
 Select code review expert
+-Must have expertise in Julia and data access
+-Challenge: Julia experts are rare, e.g., no result in official NoR
+portfolio
+-Reviewed: APEX, cloudflight, jolin.io
+-Selected: Stephan Sahm, jolin.io
 
-- Must have expertise in Julia and data access
+- Jolin.io is specialized in Julia consulting
 
-- Challenge: Julia experts are rare, e.g., no result in official NoR
-  portfolio
+- Founder is maintainer of many Julia packages
 
-- Reviewed: APEX, cloudflight, jolin.io
+- Only consultant specialized on data access using Julia
 
-- Selected: Stephan Sahm, jolin.io
-
-  - Jolin.io is specialized in Julia consulting
-
-  - Founder is maintainer of many Julia packages
-
-  - Only consultant specialized on data access using Julia
-
-  - Proven record in Julia development on GitHub
-
-- Got offer, contract via ad-hoc NoR sponsorship
-
-- Jolin.io did light tier registration at NoR, expanding its portfolio
+- Proven record in Julia development on GitHub
+  -Got offer, contract via ad-hoc NoR sponsorship
+  -Jolin.io did light tier registration at NoR, expanding its portfolio
   with Julia code review
 
 Submitted deliverables
-
-- D01: Trade-off analysis presentation for platform selection and code
-  review including cost estimation
+-D01: Trade-off analysis presentation for platform selection and code
+review including cost estimation
 
 <!-- -->
 
-- D02: NoR sponsoring request document
+-D02: NoR sponsoring request document
 
 ## WP2: End-to-end FAIR Workflow
 
@@ -259,92 +234,83 @@ Actual: done
 
 ### 2.1 Set up working environment
 
-- Identify public repositories to store code, software containers, and
-  custom data and select the best one according to FAIR principles
+-Identify public repositories to store code, software containers, and
+custom data and select the best one according to FAIR principles
 
-  - Main repo: https://github.com/EarthyScience/FAIRSenDD
+- Main repo: https://github.com/EarthyScience/FAIRSenDD
 
-    - GitHub is the biggest platform to host open-source software, making the code findable and accessible.
-    - git is the de facto standard version control system, allowing interoperability.
+  - GitHub is the biggest platform to host open-source software, making the code findable and accessible.
+  - git is the de facto standard version control system, allowing interoperability.
 
-  - dockerhub
-
-- Create a custom example dataset with correct annotations to test the
+- dockerhub
+  -Create a custom example dataset with correct annotations to test the
   deforestation software
 
-  - [<span
-    class="underline">https://github.com/meggart/RQADeforestationTestData</span>](https://github.com/meggart/RQADeforestationTestData)
+- [<span
+      class="underline">https://github.com/meggart/RQADeforestationTestData</span>](https://github.com/meggart/RQADeforestationTestData)
+  -Setup CI/CD infrastructure
 
-- Setup CI/CD infrastructure
+- [<span
+  class="underline">https://github.com/EarthyScience/FAIRSenDD/tree/main/.github/workflows</span>](https://github.com/EarthyScience/FAIRSenDD/tree/main/.github/workflows)
 
-  - [<span
-    class="underline">https://github.com/EarthyScience/FAIRSenDD/tree/main/.github/workflows</span>](https://github.com/EarthyScience/FAIRSenDD/tree/main/.github/workflows)
+- [<span
+  class="underline">https://github.com/EarthyScience/RQADeforestation.jl/tree/main/.github/workflows</span>](https://github.com/EarthyScience/RQADeforestation.jl/tree/main/.github/workflows)
 
-  - [<span
-    class="underline">https://github.com/EarthyScience/RQADeforestation.jl/tree/main/.github/workflows</span>](https://github.com/EarthyScience/RQADeforestation.jl/tree/main/.github/workflows)
-
-  - Terraform for openStack for VM deployment
+- Terraform for openStack for VM deployment
 
 ### 2.2 Make workflow FAIR
 
-- FAIR Principles promote Findability, Accessibility, Interoperability, and Reuse of digital assets [Wilkinson et al 2016](https://www.nature.com/articles/sdata201618)
+-FAIR Principles promote Findability, Accessibility, Interoperability, and Reuse of digital assets [Wilkinson et al 2016](https://www.nature.com/articles/sdata201618)
+
 - originally used in the context of scientific data
 - This project is about software development in which the terms open-source and free software are more common which focus on the freedom to use and improve the software.
 - FAIR principles extend these principles on interoperability and reusability so that improvement is not only allowed but also encouraged and simplified.
 - This is done by using well-established open standards.
-
-- we chose MIT licence, ensuring free use including commercial one. This also fits well in the license ecosystem of most Julia packages.
-
-- Export deforestation events as a Zarr Data Cube according to the xcube specification
+  -we chose MIT licence, ensuring free use including commercial one. This also fits well in the license ecosystem of most Julia packages.
+  -Export deforestation events as a Zarr Data Cube according to the xcube specification
   - RQADeforestation.jl uses YAXArrays.jl that uses zarr by default
 - Describe output with STAC metadata
 
   - added staging out procedure that uploads the result data with its own STAC catalog as static JSON files as recommended by [OGC Best Practice for Earth Observation Application Package](https://docs.ogc.org/bp/20-089r1.html#toc27)
-
-- Develop the CWL file and docker images describing the entire
-  workflow using OGC Best Practice for Earth Observation Application
-  Package
+    -Develop the CWL file and docker images describing the entire
+    workflow using OGC Best Practice for Earth Observation Application
+    Package
 
   - Added CWL workflow [here](https://github.com/EarthyScience/FAIRSenDD/tree/main/ogc-app-cwl)
   - Docker images are build on CI at RQADeforestation (danlooo/fairsendd_rqa, danlooo/fairsendd_stage_out, and danlooo/julia_package_compiler_dev)
-
-- Create unit tests for the individual functions and integration tests
-  for the entire workflow
+    -Create unit tests for the individual functions and integration tests
+    for the entire workflow
 
   - We used [TestItemRunner.jl](https://github.com/julia-vscode/TestItemRunner.jl) to put tests directly next to the function, results displayed within
     VSCode
 
   - Integration test that runs the main function on the real world test dataset [meggart/RQADeforestationTestData](https://github.com/meggart/RQADeforestationTestData) on every code change as part of the CI test workflow.
-
-- Ensure data formats comply well with the ones used in the EarthCODE community and FAIR principles
+    -Ensure data formats comply well with the ones used in the EarthCODE community and FAIR principles
   - Add meta data about code, authors and license according to FAIR Application Packages recommendation [(terradue 2023)](https://terradue.github.io/app-package-training-bids23/).
   - added codemeta.json, AUTHORS, MIT LICENSE
   - OGC Application Package suitable for future publishing in Open Science Catalog of EarthCODE, like the [POLARIS example](https://opensciencedata.esa.int/workflows/polaris-workflow/record)
 
 ### 2.3 Document workflow
 
-- Create and host FAIR, standardized, and well-structured source code
-  documentation
+-Create and host FAIR, standardized, and well-structured source code
+documentation
 
-  - we created the website http://fairsendd.eodchosting.eu/ hosting the documentation and APIs
-  - code to generate the documentation is published under MIT license at the [FAIRSenDD repository](https://github.com/EarthyScience/FAIRSenDD/tree/main/website)
-  - code examples are executed during documentation build as Quarto notebooks ensuring reproducibility of the documentation.
-  - Specific documentation about functions of the underlying Julia package RQADeforestation.jl using Documenter [here](https://earthyscience.github.io/RQADeforestation.jl/dev/)
-
-- Write a user tutorial including an easy-to-read summary of the
+- we created the website http://fairsendd.eodchosting.eu/ hosting the documentation and APIs
+- code to generate the documentation is published under MIT license at the [FAIRSenDD repository](https://github.com/EarthyScience/FAIRSenDD/tree/main/website)
+- code examples are executed during documentation build as Quarto notebooks ensuring reproducibility of the documentation.
+- Specific documentation about functions of the underlying Julia package RQADeforestation.jl using Documenter [here](https://earthyscience.github.io/RQADeforestation.jl/dev/)
+  -Write a user tutorial including an easy-to-read summary of the
   theory, assumptions, links to published papers, and methods, code on
   how to execute the example, as well as a description and
   implications of user-defined parameters enabling parameter tuning
 
-  - Tutorials on how to run the Julia package, the CWL workflow and the OGC API
-  - Summary of the scientific background including description of the parameters
-
+- Tutorials on how to run the Julia package, the CWL workflow and the OGC API
+- Summary of the scientific background including description of the parameters
 - keep in mind that the documentation will probably change during the course of WP3: Code performance enhancement & Cloud platform integration
 
 Deliverables
-
-- D03: Online documentation for developers and users about the theory,
-  user parameters, examples and the underlying code
+-D03: Online documentation for developers and users about the theory,
+user parameters, examples and the underlying code
 
 ## WP3: Code performance enhancement & Cloud platform integration
 
@@ -353,52 +319,39 @@ Actual:
 
 ### 3.1 Enhance workflow code
 
-- Perform external code review and refactoring
+-Perform external code review and refactoring
 
-  - Reduced allocations
+- Reduced allocations
 
-  - Created compiled stand alone sysimage using PackageCompiler.
-    Binaries in github artefacts, binaries used in docker container
+- Created compiled stand alone sysimage using PackageCompiler.
+  Binaries in github artefacts, binaries used in docker container
+  -Define a list of KPIs to track algorithm performance
 
-- Define a list of KPIs to track algorithm performance
-
-  - [<span
-    class="underline">https://github.com/EarthyScience/RQADeforestation.jl/issues/49</span>](https://github.com/EarthyScience/RQADeforestation.jl/issues/49)
-
-- Identify performance bottle-necks
-
-- Evaluate improvement solutions of the workflow
-
-- Enhance the performance of the workflow
-
-- Create software package compliant to OGC “Best Practice for Earth
+- [<span
+      class="underline">https://github.com/EarthyScience/RQADeforestation.jl/issues/49</span>](https://github.com/EarthyScience/RQADeforestation.jl/issues/49)
+  -Identify performance bottle-necks
+  -Evaluate improvement solutions of the workflow
+  -Enhance the performance of the workflow
+  -Create software package compliant to OGC “Best Practice for Earth
   Observation ApplicationPackage (OGC 20-089)"
-
-- Release the updated workflow using the CI/CD pipeline with
+  -Release the updated workflow using the CI/CD pipeline with
   persistent identifiers
-
-- Demonstrate software readiness
-
-- Develop a Web GUI prototype to run the workflow
+  -Demonstrate software readiness
+  -Develop a Web GUI prototype to run the workflow
 
 ### Benchmark current status
 
 KPIs defined in progress meeting 3 Jan 2025:
-
-- number of implemented algorithms &gt;= 2 (e.g. rqatrend, quantile)
-
-- time to first response of a minimum working example &lt;10s.
-  Measures userfriendliness and overhead
-
-- Classification performance on a benchmark dataset (accuracy,
-  sensitivity, specificity)
-
-- number of allocations of the rqatrend inner function: required to
-  embed in openEO python UDF, helps Julia garbage collector in
-  controlling memory usage
-
-- code coverage with unit tests: Do not make a mistake twice in
-  further software versions analysis time per computing resources
+-number of implemented algorithms &gt;= 2 (e.g. rqatrend, quantile)
+-time to first response of a minimum working example &lt;10s.
+Measures userfriendliness and overhead
+-Classification performance on a benchmark dataset (accuracy,
+sensitivity, specificity)
+-number of allocations of the rqatrend inner function: required to
+embed in openEO python UDF, helps Julia garbage collector in
+controlling memory usage
+-code coverage with unit tests: Do not make a mistake twice in
+further software versions analysis time per computing resources
 
 <table>
 <thead>
@@ -429,39 +382,28 @@ KPIs defined in progress meeting 3 Jan 2025:
 
 ### 3.2 Explore deployment improvements
 
-- Explore ways to extend openEO to be able to run user defined
-  functions using Julia or Docker images
+-Explore ways to extend openEO to be able to run user defined
+functions using Julia or Docker images
 
 Deliverables
-
-- D04: Code review and optimization report
-
-- D05: Software Specification Document (SRD)
-
-- D06: Software Verification and Validation (V&V) document
+-D04: Code review and optimization report
+-D05: Software Specification Document (SRD)
+-D06: Software Verification and Validation (V&V) document
 
 ## WP4: Deployment as on-demand operational service
 
 Expected: Start in the future  
 Actual: Start in the future
-
-- Negotiate pricing model with the platform provider
-
-- Create the price calculator given user-defined parameters, e.g.
-  bounding box and time spans and document the price per unit of area
-  and time span
-
-- Deploy the workflow on the host platform linking workflow code,
-  metadata and documentation
-
-- Determine corresponding authors and code maintainers to ensure user
-  support
-
-- Organise the Service Readiness Review
-
-Deliverable
-
-D07: Service Verification & Validation document
+Deliverable: D07: Service Verification & Validation document
+-Negotiate pricing model with the platform provider
+-Create the price calculator given user-defined parameters, e.g.
+bounding box and time spans and document the price per unit of area
+and time span
+-Deploy the workflow on the host platform linking workflow code,
+metadata and documentation
+-Determine corresponding authors and code maintainers to ensure user
+support
+-Organise the Service Readiness Review
 
 ## WP5: Project Coordination and Cooperation
 
@@ -469,61 +411,64 @@ Expected: Ongoing
 Actual: Ongoing
 
 Objectives:
-
-- Ensure a smooth day-to-day management of the project
-
-- Guarantee the timely submission of deliverables
-
-- Ensure smooth execution of the project, on schedule, and within
-  budget
-
-- Organise progress and final meetings
-
-- Communicate the progress of the project to ESA
+-Ensure a smooth day-to-day management of the project
+-Guarantee the timely submission of deliverables
+-Ensure smooth execution of the project, on schedule, and within
+budget
+-Organise progress and final meetings
+-Communicate the progress of the project to ESA
 
 Done:
-
-- Biweekly meetings
-
-- Every second meeting: with ESA TO
-
-- Stephan Sahm from jolin.io joined meetings during WP3 to discuss
-  code enhancements
+-Biweekly meetings
+-Every second meeting: with ESA TO
+-Stephan Sahm from jolin.io joined meetings during WP3 to discuss
+code enhancements
 
 # Challenges and Solutions
 
-- Any obstacles encountered and how they were addressed.
+-Any obstacles encountered and how they were addressed.
+-Impact of these challenges on the project timeline or outcomes.
+-Multi step CWL vs one step CWL
 
-- Impact of these challenges on the project timeline or outcomes.
+## Overhead for small data sets
 
-- Multi step CWL vs one step CWL
+-Overhead: loading (meta) data and code to memory
 
-- Overhead for small data sets
+- Time to ask the OS to get a single file is const. regardless of file size
+- Execution time of function rqatrend could be lowered drastically for a single time series, but not on a bigger dataset
+- Data loading procedure was optimized for bigger datasets after v0.1
+- see https://github.com/EarthyScience/RQADeforestation.jl/issues/89
+- starting a docker container takes ~0.5s, adding overhead to the CWL workflow. We get interoperability and reproducibility in return.
+
+## Complexity in rendering polyglot notebooks
+
+-Interoperability requires to demonstrate the usage of the workflow using various programming languages, e.g. open the result data cube in Python and Julia
+
+- Documentation frameworks for single language are well established (e.g. Documenter.jl for Julia)
+- Polyglot notebooks serialize variables across different languages
+- Well established for R+Python (quarto, reticulate) and .NET ecosystem [(Grot and Hirdes 2024)](https://www.heise.de/en/background/Polyglot-Notebooks-A-practical-introduction-9691634.html)
+- Combo Bash+Python+Julia less established
+- We failed to precompile RQADeforestation.jl inside quarto knitr engine
+- Management of execution environments is a complex issue
+- 73% of Jupyter notebooks are not reproducible [(Wang et al. 2023)](https://ieeexplore.ieee.org/document/9270316)
 
 # Financial Report
 
-- Total budged proposed and finalized in the contract: € 149,996
-
-- First payment after successful completion of the mid-term review
-  (D1, D2, this report) € 70,000
-
-- Final settlement after successful completion of the entire project
-  at the end of the year: €79,996
-
-- Additional NoR spnsoring request EODC: € 15000, see D02
-
-- Additional ad-hoc NoR sponsorship jolin.io: € 15000
+-Total budged proposed and finalized in the contract: € 149,996
+-First payment after successful completion of the mid-term review
+(D1, D2, this report) € 70,000
+-Final settlement after successful completion of the entire project
+at the end of the year: €79,996
+-Additional NoR spnsoring request EODC: € 15000, see D02
+-Additional ad-hoc NoR sponsorship jolin.io: € 15000
 
 # Outlook
 
-- Finish WP3 code performance enhancement
-
-- Do WP4 Deployment
-
-- Submitted talk to Living Planet Symposium 2025
+-Finish WP3 code performance enhancement
+-Do WP4 Deployment
+-Submitted talk to Living Planet Symposium 2025
 
 # Conclusion
 
-- Recap of the progress and its significance.
-
-- Reaffirmation of the project's alignment with the agency's goals.
+-Recap of the progress and its significance.
+-Reaffirmation of the project's alignment with the agency's goals.
