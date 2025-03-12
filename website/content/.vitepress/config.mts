@@ -140,6 +140,10 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/EarthyScience/FAIRSenDD' }
     ],
 
+    search: {
+      provider: 'local'
+    },
+
     footer: {
       message: `
         <a href="https://www.bgc-jena.mpg.de/en"><img src="assets/logo-mpi-bgc.svg" class = "footer-logo"/></a>
