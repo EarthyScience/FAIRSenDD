@@ -38,6 +38,7 @@ jobs:
           ls content/*.qmd | xargs -i -P 4 quarto render {}     
 
           cd ../infrastructure/app
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ vars.DOCKER_USERNAME }} --password-stdin
           docker compose build
           docker compose push
           docker compose up --detach
