@@ -440,17 +440,28 @@ code enhancements
 - see https://github.com/EarthyScience/RQADeforestation.jl/issues/89
 - starting a docker container takes ~0.5s, adding overhead to the CWL workflow. We get interoperability and reproducibility in return.
 
+## Making underlying function free ofmemory allocations
+
+- A major bootleneck in analyzing data intensive functions in Julia is memory allocations
+- Code will run much faster if it knows at the very beginning how much memory it should use
+- It is very difficult in general to predict how much developmengt effort is required to make the code free of additional memory allocations
+- In particular, due to the way how sattelite images are accquired, there are considerable amount of missing values in the data
+- We don't know beforehand how many missing values there will be making filtering prone to memory allocation
+- We managed to do it within the first half of WP3
+
 ## Complexity in rendering polyglot notebooks
 
 -Interoperability requires to demonstrate the usage of the workflow using various programming languages, e.g. open the result data cube in Python and Julia
-
+- 73% of Jupyter notebooks are not reproducible [(Wang et al. 2023)](https://ieeexplore.ieee.org/document/9270316)
 - Documentation frameworks for single language are well established (e.g. Documenter.jl for Julia)
-- Polyglot notebooks serialize variables across different languages
 - Well established for R+Python (quarto, reticulate) and .NET ecosystem [(Grot and Hirdes 2024)](https://www.heise.de/en/background/Polyglot-Notebooks-A-practical-introduction-9691634.html)
 - Combo Bash+Python+Julia less established
-- We failed to precompile RQADeforestation.jl inside quarto knitr engine
+- We failed to precompile RQADeforestation.jl inside quarto knitr engine due to mismatching versions of dependencies
 - Management of execution environments is a complex issue
-- 73% of Jupyter notebooks are not reproducible [(Wang et al. 2023)](https://ieeexplore.ieee.org/document/9270316)
+- We build a prototype website able to create reproducible polyglot quarto websites:  https://github.com/danlooo/vitepress-quarto-docker
+- One just need to add quarto markdown files. GitHub CI will build docker containers, render quarto docuemnts, and deploys the website to GitHub Pages within its CI.
+- Code execution environment container can be downloaded from dockerhub
+- Repository complies with [Jupyter Binder](https://jupyter.org/binder) enabling interactive Jupyter lab sessions in the exact environment of the repository
 
 # Financial Report
 
