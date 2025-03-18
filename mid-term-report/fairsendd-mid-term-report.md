@@ -23,24 +23,43 @@ as of 15 March 2025
 
 <img src="media/image2.png" style="width:3.70764in;height:0.82222in" />
 
-# Abstract
-
 # Executive Summary
 
--Brief overview of the project objectives.
--Summary of progress and key findings.
--Highlight any significant achievements or milestones.
--Kick off meeting
--Created OGC application package (container, CWL)
--Optimized compiling and memory allocations
--Submitted Talk to Living Planet Symposium
+- Earth science plays an important role in gaining knowledge of our living planet to respond to our today's challenges.
+- Research projects must follow FAIR and open principles to overcome reuse barriers
+- Processing big datasets such as satellite imagery is efficient and scalable in cloud environments, enabling researchers to run workflows on demand and requiring those workflows to be interoperable.
+
+- Here, we present the progress of our FAIRSenDD project: FAIR workflow for Sentinel-1 based Deforestation Detection
+- Project aim: develop a service on an existing cloud platform based on an existing science product
+- Part of ESA Science Result Long-Term Availability & Reusability Demonstrators initiative
+
+- After kick off meeting on 4 Sep 2024, we are in month 6 of 12.
+- We transformed the original code in a Julia package [RQADeforestation.jl](https://github.com/EarthyScience/RQADeforestation.jl)
+- On top of that, we build a standardized workflow in the Common Workflow Language compliant with
+  [OGC Best Practice for Earth Observation Application Package](https://docs.ogc.org/bp/20-089r1.html)
+- We added unit and integration tests ensuring the correctness of the code, automatized using CI (Continuous Integration).
+- We selected EODC as a cloud provider from the Network of Resources and created compute and storage resources to run those CI workflows.
+- In collaboration with the external code review expert Stephan Sahm from [jolin.io](https://www.jolin.io/en/), The code was optimized to run faster and use less memory.
+- Bug fixing, e.g. handling of missing values
+- Wrote documentation about code and the scientific background, deployed at [http://fairsendd.eodchosting.eu/](http://fairsendd.eodchosting.eu/)
+- Submitted Talk to Living Planet Symposium in June 2025
+- Finished WP1 (cloud provider selection) and WP2 (create workflow)
+
+- Major challenges
+
+  - Reducing additional memory allocations of the underlying algorithm: Done
+  - polyglot: bash, julia, python, docker in same quarto document: Done
+  - overhead on small datasets: docker start up time, Response of OGC API, data loading. We optimize for large datasets. One can always call the julia library directly
+
+- In the future, WP3 code enhancement will be completed by the end of June 2025
+- Afterwards, the workflow will be integrated and deployed into the infrastructure of the selected cloud provider.
+- The end of this project is planned with the final review on September 2025
 
 # Introduction
 
 ## Background
 
--Science builds on previous results
-
+- Science builds on previous results
 - This requires work flows to to be FAIR so they can be extended and
   re-used by others
 - Implementing the algorithm alone is not sufficient
@@ -51,7 +70,7 @@ as of 15 March 2025
 
 ## Objectives
 
--Make an initial algorithm implementation FAIR
+- Make an initial algorithm implementation FAIR
 
 # Methodology
 
@@ -452,13 +471,14 @@ code enhancements
 ## Complexity in rendering polyglot notebooks
 
 -Interoperability requires to demonstrate the usage of the workflow using various programming languages, e.g. open the result data cube in Python and Julia
+
 - 73% of Jupyter notebooks are not reproducible [(Wang et al. 2023)](https://ieeexplore.ieee.org/document/9270316)
 - Documentation frameworks for single language are well established (e.g. Documenter.jl for Julia)
 - Well established for R+Python (quarto, reticulate) and .NET ecosystem [(Grot and Hirdes 2024)](https://www.heise.de/en/background/Polyglot-Notebooks-A-practical-introduction-9691634.html)
 - Combo Bash+Python+Julia less established
 - We failed to precompile RQADeforestation.jl inside quarto knitr engine due to mismatching versions of dependencies
 - Management of execution environments is a complex issue
-- We build a prototype website able to create reproducible polyglot quarto websites:  https://github.com/danlooo/vitepress-quarto-docker
+- We build a prototype website able to create reproducible polyglot quarto websites: https://github.com/danlooo/vitepress-quarto-docker
 - One just need to add quarto markdown files. GitHub CI will build docker containers, render quarto docuemnts, and deploys the website to GitHub Pages within its CI.
 - Code execution environment container can be downloaded from dockerhub
 - Repository complies with [Jupyter Binder](https://jupyter.org/binder) enabling interactive Jupyter lab sessions in the exact environment of the repository
