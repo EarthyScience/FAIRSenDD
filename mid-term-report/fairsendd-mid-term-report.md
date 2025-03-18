@@ -361,68 +361,57 @@ Actual:
 ### Benchmark current status
 
 KPIs defined in progress meeting 3 Jan 2025:
--number of implemented algorithms &gt;= 2 (e.g. rqatrend, quantile)
--time to first response of a minimum working example &lt;10s.
-Measures userfriendliness and overhead
--Classification performance on a benchmark dataset (accuracy,
-sensitivity, specificity)
--number of allocations of the rqatrend inner function: required to
-embed in openEO python UDF, helps Julia garbage collector in
-controlling memory usage
--code coverage with unit tests: Do not make a mistake twice in
-further software versions analysis time per computing resources
 
-<table>
-<thead>
-<tr class="header">
-<th>KPI</th>
-<th>before</th>
-<th>after</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Container start up time [s]</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Allocations on test dataset</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Code coverage</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+- number of implemented algorithms &gt;= 2 (e.g. rqatrend, quantile)
+- time to first response of a minimum working example &lt;10s.
+  Measures userfriendliness and overhead
+- Classification performance on a benchmark dataset (accuracy,
+  sensitivity, specificity)
+- number of allocations of the rqatrend inner function: required to
+  embed in openEO python UDF, helps Julia garbage collector in
+  controlling memory usage
+- code coverage with unit tests: Do not make a mistake twice in
+  further software versions analysis time per computing resources
+
+- point: single pixel, just a time series, 10000 samples with 10 evaluations per sample.
+- tile: single tile, 15000x15000 pixels, one GeoTIFF file per time step, one sample
+- we are 27% faster and use 63% less memory with 99.94% less allocations. Please link the data (e.g. how many pixels) and code used for this test below. A tile is 15000\*15000 pixels.
+
+| indicator                  | v0.1       | v0.2    | improvement |
+| -------------------------- | ---------- | ------- | ----------- |
+| Duration (tile) [s]        | 884.030    | 649.038 | 27%         |
+| Duration (point) [µs]      | 12.774     | 1.137   | 91%         |
+| Memory usage (tile) [GiB]  | 606.03     | 223.29  | 63%         |
+| Memory usage (point) [KiB] | 3.75       | 0       | 100%        |
+| Memory allocations (tile)  | 1498056002 | 887461  | 99.94%      |
+| Memory allocations (point) | 8          | 0       | 100%        |
 
 ### 3.2 Explore deployment improvements
 
--Explore ways to extend openEO to be able to run user defined
-functions using Julia or Docker images
+- Explore ways to extend openEO to be able to run user defined
+  functions using Julia or Docker images
 
 Deliverables
--D04: Code review and optimization report
--D05: Software Specification Document (SRD)
--D06: Software Verification and Validation (V&V) document
+
+- D04: Code review and optimization report
+- D05: Software Specification Document (SRD)
+- D06: Software Verification and Validation (V&V) document
 
 ## WP4: Deployment as on-demand operational service
 
 Expected: Start in the future  
 Actual: Start in the future
 Deliverable: D07: Service Verification & Validation document
--Negotiate pricing model with the platform provider
--Create the price calculator given user-defined parameters, e.g.
-bounding box and time spans and document the price per unit of area
-and time span
--Deploy the workflow on the host platform linking workflow code,
-metadata and documentation
--Determine corresponding authors and code maintainers to ensure user
-support
--Organise the Service Readiness Review
+
+- Negotiate pricing model with the platform provider
+- Create the price calculator given user-defined parameters, e.g.
+  bounding box and time spans and document the price per unit of area
+  and time span
+- Deploy the workflow on the host platform linking workflow code,
+  metadata and documentation
+- Determine corresponding authors and code maintainers to ensure user
+  support
+- Organise the Service Readiness Review
 
 ## WP5: Project Coordination and Cooperation
 
@@ -430,28 +419,30 @@ Expected: Ongoing
 Actual: Ongoing
 
 Objectives:
--Ensure a smooth day-to-day management of the project
--Guarantee the timely submission of deliverables
--Ensure smooth execution of the project, on schedule, and within
-budget
--Organise progress and final meetings
--Communicate the progress of the project to ESA
+
+- Ensure a smooth day-to-day management of the project
+- Guarantee the timely submission of deliverables
+- Ensure smooth execution of the project, on schedule, and within
+  budget
+- Organise progress and final meetings
+- Communicate the progress of the project to ESA
 
 Done:
--Biweekly meetings
--Every second meeting: with ESA TO
--Stephan Sahm from jolin.io joined meetings during WP3 to discuss
-code enhancements
+
+- Biweekly meetings
+- Every second meeting: with ESA TO
+- Stephan Sahm from jolin.io joined meetings during WP3 to discuss
+  code enhancements
 
 # Challenges and Solutions
 
--Any obstacles encountered and how they were addressed.
--Impact of these challenges on the project timeline or outcomes.
--Multi step CWL vs one step CWL
+- Any obstacles encountered and how they were addressed.
+- Impact of these challenges on the project timeline or outcomes.
+- Multi step CWL vs one step CWL
 
 ## Overhead for small data sets
 
--Overhead: loading (meta) data and code to memory
+- Overhead: loading (meta) data and code to memory
 
 - Time to ask the OS to get a single file is const. regardless of file size
 - Execution time of function rqatrend could be lowered drastically for a single time series, but not on a bigger dataset
@@ -459,18 +450,19 @@ code enhancements
 - see https://github.com/EarthyScience/RQADeforestation.jl/issues/89
 - starting a docker container takes ~0.5s, adding overhead to the CWL workflow. We get interoperability and reproducibility in return.
 
-## Making underlying function free ofmemory allocations
+## Making underlying function free of memory allocations
 
 - A major bootleneck in analyzing data intensive functions in Julia is memory allocations
 - Code will run much faster if it knows at the very beginning how much memory it should use
 - It is very difficult in general to predict how much developmengt effort is required to make the code free of additional memory allocations
 - In particular, due to the way how sattelite images are accquired, there are considerable amount of missing values in the data
 - We don't know beforehand how many missing values there will be making filtering prone to memory allocation
-- We managed to do it within the first half of WP3
+- We managed to do it for the most important part of the code, i.e. the inner function of rqatrend, within the first half of WP3
+- Overall, we archived 99.94% less allocations in v0.2 compared to v0.1.
 
 ## Complexity in rendering polyglot notebooks
 
--Interoperability requires to demonstrate the usage of the workflow using various programming languages, e.g. open the result data cube in Python and Julia
+- Interoperability requires to demonstrate the usage of the workflow using various programming languages, e.g. open the result data cube in Python and Julia
 
 - 73% of Jupyter notebooks are not reproducible [(Wang et al. 2023)](https://ieeexplore.ieee.org/document/9270316)
 - Documentation frameworks for single language are well established (e.g. Documenter.jl for Julia)
@@ -485,21 +477,21 @@ code enhancements
 
 # Financial Report
 
--Total budged proposed and finalized in the contract: € 149,996
--First payment after successful completion of the mid-term review
-(D1, D2, this report) € 70,000
--Final settlement after successful completion of the entire project
-at the end of the year: €79,996
--Additional NoR spnsoring request EODC: € 15000, see D02
--Additional ad-hoc NoR sponsorship jolin.io: € 15000
+- Total budged proposed and finalized in the contract: € 149,996
+- First payment after successful completion of the mid-term review
+  (D1, D2, this report) € 70,000
+- Final settlement after successful completion of the entire project
+  at the end of the year: €79,996
+- Additional NoR spnsoring request EODC: € 15000, see D02
+- Additional ad-hoc NoR sponsorship jolin.io: € 15000
 
 # Outlook
 
--Finish WP3 code performance enhancement
--Do WP4 Deployment
--Submitted talk to Living Planet Symposium 2025
+- Finish WP3 code performance enhancement
+- Do WP4 Deployment
+- Submitted talk to Living Planet Symposium 2025
 
 # Conclusion
 
--Recap of the progress and its significance.
--Reaffirmation of the project's alignment with the agency's goals.
+- Recap of the progress and its significance.
+- Reaffirmation of the project's alignment with the agency's goals.
