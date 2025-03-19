@@ -4,7 +4,12 @@ format: gfm
 ---
 
 The underlying algorithm of the FAIRSenDD workflow is implemented in the Julia package [RQADeforestation.jl](https://github.com/EarthyScience/RQADeforestation.jl).
-Documentation about the individual methods are shown [here](https://earthyscience.github.io/RQADeforestation.jl/dev/).
+This page shows how to use this package. 
+
+::: {.callout-note}
+Documentation about the individual methods of RQADeforestation.jl](https://github.com/EarthyScience/RQADeforestation.jl) are shown [here](https://earthyscience.github.io/RQADeforestation.jl/dev/).
+:::
+
 
 ## Installation
 
