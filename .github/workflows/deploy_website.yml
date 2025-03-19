@@ -48,8 +48,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ vars.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest,  ${{ vars.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.sha }}
-          cache-from: type=registry,ref=${{ vars.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest
+          tags: ${{ vars.DOCKER_USERNAME }}/fairsendd:latest,  ${{ vars.DOCKER_USERNAME }}/fairsendd:${{ github.sha }}
+          cache-from: type=registry,ref=${{ vars.DOCKER_USERNAME }}/fairsendd:latest
           cache-to: type=inline
           context: website
       - name: Render quarto
@@ -57,7 +57,7 @@ jobs:
           docker run \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v $PWD/website/docs:/work  \
-            ${{ vars.DOCKER_USERNAME }}/${{ github.event.repository.name }} \
+            ${{ vars.DOCKER_USERNAME }}/fairsendd \
             quarto render .
 
       - name: Setup Node
