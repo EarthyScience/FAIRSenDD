@@ -6,4 +6,5 @@ docs
 out.zarr
 *_files
 *quarte_ipynb
-/.quarto/
+.quarto/
+env/conda

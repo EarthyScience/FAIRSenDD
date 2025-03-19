@@ -1,0 +1,52 @@
+---
+title: "Examples"
+---
+
+::: {.callout-note}
+You can execute this code in an online interactive Jupyter environment at Binder: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/danlooo/vitepress-quarto-docker/HEAD)
+:::
+
+
+```{r}
+#| label: setup
+#| echo: false
+#| output: false
+
+JuliaCall::julia_setup()
+reticulate::use_condaenv("base")
+```
+
+## Bash
+
+```{bash}
+echo hello world
+```
+
+access host docker:
+
+
+```{bash}
+docker ps
+```
+
+## R
+
+```{r}
+a <- 1
+a + 1
+```
+
+## Julia
+
+```{julia}
+using Dates
+using Zarr
+Dates.now()
+```
+
+## Python
+
+```{python}
+import xarray as xr
+print("hello world")
+```

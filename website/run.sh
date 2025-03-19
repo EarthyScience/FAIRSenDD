@@ -1,5 +1,3 @@
-#!/bin/sh
-
-rm -rf content/out.zarr
-ls content/*.qmd | xargs -i -P 4 quarto render {}
-docker compose up --build
+docker build -t vitepress-quarto-docker .
+docker run -v /var/run/docker.sock:/var/run/docker.sock -v $PWD/docs:/work vitepress-quarto-docker quarto render .
+npm run docs:dev

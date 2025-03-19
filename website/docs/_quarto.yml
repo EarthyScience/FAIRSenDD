@@ -1,0 +1,6 @@
+project:
+  title: "default"
+format: gfm
+engine: knitr
+manuscript:
+  code-links: binder

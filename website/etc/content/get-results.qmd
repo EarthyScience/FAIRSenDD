@@ -1,0 +1,49 @@
+---
+title: "Get results"
+format: gfm
+engine: knitr
+---
+
+```{r, echo=FALSE, output=FALSE}
+#| label: setup-r
+JuliaCall::julia_setup(JULIA_HOME = "/home/dloos/.juliaup/bin/")
+reticulate::use_condaenv(paste0(getwd(),"/env/conda"))
+```
+
+```{julia, echo=FALSE, output=FALSE}
+#| label: setup-julia
+using Pkg
+Pkg.activate("/home/dloos/prj/FAIRSenDD/RQADeforestation.jl")
+```
+
+The workflow follows the staging procedure as described by [OGC Best Practice for Earth Observation Application Package](https://docs.ogc.org/bp/20-089r1.html#toc27).
+Hereby, the results of the workflow are uploaded to an S3 bucket together with metadata forming a STAC catalog.
+This is how to get the results after workflow execution finished:
+
+## Python
+
+Using HTTP:
+
+```{python}
+import xarray as xr
+job_id = "test1"
+ds_path = "E051N018T3_rqatrend_VH_D022_thresh_3.0.zarr"
+
+ds = xr.open_zarr(f"http://s3.fairsendd.eodchosting.eu/userdata/{job_id}/{ds_path}")
+ds.layer
+```
+
+
+## Julia
+
+Using HTTP:
+
+```{julia}
+using Zarr
+using YAXArrays
+
+job_id = "test1"
+ds_path = "E051N018T3_rqatrend_VH_D022_thresh_3.0.zarr"
+ds = open_dataset("http://s3.fairsendd.eodchosting.eu/userdata/$(job_id)/$(ds_path)")
+ds.layer
+```

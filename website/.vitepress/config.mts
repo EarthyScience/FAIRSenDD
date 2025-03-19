@@ -95,6 +95,8 @@ const customElements = [
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "FAIRSenDD",
+  srcDir: './docs',
+  base: '/FAIRSenDD',
   markdown: {
     config: (md) => {
       md.use(mathjax3);
@@ -110,6 +112,7 @@ export default defineConfig({
   vite: {
     server: {
       allowedHosts: [
+        'earthyscience.github.io',
         'fairsendd.eodchosting.eu',
       ],
     }
