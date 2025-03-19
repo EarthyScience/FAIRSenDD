@@ -39,7 +39,8 @@ as of 15 March 2025
   [OGC Best Practice for Earth Observation Application Package](https://docs.ogc.org/bp/20-089r1.html)
 - We added unit and integration tests ensuring the correctness of the code, automatized using CI (Continuous Integration).
 - We selected EODC as a cloud provider from the Network of Resources and created compute and storage resources to run those CI workflows.
-- In collaboration with the external code review expert Stephan Sahm from [jolin.io](https://www.jolin.io/en/), The code was optimized to run faster and use less memory.
+- In collaboration with the external code review expert Stephan Sahm from [jolin.io](https://www.jolin.io/en/)
+- 27% faster, using 63% less memory usage on a 15000x15000 Equi7Grid tile
 - Bug fixing, e.g. handling of missing values
 - Wrote documentation about code and the scientific background, deployed at [http://fairsendd.eodchosting.eu/](http://fairsendd.eodchosting.eu/)
 - Submitted Talk to Living Planet Symposium in June 2025
