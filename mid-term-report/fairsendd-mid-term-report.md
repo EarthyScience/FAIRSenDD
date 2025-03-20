@@ -25,53 +25,31 @@ as of 15 March 2025
 
 # Executive Summary
 
-- Earth science plays an important role in gaining knowledge of our living planet to respond to our today's challenges.
-- Research projects must follow FAIR and open principles to overcome reuse barriers
-- Processing big datasets such as satellite imagery is efficient and scalable in cloud environments, enabling researchers to run workflows on demand and requiring those workflows to be interoperable.
+Earth science plays a crucial role in enhancing our understanding of our living planet, enabling us to address contemporary challenges effectively. To maximize the impact of research projects, adherence to FAIR (Findable, Accessible, Interoperable, and Reusable) and open principles is essential, as these principles help overcome barriers to data reuse. The processing of large datasets, such as satellite imagery, is made efficient and scalable through cloud environments, allowing researchers to execute workflows on demand. This necessitates that workflows be interoperable.
 
-- Here, we present the progress of our FAIRSenDD project: FAIR workflow for Sentinel-1 based Deforestation Detection
-- Project aim: develop a service on an existing cloud platform based on an existing science product
-- Part of ESA Science Result Long-Term Availability & Reusability Demonstrators initiative
+In this report, we present the progress of our FAIRSenDD project, which focuses on developing a FAIR workflow for Sentinel-1 based Deforestation Detection. The project's aim is to create a service on an existing cloud platform, leveraging an existing science product. This project is part of the ESA Science initiative of Long-Term Availability & Reusability Demonstrators.
 
-- After kick off meeting on 4 Sep 2024, we are in month 6 of 12.
-- We transformed the original code in a Julia package [RQADeforestation.jl](https://github.com/EarthyScience/RQADeforestation.jl)
-- On top of that, we build a standardized workflow in the Common Workflow Language compliant with
-  [OGC Best Practice for Earth Observation Application Package](https://docs.ogc.org/bp/20-089r1.html)
-- We added unit and integration tests ensuring the correctness of the code, automatized using CI (Continuous Integration).
-- We selected EODC as a cloud provider from the Network of Resources and created compute and storage resources to run those CI workflows.
-- In collaboration with the external code review expert Stephan Sahm from [jolin.io](https://www.jolin.io/en/)
-- 27% faster, using 63% less memory usage on a 15000x15000 Equi7Grid tile
-- Bug fixing, e.g. handling of missing values
-- Wrote documentation about code and the scientific background, deployed at [http://fairsendd.eodchosting.eu/](http://fairsendd.eodchosting.eu/)
-- Submitted Talk to Living Planet Symposium in June 2025
-- Finished WP1 (cloud provider selection) and WP2 (create workflow)
+Following the kickoff meeting on September 4, 2024, we are currently in the sixth month of a twelve-month timeline. Key achievements include the transformation of the original code into a Julia package, RQADeforestation.jl, and the development of a standardized workflow in the Common Workflow Language, compliant with the OGC Best Practice for Earth Observation Application Package. We have implemented unit and integration tests to ensure code correctness, automated through Continuous Integration (CI). EODC was selected as a cloud provider from the Network of Resources, and compute and storage resources were created for running CI workflows. Collaboration with external code review expert Stephan Sahm from jolin.io has been very helpful. We achieved a 27% increase in processing speed and a 63% reduction in memory usage on a 15000x15000 Equi7Grid tile. Bug fixes, including the handling of missing values, have been addressed. Documentation of code and scientific background is available at http://fairsendd.eodchosting.eu/. A talk has been submitted to the Living Planet Symposium in June 2025. We have completed WP1 (cloud provider selection) and WP2 (workflow creation) and are currently working on WP3 (Code enhancement).
 
-- Major challenges
+Major challenges included successfully reducing additional memory allocations of the underlying algorithm and integrating bash, Julia, Python, and Docker within the same reproducible documentation. We addressed issues related to Docker startup time, OGC API response, and data loading, with optimizations focused on large datasets. Calling the Julia library directly remain an option.
 
-  - Reducing additional memory allocations of the underlying algorithm: Done
-  - polyglot: bash, julia, python, docker in same quarto document: Done
-  - overhead on small datasets: docker start up time, Response of OGC API, data loading. We optimize for large datasets. One can always call the julia library directly
-
-- In the future, WP3 code enhancement will be completed by the end of June 2025
-- Afterwards, the workflow will be integrated and deployed into the infrastructure of the selected cloud provider.
-- The end of this project is planned with the final review on September 2025
+Looking ahead, WP3 (code enhancement) is scheduled for completion by the end of June 2025. Subsequently, the workflow will be integrated and deployed within the infrastructure of the selected cloud provider EODC. The project is slated to conclude with a final review in September 2025.
 
 # Introduction
 
 ## Background
 
-- Science builds on previous results
-- This requires work flows to to be FAIR so they can be extended and
-  re-used by others
-- Implementing the algorithm alone is not sufficient
-- Long-term avaibility needced
-- EarthCODE is currently building a portal to host scientific workflows build by FAIR principles
-- Importance and relevance to the space agency's mission
-- Regulation on Deforestation-free Products (EUDR) guarantees that products consumed by EU citizens don't contribute to deforestation or forest degradation worldwise [(Eu comission 2023)](https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en). This requires freely accessible monitoring tools to detect forest change.
+Science is a cumulative endeavor, relying heavily on the foundation laid by previous research results. To facilitate this progression, it is imperative that scientific workflows adhere to the FAIR principles, ensuring they are Findable, Accessible, Interoperable, and Reusable. This approach allows for the extension and reuse of workflows by other researchers, fostering collaboration and innovation. Merely implementing an algorithm is insufficient; there is a critical need for the long-term availability of these workflows to ensure their utility and impact over time. In response to this need, EarthCODE is actively developing a portal designed to host scientific workflows constructed in accordance with FAIR principles. Our project is one of the examples that can be added to the EearthCode workflow catalog. This initiative holds significant importance and relevance to the mission of ESA, as it aligns with broader environmental and regulatory goals. For instance, the Regulation on Deforestation-free Products (EUDR) aims to ensure that products consumed by EU citizens do not contribute to deforestation or forest degradation [(Eu comission 2023)](https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en). This regulation underscores the necessity for freely accessible monitoring tools capable of detecting changes in forest cover, thereby supporting sustainable practices and compliance with environmental standards.
+In the past, we developed an initial software product to detect forest change using recurrence quantification analysis (RQA) of Sentinel-1 time series datasets [(Cremer et al. 2023)](https://doi.org/10.1109/JSTARS.2020.3019333).
+Now, we are turning this code into a FAIR workflow, improving its performance, and extent the documentation.
 
 ## Objectives
 
-- Make an initial algorithm implementation FAIR
+The main objective of this project is to turn the initial software product to an end-to-end FAIR open science workflow. In particular, the objectives are as follows:
+
+- make the workflow accessible in an interoperable format, i.e. as openEO processes graphs or packaged using OGC Best Practices.
+- create a Software as a Service (SaaS), i.e. host the workflow on a cloud infrastructure, ensuring that the workflow is available and discoverable
+- release code and documentation under a permissive open-source license in a public repository
 
 # Methodology
 
@@ -92,8 +70,7 @@ to detect deforestation in cloudy ecosystems like rain forests as well.
 However, forest properties depend drastically on the biome, making it
 challenging to apply the same algorithm globally. Compared to the
 analysis of individual scenes, the detection accuracy can be increased
-by analysing an entire time series for single locations at once (Cremer
-et al. 2020). This means the dataset is not seen and analysed as a
+by analysing an entire time series for single locations at once [(Cremer et al. 2023)](https://doi.org/10.1109/JSTARS.2020.3019333). This means the dataset is not seen and analysed as a
 collection of images but rather as a collection of single-pixel time
 series. However, analysing data which is archived as individual images
 in a timeseries-first manner imposes some technical requirements on the
@@ -109,19 +86,18 @@ series. This change indicator is computed for the time series of every
 pixel separately and therefore follows the “time first space later”
 approach. The Recurrence Quantification Analysis is based on the
 recurrence plot technique, which was first described in
-\\cite{Eckstein}. The recurrence plot is derived by comparing every
+[(Eckmann et al.)](https://iopscience.iop.org/article/10.1209/0295-5075/4/9/004). The recurrence plot is derived by comparing every
 pairwise combination of time steps in the time series according to some
 similarity measure. This leads to a quadratic binary matrix with true
 values indicating that two timesteps are similar, while false values
-indicate they are distinct. Figure 2 shows example time series and their
-respective recurrence plots.
+indicate they are distinct.
 
-<img src="media/image3.png" style="width:6.925in;height:4.27847in" />
-
-Figure2: Recurrence Plots for (a) the sum of two sine waves with
+![
+Recurrence Plots for (a) the sum of two sine waves with
 different frequencies, (b) a step function with noise, and (c) a sine
 wave with trend. The upper row shows the raw example time series and the
 lower row the corresponding recurrence plot
+](media/image3.png)
 
 From the recurrence plot of a time series we can derive different RQA
 metrics that describe the behaviour of the time series. The metric that
@@ -138,11 +114,11 @@ against a simple threshold approach on the range between the 95thto
 have a similar detection rate of deforestation in a single year, but
 that the percentile range of a deforestation event from previous years
 can have similar values to a new deforestation which is not the case for
-the RQA Trend metric (Cremer et al. 2020).
+the RQA Trend metric.
 
-<img src="media/image4.png" style="width:6.925in;height:4.58542in" />
-
-Figure3: Detected Deforestation events and their timing (Cremer et al. 2023)
+![
+  Detected Deforestation events and their timing [(Cremer et al. 2023)](https://doi.org/10.1109/JSTARS.2020.3019333)
+](media/image4.png)
 
 In the scope of a use case of the C-Scale Horizon 2020 project we
 computed the RQA Trend metric for the whole continent of Europe for the
@@ -163,7 +139,9 @@ is available at Large-scale EO data handling – [EO College
 
 ## Julia Package
 
--https://github.com/EarthyScience/RQADeforestation.jl
+The underlying code used in this workflow is developed in the Julia Package RQADeforestation.
+The source code is published under MIT license at https://github.com/EarthyScience/RQADeforestation.jl.
+It contains functions to load TIF files into n-dimensional YAXArrays (the Julia equivalent of xarray in python).
 
 ## OGC Application Package
 
