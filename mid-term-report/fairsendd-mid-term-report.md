@@ -1,4 +1,4 @@
-### <img src="media/image1.png" style="width:4.31806in;height:1.27014in" />
+![](media/image1.png)
 
 FAIR workflows for Sentinel-1 based  
 Deforestation Detection
@@ -21,7 +21,7 @@ in ESA contract
 from 4 September 2024 to 4 September 2025  
 as of 15 March 2025
 
-<img src="media/image2.png" style="width:3.70764in;height:0.82222in" />
+![](media/image2.png)
 
 # Executive Summary
 
@@ -137,11 +137,16 @@ Zarr data format. An introduction to the method and the software stack
 is available at Large-scale EO data handling – [EO College
 (eo-college.org)](https://eo-college.org/resource/large-scale-eo-data-handling/)
 
-## Julia Package
+## Julia Library
 
 The underlying code used in this workflow is developed in the Julia Package RQADeforestation.
 The source code is published under MIT license at https://github.com/EarthyScience/RQADeforestation.jl.
-It contains functions to load TIF files into n-dimensional YAXArrays (the Julia equivalent of xarray in python).
+TIF files within the selected spatiotemporal extent are loaded into n-dimensional YAXArrays that are the Julia equivalent of xarray in Python.
+Data loading is performed lazily, i.e. only data chunks that are actually being requested are loaded into system memory.
+This enables processing big datasets even on resource limited computers.
+Then, The function `rqatrend` computes the RQA TREND values for the loaded data cube, using the Julia library RecurrenceAnalysis, among others.
+Results are written to disk in the Zarr format.
+We used [TestItemRunner.jl](https://github.com/julia-vscode/TestItemRunner.jl) to put tests directly next to the function, running tests clearly and in parallel with VSCode.
 
 ## OGC Application Package
 
