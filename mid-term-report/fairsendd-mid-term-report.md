@@ -1,7 +1,6 @@
 ![](media/image1.png)
 
-FAIR workflows for Sentinel-1 based  
-Deforestation Detection
+FAIR workflow for Sentinel-1 based Deforestation Detection
 
 **MID TERM REPORT**
 
@@ -19,9 +18,9 @@ in ESA contract
 4000144670/24/I-EB
 
 from 4 September 2024 to 4 September 2025  
-as of 15 March 2025
+as of 21 March 2025
 
-![](media/image2.png)
+![](media/logos.png)
 
 # Executive Summary
 
@@ -89,7 +88,7 @@ recurrence plot technique, which was first described in
 [(Eckmann et al.)](https://iopscience.iop.org/article/10.1209/0295-5075/4/9/004). The recurrence plot is derived by comparing every
 pairwise combination of time steps in the time series according to some
 similarity measure. This leads to a quadratic binary matrix with true
-values indicating that two timesteps are similar, while false values
+values indicating that two time steps are similar, while false values
 indicate they are distinct.
 
 ![
@@ -105,12 +104,12 @@ is used in this project for the detection of change in the behaviour of
 the Sentinel-1 time series is the Trend. The RQA Trend represents the
 linear regression coefficient of the recurrence rate along a diagonal in
 comparison to the distance to the main diagonal. Therefore, it indicates
-how much the likelihood of two timesteps being similar depends on their
+how much the likelihood of two time steps being similar depends on their
 temporal distance.
 
 The methodology has been validated on small scales and we compared
-against a simple threshold approach on the range between the 95thto
-5thpercentile. We showed that the RQA Trend and the percentile range
+against a simple threshold approach on the range between the 95th to
+5th percentile. We showed that the RQA Trend and the percentile range
 have a similar detection rate of deforestation in a single year, but
 that the percentile range of a deforestation event from previous years
 can have similar values to a new deforestation which is not the case for
@@ -130,7 +129,7 @@ memory. These improvements have been possible because the complete data
 analysis was implemented in Julia and therefore a change in the
 underlying analysis package did not involve changing the programming
 language. The data analysis was parallelized using the YAXArrays.jl
-package that is developed under the JuliaDataCubes organisation. The
+package that is developed under the JuliaDataCubes organization. The
 analysis code is available under a MIT License to be aligned with
 open-science principles. The output of the scientific experiment are in
 Zarr data format. An introduction to the method and the software stack
@@ -150,15 +149,31 @@ We used [TestItemRunner.jl](https://github.com/julia-vscode/TestItemRunner.jl) t
 
 ## OGC Application Package
 
--Takes Julia package, puts them into docker container, puts them into
-cwl workflow
+The Julia library alone does not include executable binaries and tools to upload the results to external object storage systems like MINIO or Amazon S3 for downstream analyzes.
+Furthermore, STAC catalog generation must occur somewhere else as well.
+A well established way to add those features to the workflow is by putting code and binaries for the individual steps into Docker containers.
+We developed docker images and [danlooo/fairsendd_rqa](https://hub.docker.com/r/danlooo/fairsendd_rqa) [danlooo/fairsendd_stage_out](https://hub.docker.com/r/danlooo/fairsendd_stage_out) using continuous integration pipelines that are freely accessible on [dockerhub](https://hub.docker.com).
+This allowed us to write the core step of the workflow in Julia for performance reasons and to write the final upload step in Python to have access to its comprehensive package ecosystem.
+
+The workflow execution is handheld using an orchestration tool and configuration files defining the order of the individual steps.
+We used [Common Workflow Language (CWL)](https://www.commonwl.org) to describe the entire workflow, creating a Earth Observation Application Package according to OGC Best Practices [(OGC consortium 2021)](https://docs.ogc.org/bp/20-089r1.html#toc0).
+Individual steps and the entire workflow can be executed using docker and cwltool, respectively.
+In addition, we are developing a connector to start the workflow using OGC API - Processes as well.
+This additional abstraction layer allows external users to interact with the workflow using HTTP and allows cloud providers to choose their workflow orchestration tool.
 
 # Implementation status
 
--Done: WP1 and WP2
--Ongoing: WP3, WP5
+This report summarizes the current status of the FAIRSenDD project.
+Overall, the project is currently on schedule after its first half of the year.
+The first two work packages WP1: Selection of operational NoR EO Platform services and WP2: End-to-end FAIR Workflow are finished.
+We are currently working on WP3: Code performance enhancement & Cloud platform integration.
+Meanwhile, WP5: Project Coordination and Cooperation is running over the entire course of the 1 year project.
 
-<img src="media/image5.png" style="height:4.32431in" />
+![
+  Timeline of work packages and milestones.
+  No changes have been made to the schedule since the beginning of the project.
+  Currently, we are in the 6th month (M6).
+](media/image5.png)
 
 ## WP1: Selection of operational NoR EO Platform services
 
@@ -224,8 +239,6 @@ portfolio
 Submitted deliverables
 -D01: Trade-off analysis presentation for platform selection and code
 review including cost estimation
-
-<!-- -->
 
 -D02: NoR sponsoring request document
 
