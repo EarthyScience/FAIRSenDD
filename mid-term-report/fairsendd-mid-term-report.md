@@ -200,7 +200,7 @@ Actual: done
 
 ### Cloud provider selection
 
-the first task of the project was to select a cloud provider that we can use to host the workflow.
+The first task of the project was to select a cloud provider that we can use to host the workflow.
 In particular, virtual machines were required to test the workflow and to build images using Continuous Integration.
 Further details about the selection process are provided in the presentation D01.
 Over the course of the first month of the project, we agreed on the following critera to select the cloud provider:
@@ -225,22 +225,16 @@ Finally, we took the offer using a standard NoR sponsorship request.
 
 ### Code review expert selection
 
--Must have expertise in Julia and data access
--Challenge: Julia experts are rare, e.g., no result in official NoR
-portfolio
--Reviewed: APEX, cloudflight, jolin.io
--Selected: Stephan Sahm, jolin.io
-
-- Jolin.io is specialized in Julia consulting
-
-- Founder is maintainer of many Julia packages
-
-- Only consultant specialized on data access using Julia
-
-- Proven record in Julia development on GitHub
-  -Got offer, contract via ad-hoc NoR sponsorship
-  -Jolin.io did light tier registration at NoR, expanding its portfolio
-  with Julia code review
+Next, we selected an external company to review our code and to give suggestions on how to improve its performance.
+Most importantly, the code expert must have additional knowledge about data access and Julia, since this is the major programming language of our project.
+Due to its low prevalence, it was a big challenge to find such a person, e.g. there was no company in the NoR catalog offering consultancy for Julia.
+We further asked APEx and cloudflight with negative outcome.
+Finally, we selected Stephan Sahm from [jolin.io](https://www.jolin.io/en/) to review our code.
+Up to our knowledge, jolin.io is the only consulting company specialized in Julia.
+Its founder Stephan Sahm is maintainer of many Julia packages, including WhereTraits.jl and others.
+After initial negotiation, ESA agreed on that collaboration via an ad-hoc NoR sponsorship.
+Later on, jolin.io completed a light tier registration at NoR.
+We with that there will be more Julia offerings in the NoR portfolio in the future, enabling researchers and software engineers to profit from the computational efficiency offered by this programming language.
 
 ## WP2: End-to-end FAIR Workflow
 
