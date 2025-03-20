@@ -200,37 +200,31 @@ Actual: done
 
 ### Cloud provider selection
 
-the first task of the project was to select a cloud provider
-Further information is provided in the D01 presentation.
+the first task of the project was to select a cloud provider that we can use to host the workflow.
+In particular, virtual machines were required to test the workflow and to build images using Continuous Integration.
+Further details about the selection process are provided in the presentation D01.
+Over the course of the first month of the project, we agreed on the following critera to select the cloud provider:
 
-Select cloud provider
--Must has S-1 Sigma0 (reprocessing would increase time overhead too
-much)
--Focus on VMs with many CPU cores, &gt; ~160GB RAM (Embarrassingly
-parallel workflow)
--Low price
--Reviewed: EODC, CloudFerro, T-Systems
--Selected: EODC
+- Must have Sentinel-1 Sigma 0 corrected data hosted within its data center (principle of data locality)
+- Should offer renting virtual machines (VMs) with dozens of CPU cores and > 32G RAM per VM
+- Total offer must be < 15000€
+- Should offer a low price
+- Sponsoring should be part of the NoR
 
-- Offers FAIR Sigma Nought datasets
+After an initial review in the NoR catalog, we continued the review with CloudFerro, Open Telekom Cloud (T Systems), and EODC.
+We finally selected EODC as the cloud provider to work with due to the following reasons:
 
-- But: Access will cost for future commercial uses
+- They offer FAIR Sigma Nought datasets
+- Their data access is faster than CDSE due to the optimization of the files towards time series analysis (less tile overlap in Equi7Grid projection)
+- They offered the cheapest price in renting VMs (educational discount)
+- They have a long history of collaboration with scientists (Technical University of Vienna spin-off)
+- We had successful collaborations with them in the past
+- they assured to take care of payment processes in future production deployments of the workflow
 
-- Data access faster than CDSE for time series (less tile overlap
-  in Equi7Grid)
+Finally, we took the offer using a standard NoR sponsorship request.
 
-- Cheap VM offer
+### Code review expert selection
 
-- Many collaborations with academia (e.g. Technical University of
-  Vienna)
-
-- Assured payment processing for future users
-
-- Known file structure
-
-- Successful collaboration in the past
-
-Select code review expert
 -Must have expertise in Julia and data access
 -Challenge: Julia experts are rare, e.g., no result in official NoR
 portfolio
