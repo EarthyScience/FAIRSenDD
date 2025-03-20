@@ -180,16 +180,28 @@ Meanwhile, WP5: Project Coordination and Cooperation is running over the entire 
 Expected: done  
 Actual: done
 
-Tasks
--Finalise technical requirements of the existing deforestation
-detection software and its planned improvements
--Analyse trade-offs between available platforms
--Identify and select a suitable platform in NoR to run the workflow
--Identify and select an external expert for technical code review
--Prepare a cost estimation
--Submit NoR sponsoring request
--Create a presentation about the trade-off analysis and the selected
-providers
+#### Tasks
+
+- Finalise technical requirements of the existing deforestation
+  detection software and its planned improvements
+- Analyse trade-offs between available platforms
+- Identify and select a suitable platform in NoR to run the workflow
+- Identify and select an external expert for technical code review
+- Prepare a cost estimation
+- Submit NoR sponsoring request
+- Create a presentation about the trade-off analysis and the selected
+  providers
+
+#### Deliverables
+
+- D01: Trade-off analysis presentation for platform selection and code
+  review including cost estimation
+- D02: NoR sponsoring request document
+
+### Cloud provider selection
+
+the first task of the project was to select a cloud provider
+Further information is provided in the D01 presentation.
 
 Select cloud provider
 -Must has S-1 Sigma0 (reprocessing would increase time overhead too
@@ -236,22 +248,28 @@ portfolio
   -Jolin.io did light tier registration at NoR, expanding its portfolio
   with Julia code review
 
-Submitted deliverables
--D01: Trade-off analysis presentation for platform selection and code
-review including cost estimation
-
--D02: NoR sponsoring request document
-
 ## WP2: End-to-end FAIR Workflow
 
 Expected: done
-
 Actual: done
+
+#### Deliverables
+
+- D03: Online documentation for developers and users about the theory, user parameters,
+  examples and the underlying code
 
 ### 2.1 Set up working environment
 
--Identify public repositories to store code, software containers, and
-custom data and select the best one according to FAIR principles
+#### Tasks
+
+- Identify public repositories to store code, software containers, and custom data and select the best one according to FAIR principles
+- Create a custom example dataset with correct annotations to test the deforestation software
+- Setup CI/CD infrastructure
+
+#### Status
+
+- Identify public repositories to store code, software containers, and
+  custom data and select the best one according to FAIR principles
 
 - Main repo: https://github.com/EarthyScience/FAIRSenDD
 
@@ -275,6 +293,18 @@ custom data and select the best one according to FAIR principles
 - Terraform for openStack for VM deployment
 
 ### 2.2 Make workflow FAIR
+
+#### Tasks
+
+- Export deforestation events as a Zarr Data Cube according to the xcube specification
+- Describe output with STAC metadata
+- Develop the CWL file and docker images describing the entire workflow using OGC Best Practice
+  for Earth Observation Application Package
+- Create unit tests for the individual functions and integration tests for the entire workflow
+- Ensure data formats comply well with the ones used in the EarthCODE community and FAIR
+  principles
+
+#### Status
 
 -FAIR Principles promote Findability, Accessibility, Interoperability, and Reuse of digital assets [Wilkinson et al 2016](https://www.nature.com/articles/sdata201618)
 
@@ -308,8 +338,15 @@ custom data and select the best one according to FAIR principles
 
 ### 2.3 Document workflow
 
--Create and host FAIR, standardized, and well-structured source code
-documentation
+#### Tasks
+
+- Create and host FAIR, standardized, and well-structured source code documentation
+- Write a user tutorial including an easy-to-read summary of the theory, assumptions, links to published papers, and methods, code on how to execute the example, as well as a description and implications of user-defined parameters enabling parameter tuning
+
+#### Status
+
+- Create and host FAIR, standardized, and well-structured source code
+  documentation
 
 - we created the website http://fairsendd.eodchosting.eu/ hosting the documentation and APIs
 - code to generate the documentation is published under MIT license at the [FAIRSenDD repository](https://github.com/EarthyScience/FAIRSenDD/tree/main/website)
@@ -324,16 +361,33 @@ documentation
 - Summary of the scientific background including description of the parameters
 - keep in mind that the documentation will probably change during the course of WP3: Code performance enhancement & Cloud platform integration
 
-Deliverables
--D03: Online documentation for developers and users about the theory,
-user parameters, examples and the underlying code
-
 ## WP3: Code performance enhancement & Cloud platform integration
 
 Expected: Halfway done  
-Actual:
+Actual: Halfway done
+
+#### Deliverables
+
+- D04: Code review and optimization report
+- D05: Software Specification Document (SRD)
+- D06: Software Verification and Validation (V&V) document
 
 ### 3.1 Enhance workflow code
+
+#### Tasks
+
+- Perform external code review and refactoring
+- Define a list of KPIs to track algorithm performance
+- Identify performance bottle-necks
+- Evaluate improvement solutions of the workflow
+- Enhance the performance of the workflow
+- Create software package compliant to OGC “Best Practice for Earth Observation Application
+  Package (OGC 20-089)"
+- Release the updated workflow using the CI/CD pipeline with persistent identifiers
+- Demonstrate software readiness
+- Develop a Web GUI prototype to run the workflow
+
+#### Status
 
 -Perform external code review and refactoring
 
@@ -385,20 +439,25 @@ KPIs defined in progress meeting 3 Jan 2025:
 
 ### 3.2 Explore deployment improvements
 
+#### Tasks
+
+- Explore ways to extend openEO to be able to run user defined functions using Julia or Docker images
+
+#### Status
+
 - Explore ways to extend openEO to be able to run user defined
   functions using Julia or Docker images
-
-Deliverables
-
-- D04: Code review and optimization report
-- D05: Software Specification Document (SRD)
-- D06: Software Verification and Validation (V&V) document
 
 ## WP4: Deployment as on-demand operational service
 
 Expected: Start in the future  
 Actual: Start in the future
-Deliverable: D07: Service Verification & Validation document
+
+#### Deliverables
+
+- D07: Service Verification & Validation document
+
+#### Tasks
 
 - Negotiate pricing model with the platform provider
 - Create the price calculator given user-defined parameters, e.g.
@@ -410,12 +469,20 @@ Deliverable: D07: Service Verification & Validation document
   support
 - Organise the Service Readiness Review
 
+#### Status
+
+As scheduled, this working package hasn't started yet.
+
 ## WP5: Project Coordination and Cooperation
 
 Expected: Ongoing
 Actual: Ongoing
 
-Objectives:
+#### Deliverables
+
+No deliverables are sssociated to this work package.
+
+#### Tasks
 
 - Ensure a smooth day-to-day management of the project
 - Guarantee the timely submission of deliverables
@@ -423,6 +490,8 @@ Objectives:
   budget
 - Organise progress and final meetings
 - Communicate the progress of the project to ESA
+
+#### Status
 
 Done:
 
