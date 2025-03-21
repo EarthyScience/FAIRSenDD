@@ -289,10 +289,6 @@ RQADeforestation.jl uses YAXArrays.jl that uses Zarr format by default.
 We ensured that the result data cubes comply with the xcube specification.
 
 We added staging out procedure that uploads the result data with its own STAC catalog as static JSON files as recommended by [OGC Best Practice for Earth Observation Application Package](https://docs.ogc.org/bp/20-089r1.html#toc27).
-However, STAC catalogs were designed to solve a problem that exists with GeoTIF but not with Zarr, i.e. having different file structures and ways to declare spatiotemporal dimensions.
-A Zarr dataset is more similar to a STAC catalog that it is to an STAC asset or item [(Pangeo 2023)](https://discourse.pangeo.io/t/metadata-duplication-on-stac-zarr-collections/3193).
-STAC for Zarr is still useful to provide a unified API for spatiotemporal querying.
-
 We developed the CWL workflow and published it in [our repository](https://github.com/EarthyScience/FAIRSenDD/tree/main/ogc-app-cwl).
 Docker images [danlooo/fairsendd_rqa](https://hub.docker.com/r/danlooo/fairsendd_rqa) and [danlooo/fairsendd_stage_out](https://hub.docker.com/r/danlooo/fairsendd_stage_out) were automatically created and tested within our CI pipeline.
 Overall, this forms an Earth Observation Application Package according to OGC Best Practices, suitable for future publishing in Open Science Catalog of EarthCODE, like the [POLARIS example](https://opensciencedata.esa.int/workflows/polaris-workflow/record).
@@ -463,27 +459,17 @@ Finally, we wrote this mid term report.
 
 # Challenges and Solutions
 
-Here we present any obstacles encountered in this project and how they were addressed.
+Here we present any obstacles encountered in this project so far and how we addressed them.
 
 ## Making underlying function free of memory allocations
 
-- A major bootleneck in analyzing data intensive functions in Julia is memory allocations
-- Code will run much faster if it knows at the very beginning how much memory it should use
-- It is very difficult in general to predict how much developmengt effort is required to make the code free of additional memory allocations
-- In particular, due to the way how sattelite images are accquired, there are considerable amount of missing values in the data
-- We don't know beforehand how many missing values there will be making filtering prone to memory allocation
-- We managed to do it for the most important part of the code, i.e. the inner function of rqatrend, within the first half of WP3
-- Overall, we archived 99.94% less allocations in v0.2 compared to v0.1.
-
-## Overhead for small data sets
-
-- Overhead: loading (meta) data and code to memory
-
-- Time to ask the OS to get a single file is const. regardless of file size
-- Execution time of function rqatrend could be lowered drastically for a single time series, but not on a bigger dataset
-- Data loading procedure was optimized for bigger datasets after v0.1
-- see https://github.com/EarthyScience/RQADeforestation.jl/issues/89
-- starting a docker container takes ~0.5s, adding overhead to the CWL workflow. We get interoperability and reproducibility in return.
+A major bottleneck in analyzing data intensive functions in Julia is the time it takes to allocate memory.
+The code will run much faster if one knows at the very beginning how much memory it will use.
+It is very difficult in general to predict how much development effort is required to make the code free of additional memory allocations.
+In particular, due to the way how satellite images are acquired, there are considerable amount of missing values in the data.
+We don't know beforehand how many missing values there will be, making filtering prone to memory allocation.
+We managed to do it for the most important part of the code, i.e. the inner function of rqatrend, within the first half of WP3.
+Overall, we archived 99.94% less allocations in v0.2 compared to v0.1.
 
 ## Complexity in rendering polyglot notebooks
 
@@ -499,6 +485,17 @@ Here we present any obstacles encountered in this project and how they were addr
 - One just need to add quarto markdown files. GitHub CI will build docker containers, render quarto docuemnts, and deploys the website to GitHub Pages within its CI.
 - Code execution environment container can be downloaded from dockerhub
 - Repository complies with [Jupyter Binder](https://jupyter.org/binder) enabling interactive Jupyter lab sessions in the exact environment of the repository
+
+## STAC catalogs for Zarr datasets
+
+We added a staging out procedure that uploads the result data with its own STAC catalog as static JSON files as recommended by [OGC Best Practice for Earth Observation Application Package](https://docs.ogc.org/bp/20-089r1.html#toc27).
+However, STAC catalogs were designed to solve a problem that exists with GeoTIF but not with Zarr, i.e. having different file structures and ways to declare spatiotemporal dimensions.
+A Zarr dataset is more similar to a STAC catalog that it is to an STAC asset or item [(Pangeo 2023)](https://discourse.pangeo.io/t/metadata-duplication-on-stac-zarr-collections/3193).
+STAC for Zarr is still useful to provide a unified API for spatiotemporal querying.
+Previous efforts have created relevant STAC extensions, e.g. [xarray-assets](https://github.com/stac-extensions/xarray-assets/) and [datacube](https://github.com/stac-extensions/datacube).
+We are currently re-evaluating our current STAC implementation for the result data cubes if those extensions are implemented correctly.
+In addition, one needs to re-project the tile bounding box from Equi7Grid projection back to WGS84 as required by the GeoJSON standard.
+We added code in the stage out step of the workflow considering all 7 possible projections (one per continent, EPSG:27701 to EPSG:27707) using the STAC extension [projection](https://github.com/stac-extensions/projection).
 
 # Financial Report
 
