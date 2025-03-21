@@ -463,19 +463,7 @@ Finally, we wrote this mid term report.
 
 # Challenges and Solutions
 
-- Any obstacles encountered and how they were addressed.
-- Impact of these challenges on the project timeline or outcomes.
-- Multi step CWL vs one step CWL
-
-## Overhead for small data sets
-
-- Overhead: loading (meta) data and code to memory
-
-- Time to ask the OS to get a single file is const. regardless of file size
-- Execution time of function rqatrend could be lowered drastically for a single time series, but not on a bigger dataset
-- Data loading procedure was optimized for bigger datasets after v0.1
-- see https://github.com/EarthyScience/RQADeforestation.jl/issues/89
-- starting a docker container takes ~0.5s, adding overhead to the CWL workflow. We get interoperability and reproducibility in return.
+Here we present any obstacles encountered in this project and how they were addressed.
 
 ## Making underlying function free of memory allocations
 
@@ -486,6 +474,16 @@ Finally, we wrote this mid term report.
 - We don't know beforehand how many missing values there will be making filtering prone to memory allocation
 - We managed to do it for the most important part of the code, i.e. the inner function of rqatrend, within the first half of WP3
 - Overall, we archived 99.94% less allocations in v0.2 compared to v0.1.
+
+## Overhead for small data sets
+
+- Overhead: loading (meta) data and code to memory
+
+- Time to ask the OS to get a single file is const. regardless of file size
+- Execution time of function rqatrend could be lowered drastically for a single time series, but not on a bigger dataset
+- Data loading procedure was optimized for bigger datasets after v0.1
+- see https://github.com/EarthyScience/RQADeforestation.jl/issues/89
+- starting a docker container takes ~0.5s, adding overhead to the CWL workflow. We get interoperability and reproducibility in return.
 
 ## Complexity in rendering polyglot notebooks
 
@@ -504,13 +502,20 @@ Finally, we wrote this mid term report.
 
 # Financial Report
 
-- Total budged proposed and finalized in the contract: € 149,996
-- First payment after successful completion of the mid-term review
-  (D1, D2, this report) € 70,000
-- Final settlement after successful completion of the entire project
-  at the end of the year: €79,996
-- Additional NoR spnsoring request EODC: € 15000, see D02
-- Additional ad-hoc NoR sponsorship jolin.io: € 15000
+| Item                                   | Beneficiary                             |        Cost |
+| -------------------------------------- | --------------------------------------- | ----------: |
+| Contractor budget                      | Max Planck Institute of Biogeochemistry | € 149996.00 |
+| NoR sponsoring for computing resources | EODC                                    |  € 15360.97 |
+| ad-hoc NoR sponsoring for code review  | jolin.io                                |  € 15000.00 |
+
+At the beginning of this project, we asked for a total budget of € 149996.00 in our proposal.
+This number was also settled in the contract.
+The first payment of € 70000 will be due after the mid-term review if Deliverables D1, D2, and this mid-term report are accepted by ESA.
+The remaining €79,996 will be due after the entire project finished successfully.
+As part of WP1, we did an additional NoR sponsoring for renting computing resources at EODC totalling € 15360.97.
+
+Further information is provided at the ESA contract 4000144670/24/I-EB and the NoR sponsorship documents of D02.Lastly, we got an ad-hoc sponsorship from jolin.io to perform code review totalling up to € 15000.00 with 150€ excl. VAT payed per hour worked.
+Further information is provided at the ESA contract 4000144670/24/I-EB and the NoR sponsorship documents of D02.
 
 # Outlook
 
