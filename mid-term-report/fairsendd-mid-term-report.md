@@ -515,13 +515,11 @@ As part of WP1, we did an additional NoR sponsoring for renting computing resour
 Further information is provided at the ESA contract 4000144670/24/I-EB and the NoR sponsorship documents of D02.Lastly, we got an ad-hoc sponsorship from jolin.io to perform code review totalling up to € 15000.00 with 150€ excl. VAT payed per hour worked.
 Further information is provided at the ESA contract 4000144670/24/I-EB and the NoR sponsorship documents of D02.
 
-# Outlook
-
-- Finish WP3 code performance enhancement
-- Do WP4 Deployment
-- Submitted talk to Living Planet Symposium 2025
-
 # Conclusion
 
 - Recap of the progress and its significance.
 - Reaffirmation of the project's alignment with the agency's goals.
+
+- Finish WP3 code performance enhancement
+- Do WP4 Deployment
+- Submitted talk to Living Planet Symposium 2025
