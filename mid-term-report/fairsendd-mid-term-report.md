@@ -310,21 +310,16 @@ In addition, we performed integration tests that runs the main function on the r
 
 #### Status
 
-- Create and host FAIR, standardized, and well-structured source code
-  documentation
+We created the website http://fairsendd.eodchosting.eu/ hosting the documentation and APIs.
+It serves as a portal to all resources created by this project.
+It includes tutorials on how to run the Julia package, the CWL workflow, as well as the scientific background of the underlying algorithm.
+The code to generate the documentation website is published under MIT license at the [FAIRSenDD repository](https://github.com/EarthyScience/FAIRSenDD/tree/main/website).
+Code examples are executed during documentation building as quarto notebooks ensuring reproducibility of the documentation.
+Creating reproducible documentation in multiple programming languages is challenging.
+We created an example repository [danlooo/vitepress-quarto-docker](https://github.com/danlooo/vitepress-quarto-docker) to create a website with code examples in Julia, R and Python running in a reproducible code environment that can be used interactively using [Jupyter Binder](https://jupyter.org/binder).
+Specific documentation about functions of the underlying Julia package RQADeforestation.jl is published using Documenter at [https://earthyscience.github.io/RQADeforestation.jl/dev](https://earthyscience.github.io/RQADeforestation.jl/dev/).
 
-- we created the website http://fairsendd.eodchosting.eu/ hosting the documentation and APIs
-- code to generate the documentation is published under MIT license at the [FAIRSenDD repository](https://github.com/EarthyScience/FAIRSenDD/tree/main/website)
-- code examples are executed during documentation build as Quarto notebooks ensuring reproducibility of the documentation.
-- Specific documentation about functions of the underlying Julia package RQADeforestation.jl using Documenter [here](https://earthyscience.github.io/RQADeforestation.jl/dev/)
-  -Write a user tutorial including an easy-to-read summary of the
-  theory, assumptions, links to published papers, and methods, code on
-  how to execute the example, as well as a description and
-  implications of user-defined parameters enabling parameter tuning
-
-- Tutorials on how to run the Julia package, the CWL workflow and the OGC API
-- Summary of the scientific background including description of the parameters
-- keep in mind that the documentation will probably change during the course of WP3: Code performance enhancement & Cloud platform integration
+Please note that the documentation will probably change during the course of WP3: Code performance enhancement & Cloud platform integration.
 
 ## WP3: Code performance enhancement & Cloud platform integration
 
