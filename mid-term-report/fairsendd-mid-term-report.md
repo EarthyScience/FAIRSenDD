@@ -518,9 +518,10 @@ Further information is provided at the ESA contract 4000144670/24/I-EB and the N
 
 # Conclusion
 
-- Recap of the progress and its significance.
-- Reaffirmation of the project's alignment with the agency's goals.
+In conclusion, the FAIRSenDD project is progressing well and remains on schedule at the halfway mark of its one-year timeline. The completion of the initial work packages, WP1 and WP2, has laid a solid foundation for the project's objectives. WP1 successfully selected EODC as the cloud provider, and a code review expert was chosen from jolin.io, ensuring the project's technical requirements are met. WP2 established a robust end-to-end FAIR workflow, with code and documentation made accessible on platforms like GitHub and dockerhub, adhering to FAIR principles.
 
-- Finish WP3 code performance enhancement
-- Do WP4 Deployment
-- Submitted talk to Living Planet Symposium 2025
+Currently, WP3 is underway, focusing on enhancing code performance and integrating it with cloud platforms. Significant improvements have been made in reducing memory usage and execution time, as evidenced by the benchmarking results. The project is also exploring deployment improvements, particularly in extending openEO capabilities.
+
+Looking ahead, WP4 is set to commence, focusing on deploying the workflow as an on-demand operational service. WP5 continues to ensure effective project coordination and communication with ESA.
+In addition, we submitted two talks for the upcoming Living Planet Symposium in June 2025, one entitled "FAIRSenDD: A FAIR cloud workflow for Sentinel-1 based forest change detection" focusing on the entire workflow and one about the enderlying algorithm called "Sentinel-1 forest change map using Recurrence Quantification Analysis".
+Overall, the project is on track to achieve its goals, with ongoing efforts to optimize performance and prepare for future deployment phases.
