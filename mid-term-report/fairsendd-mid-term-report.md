@@ -24,13 +24,13 @@ as of 21 March 2025
 
 # Executive Summary
 
-Earth science plays a crucial role in enhancing our understanding of our living planet, enabling us to address contemporary challenges effectively. To maximize the impact of research projects, adherence to FAIR (Findable, Accessible, Interoperable, and Reusable) and open principles is essential, as these principles help overcome barriers to data reuse. The processing of large datasets, such as satellite imagery, is made efficient and scalable through cloud environments, allowing researchers to execute workflows on demand. This necessitates that workflows be interoperable.
+Research in Earth System Science plays a crucial role in enhancing our understanding of our living planet, enabling us to address contemporary challenges effectively. To maximize the impact of research projects, adherence to FAIR (Findable, Accessible, Interoperable, and Reusable) and open principles is essential, as these principles help overcome barriers to data reuse. The processing of large datasets, such as satellite imagery, is made efficient and scalable through cloud environments, allowing researchers to execute workflows on demand. This necessitates that workflows be interoperable.
 
 In this report, we present the progress of our FAIRSenDD project, which focuses on developing a FAIR workflow for Sentinel-1 based Deforestation Detection. The project's aim is to create a service on an existing cloud platform, leveraging an existing science product. This project is part of the ESA Science initiative of Long-Term Availability & Reusability Demonstrators.
 
 Following the kickoff meeting on September 4, 2024, we are currently in the sixth month of a twelve-month timeline. Key achievements include the transformation of the original code into a Julia package, RQADeforestation.jl, and the development of a standardized workflow in the Common Workflow Language, compliant with the OGC Best Practice for Earth Observation Application Package. We have implemented unit and integration tests to ensure code correctness, automated through Continuous Integration (CI). EODC was selected as a cloud provider from the Network of Resources, and compute and storage resources were created for running CI workflows. Collaboration with external code review expert Stephan Sahm from jolin.io has been very helpful. We achieved a 27% increase in processing speed and a 63% reduction in memory usage on a 15000x15000 Equi7Grid tile. Bug fixes, including the handling of missing values, have been addressed. Documentation of code and scientific background is available at http://fairsendd.eodchosting.eu/. A talk has been submitted to the Living Planet Symposium in June 2025. We have completed WP1 (cloud provider selection) and WP2 (workflow creation) and are currently working on WP3 (Code enhancement).
 
-Major challenges included successfully reducing additional memory allocations of the underlying algorithm and integrating bash, Julia, Python, and Docker within the same reproducible documentation. We addressed issues related to Docker startup time, OGC API response, and data loading, with optimizations focused on large datasets. Calling the Julia library directly remain an option.
+Major challenges included successfully reducing additional memory allocations of the underlying algorithm and integrating code examples written in bash, Julia, Python, and Docker within the same reproducible documentation. We addressed issues related to Docker startup time, OGC API response, and data loading, with optimizations focused on large datasets. Calling the Julia library directly remains an option.
 
 Looking ahead, WP3 (code enhancement) is scheduled for completion by the end of June 2025. Subsequently, the workflow will be integrated and deployed within the infrastructure of the selected cloud provider EODC. The project is slated to conclude with a final review in September 2025.
 
@@ -39,7 +39,7 @@ Looking ahead, WP3 (code enhancement) is scheduled for completion by the end of 
 ## Background
 
 Science is a cumulative endeavor, relying heavily on the foundation laid by previous research results. To facilitate this progression, it is imperative that scientific workflows adhere to the FAIR principles, ensuring they are Findable, Accessible, Interoperable, and Reusable [Wilkinson et al 2016](https://www.nature.com/articles/sdata201618).
-This approach allows for the extension and reuse of workflows by other researchers, fostering collaboration and innovation. Merely implementing an algorithm is insufficient; there is a critical need for the long-term availability of these workflows to ensure their utility and impact over time. In response to this need, EarthCODE is actively developing a portal designed to host scientific workflows constructed in accordance with FAIR principles. Our project is one of the examples that can be added to the EearthCode workflow catalog. This initiative holds significant importance and relevance to the mission of ESA, as it aligns with broader environmental and regulatory goals. For instance, the Regulation on Deforestation-free Products (EUDR) aims to ensure that products consumed by EU citizens do not contribute to deforestation or forest degradation [(Eu comission 2023)](https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en). This regulation underscores the necessity for freely accessible monitoring tools capable of detecting changes in forest cover, thereby supporting sustainable practices and compliance with environmental standards.
+This approach allows for the extension and reuse of workflows by other researchers, fostering collaboration and innovation. Merely implementing an algorithm is insufficient; there is a critical need for the long-term availability of these workflows to ensure their utility and impact over time. In response to this need, EarthCODE is actively developing a portal designed to host scientific workflows constructed in accordance with FAIR principles. Our project is one of the examples that can be added to the EarthCode workflow catalog. This initiative holds significant importance and relevance to the mission of ESA, as it aligns with broader environmental and regulatory goals. For instance, the Regulation on Deforestation-free Products (EUDR) aims to ensure that products consumed by EU citizens do not contribute to deforestation or forest degradation [(Eu comission 2023)](https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en). This regulation underscores the necessity for freely accessible monitoring tools capable of detecting changes in forest cover, thereby supporting sustainable practices and compliance with environmental standards.
 In the past, we developed an initial software product to detect forest change using recurrence quantification analysis (RQA) of Sentinel-1 time series datasets [(Cremer et al. 2023)](https://doi.org/10.1109/JSTARS.2020.3019333).
 Now, we are turning this code into a FAIR workflow, improving its performance, and extent the documentation.
 
@@ -144,7 +144,7 @@ The source code is published under MIT license at https://github.com/EarthyScien
 TIF files within the selected spatiotemporal extent are loaded into n-dimensional YAXArrays that are the Julia equivalent of xarray in Python.
 Data loading is performed lazily, i.e. only data chunks that are actually being requested are loaded into system memory.
 This enables processing big datasets even on resource limited computers.
-Then, The function `rqatrend` computes the RQA TREND values for the loaded data cube, using the Julia library RecurrenceAnalysis, among others.
+Then, the function `rqatrend` computes the RQA TREND values for the loaded data cube, using the Julia library RecurrenceAnalysis, among others.
 Results are written to disk in the Zarr format.
 We used [TestItemRunner.jl](https://github.com/julia-vscode/TestItemRunner.jl) to put tests directly next to the function, running tests clearly and in parallel with VSCode.
 
@@ -156,7 +156,7 @@ A well established way to add those features to the workflow is by putting code 
 We developed docker images and [danlooo/fairsendd_rqa](https://hub.docker.com/r/danlooo/fairsendd_rqa) [danlooo/fairsendd_stage_out](https://hub.docker.com/r/danlooo/fairsendd_stage_out) using continuous integration pipelines that are freely accessible on [dockerhub](https://hub.docker.com).
 This allowed us to write the core step of the workflow in Julia for performance reasons and to write the final upload step in Python to have access to its comprehensive package ecosystem.
 
-The workflow execution is handheld using an orchestration tool and configuration files defining the order of the individual steps.
+The workflow execution is handled using an orchestration tool and configuration files defining the order of the individual steps.
 We used [Common Workflow Language (CWL)](https://www.commonwl.org) to describe the entire workflow, creating a Earth Observation Application Package according to OGC Best Practices [(OGC consortium 2021)](https://docs.ogc.org/bp/20-089r1.html#toc0).
 Individual steps and the entire workflow can be executed using docker and cwltool, respectively.
 In addition, we are developing a connector to start the workflow using OGC API - Processes as well.
@@ -164,7 +164,7 @@ This additional abstraction layer allows external users to interact with the wor
 
 # Implementation status
 
-This report summarizes the current status of the FAIRSenDD project.
+This section summarizes the current implementation status of the FAIRSenDD project.
 Overall, the project is currently on schedule after its first half of the year.
 The first two work packages WP1: Selection of operational NoR EO Platform services and WP2: End-to-end FAIR Workflow are finished.
 We are currently working on WP3: Code performance enhancement & Cloud platform integration.
@@ -229,13 +229,13 @@ Finally, we took the offer using a standard NoR sponsorship request.
 Next, we selected an external company to review our code and to give suggestions on how to improve its performance.
 Most importantly, the code expert must have additional knowledge about data access and Julia, since this is the major programming language of our project.
 Due to its low prevalence, it was a big challenge to find such a person, e.g. there was no company in the NoR catalog offering consultancy for Julia.
-We further asked APEx and cloudflight with negative outcome.
+We further contacted APEx and cloudflight and they could not offer support for optimizing Julia code at the level required for this project.
 Finally, we selected Stephan Sahm from [jolin.io](https://www.jolin.io/en/) to review our code.
-Up to our knowledge, jolin.io is the only consulting company specialized in Julia.
+jolin.io is one of only a few consulting companies specialized in Julia.
 Its founder Stephan Sahm is maintainer of many Julia packages, including WhereTraits.jl and others.
 After initial negotiation, ESA agreed on that collaboration via an ad-hoc NoR sponsorship.
 Later on, jolin.io completed a light tier registration at NoR.
-We with that there will be more Julia offerings in the NoR portfolio in the future, enabling researchers and software engineers to profit from the computational efficiency offered by this programming language.
+We welcome this development and hope that there will be more Julia offerings in the NoR portfolio in the future, enabling researchers and software engineers to profit from the computational efficiency offered by this programming language.
 
 ## WP2: End-to-end FAIR Workflow
 
