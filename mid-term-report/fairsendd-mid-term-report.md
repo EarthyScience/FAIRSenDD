@@ -323,8 +323,8 @@ Please note that the documentation will probably change during the course of WP3
 
 ## WP3: Code performance enhancement & Cloud platform integration
 
-Expected: Halfway done  
-Actual: Halfway done
+Expected: in progress
+Actual: in progress
 
 #### Deliverables
 
@@ -349,33 +349,20 @@ Actual: Halfway done
 
 #### Status
 
--Perform external code review and refactoring
+The contract between NoR and our external code review expert Stephan Sahm from jolin.io was settled.
+He attended our biweekly meetings and contributed 4 commits to the repository RQADeforestation.jl.
+Most notably, he drastically reduced the number of memory allocations of the core part of the workflow and created binaries to be used in our docker images using [PackageCompiler.jl](https://github.com/JuliaLang/PackageCompiler.jl).
 
-- Reduced allocations
-
-- Created compiled stand alone sysimage using PackageCompiler.
-  Binaries in github artefacts, binaries used in docker container
-  -Define a list of KPIs to track algorithm performance
-
-- [<span
-      class="underline">https://github.com/EarthyScience/RQADeforestation.jl/issues/49</span>](https://github.com/EarthyScience/RQADeforestation.jl/issues/49)
-  -Identify performance bottle-necks
-  -Evaluate improvement solutions of the workflow
-  -Enhance the performance of the workflow
-  -Create software package compliant to OGC “Best Practice for Earth
-  Observation ApplicationPackage (OGC 20-089)"
-  -Release the updated workflow using the CI/CD pipeline with
-  persistent identifiers
-  -Demonstrate software readiness
-  -Develop a Web GUI prototype to run the workflow
+The OGC Application Package and CI pipelines for building and testing were developed to a point where the workflow runs without any errors.
+Currently, we are working on the last steps of the RQADeforestation.jl workflow, i.e. creating a binary forest change map from the RQA TREND floating point values.
 
 ### Benchmark current status
 
-KPIs defined in progress meeting 3 Jan 2025:
+During a progress meeting on 3 Jan 2025, we defined the following KPIs to benchmark our workflow:
 
-- number of implemented algorithms &gt;= 2 (e.g. rqatrend, quantile)
-- time to first response of a minimum working example &lt;10s.
-  Measures userfriendliness and overhead
+- number of implemented algorithms >=2 (e.g. rqatrend, quantile)
+- time to first response of a minimum working example <=10s.
+  Measures user-friendliness and overhead
 - Classification performance on a benchmark dataset (accuracy,
   sensitivity, specificity)
 - number of allocations of the rqatrend inner function: required to
@@ -384,9 +371,12 @@ KPIs defined in progress meeting 3 Jan 2025:
 - code coverage with unit tests: Do not make a mistake twice in
   further software versions analysis time per computing resources
 
-- point: single pixel, just a time series, 10000 samples with 10 evaluations per sample.
-- tile: single tile, 15000x15000 pixels, one GeoTIFF file per time step, one sample
-- we are 27% faster and use 63% less memory with 99.94% less allocations. Please link the data (e.g. how many pixels) and code used for this test below. A tile is 15000\*15000 pixels.
+We added code coverage reports using [codecov.io](https://about.codecov.io/).
+Currently, one algorithm, i.e. rqatrend is implemented.
+To test the overhead and minimal execution time, we run the main function rqatrend on a single point time series for 10000 samples with 10 evaluations per sample.
+To test more realistic execution scenarios, we also run the function on a real world dataset comprising one tile with 15000x15000 pixels and 2 years of Sentinel-1 observations (tile E048N021T3 in the EU from 2021-07-01 to 2023-06-30).
+
+In summary, our code ran 27% faster using 63% less memory with 99.94% less allocations compared to the initial version at the beginning of the project in a real world benchmark scenario.
 
 | indicator                  | v0.1       | v0.2    | improvement |
 | -------------------------- | ---------- | ------- | ----------- |
@@ -396,6 +386,12 @@ KPIs defined in progress meeting 3 Jan 2025:
 | Memory usage (point) [KiB] | 3.75       | 0       | 100%        |
 | Memory allocations (tile)  | 1498056002 | 887461  | 99.94%      |
 | Memory allocations (point) | 8          | 0       | 100%        |
+| Code coverage (Unit tests) | 0%         | 47%     | 47%         |
+
+Please note that the code coverage was calculated on the entire codebase that still contains unused code blocks.
+As of 21th March 2025, the code coverage improved to 61%.
+We are currently in the process to refactor the code and identify lacking tests.
+In addition, integration tests covering the entire workflow were already developed.
 
 ### 3.2 Explore deployment improvements
 
@@ -405,8 +401,10 @@ KPIs defined in progress meeting 3 Jan 2025:
 
 #### Status
 
-- Explore ways to extend openEO to be able to run user defined
-  functions using Julia or Docker images
+Unfortunately, there is no Julia backend for openEO yet.
+Therefore, we plan to create Python bindings for our Julia library RQADeforestation.jl so that one can use the workflow within a User-Defined Function (UDF) at Python openEO backends.
+A major step towards this is to make the Julia function free of additional memory allocations to simplify memory management in a cross language context.
+This was archived in version v0.2 of our Julia library.
 
 ## WP4: Deployment as on-demand operational service
 
@@ -440,7 +438,7 @@ Actual: Ongoing
 
 #### Deliverables
 
-No deliverables are sssociated to this work package.
+No deliverables are associated to this work package.
 
 #### Tasks
 
