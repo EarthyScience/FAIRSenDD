@@ -473,18 +473,19 @@ Overall, we archived 99.94% less allocations in v0.2 compared to v0.1.
 
 ## Complexity in rendering polyglot notebooks
 
-- Interoperability requires to demonstrate the usage of the workflow using various programming languages, e.g. open the result data cube in Python and Julia
+Interoperability requires to demonstrate the usage of the workflow using various programming languages, e.g. open the result data cube in Python and Julia, among others.
+This is usually done using code notebook frameworks like Jupyter or Quarto.
+For example, we used quarto notebooks to write the tutorials in the documentation.
+However, around 73% of public Jupyter notebooks are not reproducible [(Wang et al. 2023)](https://ieeexplore.ieee.org/document/9270316).
+This issue even more severe in polyglot notebooks, relying on code execution environments involving multiple programming languages.
+Documentation frameworks for single language are well established (e.g. Documenter.jl for Julia).
+Polyglot frameworks are way less common, but exists for R+Python (quarto via reticulate), or within the .NET ecosystem [(Grot and Hirdes 2024)](https://www.heise.de/en/background/Polyglot-Notebooks-A-practical-introduction-9691634.html).
+In addition, running OGC Application Packages inside containerized code execution environments require to run docker inside docker in a nested way.
 
-- 73% of Jupyter notebooks are not reproducible [(Wang et al. 2023)](https://ieeexplore.ieee.org/document/9270316)
-- Documentation frameworks for single language are well established (e.g. Documenter.jl for Julia)
-- Well established for R+Python (quarto, reticulate) and .NET ecosystem [(Grot and Hirdes 2024)](https://www.heise.de/en/background/Polyglot-Notebooks-A-practical-introduction-9691634.html)
-- Combo Bash+Python+Julia less established
-- We failed to precompile RQADeforestation.jl inside quarto knitr engine due to mismatching versions of dependencies
-- Management of execution environments is a complex issue
-- We build a prototype website able to create reproducible polyglot quarto websites: https://github.com/danlooo/vitepress-quarto-docker
-- One just need to add quarto markdown files. GitHub CI will build docker containers, render quarto docuemnts, and deploys the website to GitHub Pages within its CI.
-- Code execution environment container can be downloaded from dockerhub
-- Repository complies with [Jupyter Binder](https://jupyter.org/binder) enabling interactive Jupyter lab sessions in the exact environment of the repository
+We successfully built a prototype website able to create reproducible polyglot quarto websites at https://github.com/danlooo/vitepress-quarto-docker.
+The code execution environment used to build the website can be explored interactively using[Jupyter Binder](https://jupyter.org/binder), enabling interactive Jupyter lab sessions in the exact environment of the repository.
+However, we failed to precompile RQADeforestation.jl inside quarto knitr engine due to mismatching versions of dependencies, most notably GDAL.
+Currently we are working on making all code examples 100% reproducible without the need for partial manual corrections.
 
 ## STAC catalogs for Zarr datasets
 
