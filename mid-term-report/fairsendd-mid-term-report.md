@@ -464,12 +464,12 @@ Up to know, there weren't any major unsolved challenges that would interfere wit
 
 ## Making underlying function free of memory allocations
 
-A major bottleneck in analyzing data intensive functions in Julia is the time it takes to allocate memory.
+A major bottleneck in analyzing data intensive functions in Julia is the time it takes to dynamically allocate and garbage-collect memory.
 The code will run much faster if one knows at the very beginning how much memory it will use.
 It is very difficult in general to predict how much development effort is required to make the code free of additional memory allocations.
 In particular, due to the way how satellite images are acquired, there are considerable amount of missing values in the data.
 We don't know beforehand how many missing values there will be, making filtering prone to memory allocation.
-We managed to do it for the most important part of the code, i.e. the inner function of rqatrend, within the first half of WP3.
+We managed to remove dynamic memory allocations for the most important part of the code, i.e. the inner function of rqatrend, within the first half of WP3.
 Overall, we archived 99.94% less allocations in v0.2 compared to v0.1.
 
 ## Complexity in rendering polyglot notebooks
@@ -520,7 +520,7 @@ Further information is provided at the ESA contract 4000144670/24/I-EB and the N
 
 In conclusion, the FAIRSenDD project is progressing well and remains on schedule at the halfway mark of its one-year timeline. The completion of the initial work packages, WP1 and WP2, has laid a solid foundation for the project's objectives. WP1 successfully selected EODC as the cloud provider, and a code review expert was chosen from jolin.io, ensuring the project's technical requirements are met. WP2 established a robust end-to-end FAIR workflow, with code and documentation made accessible on platforms like GitHub and dockerhub, adhering to FAIR principles.
 
-Currently, WP3 is underway, focusing on enhancing code performance and integrating it with cloud platforms. Significant improvements have been made in reducing memory usage and execution time, as evidenced by the benchmarking results. The project is also exploring deployment improvements, particularly in extending openEO capabilities.
+Currently, WP3 is in progress, focusing on enhancing code performance and integrating it with cloud platforms. Significant improvements have been made in reducing memory usage and execution time, as evidenced by the benchmarking results. The project is also exploring deployment improvements, particularly in extending openEO capabilities.
 
 Looking ahead, WP4 is set to commence, focusing on deploying the workflow as an on-demand operational service. WP5 continues to ensure effective project coordination and communication with ESA.
 In addition, we submitted two talks for the upcoming Living Planet Symposium in June 2025, one entitled "FAIRSenDD: A FAIR cloud workflow for Sentinel-1 based forest change detection" focusing on the entire workflow and one about the enderlying algorithm called "Sentinel-1 forest change map using Recurrence Quantification Analysis".
