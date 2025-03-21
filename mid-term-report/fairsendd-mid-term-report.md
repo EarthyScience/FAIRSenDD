@@ -204,7 +204,7 @@ Actual: done
 The first task of the project was to select a cloud provider that we can use to host the workflow.
 In particular, virtual machines were required to test the workflow and to build images using Continuous Integration.
 Further details about the selection process are provided in the presentation D01.
-Over the course of the first month of the project, we agreed on the following critera to select the cloud provider:
+Over the course of the first month of the project, we agreed on the following criteria to select the cloud provider:
 
 - Must have Sentinel-1 Sigma 0 corrected data hosted within its data center (principle of data locality)
 - Should offer renting virtual machines (VMs) with dozens of CPU cores and > 32G RAM per VM
