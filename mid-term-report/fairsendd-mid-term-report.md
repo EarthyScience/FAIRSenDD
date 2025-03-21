@@ -38,7 +38,8 @@ Looking ahead, WP3 (code enhancement) is scheduled for completion by the end of 
 
 ## Background
 
-Science is a cumulative endeavor, relying heavily on the foundation laid by previous research results. To facilitate this progression, it is imperative that scientific workflows adhere to the FAIR principles, ensuring they are Findable, Accessible, Interoperable, and Reusable. This approach allows for the extension and reuse of workflows by other researchers, fostering collaboration and innovation. Merely implementing an algorithm is insufficient; there is a critical need for the long-term availability of these workflows to ensure their utility and impact over time. In response to this need, EarthCODE is actively developing a portal designed to host scientific workflows constructed in accordance with FAIR principles. Our project is one of the examples that can be added to the EearthCode workflow catalog. This initiative holds significant importance and relevance to the mission of ESA, as it aligns with broader environmental and regulatory goals. For instance, the Regulation on Deforestation-free Products (EUDR) aims to ensure that products consumed by EU citizens do not contribute to deforestation or forest degradation [(Eu comission 2023)](https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en). This regulation underscores the necessity for freely accessible monitoring tools capable of detecting changes in forest cover, thereby supporting sustainable practices and compliance with environmental standards.
+Science is a cumulative endeavor, relying heavily on the foundation laid by previous research results. To facilitate this progression, it is imperative that scientific workflows adhere to the FAIR principles, ensuring they are Findable, Accessible, Interoperable, and Reusable [Wilkinson et al 2016](https://www.nature.com/articles/sdata201618).
+This approach allows for the extension and reuse of workflows by other researchers, fostering collaboration and innovation. Merely implementing an algorithm is insufficient; there is a critical need for the long-term availability of these workflows to ensure their utility and impact over time. In response to this need, EarthCODE is actively developing a portal designed to host scientific workflows constructed in accordance with FAIR principles. Our project is one of the examples that can be added to the EearthCode workflow catalog. This initiative holds significant importance and relevance to the mission of ESA, as it aligns with broader environmental and regulatory goals. For instance, the Regulation on Deforestation-free Products (EUDR) aims to ensure that products consumed by EU citizens do not contribute to deforestation or forest degradation [(Eu comission 2023)](https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en). This regulation underscores the necessity for freely accessible monitoring tools capable of detecting changes in forest cover, thereby supporting sustainable practices and compliance with environmental standards.
 In the past, we developed an initial software product to detect forest change using recurrence quantification analysis (RQA) of Sentinel-1 time series datasets [(Cremer et al. 2023)](https://doi.org/10.1109/JSTARS.2020.3019333).
 Now, we are turning this code into a FAIR workflow, improving its performance, and extent the documentation.
 
@@ -256,29 +257,16 @@ Actual: done
 
 #### Status
 
-- Identify public repositories to store code, software containers, and
-  custom data and select the best one according to FAIR principles
+We opted to publish our code at GitHub, because it is the _de facto_ standard platform to share open source code, making it more likely that the code will be findable and accessible in the future.
+The code repository can be accessed at https://github.com/EarthyScience/FAIRSenDD.
+The underlying Julia library is also accessible at https://github.com/EarthyScience/RQADeforestation.jl.
 
-- Main repo: https://github.com/EarthyScience/FAIRSenDD
+Docker container images were uploaded to dockerhub, which is the default repository for public docker images.
+This includes image [danlooo/fairsendd_rqa](https://hub.docker.com/r/danlooo/fairsendd_rqa) for analyzing the datasets and the image [danlooo/fairsendd_stage_out](https://hub.docker.com/r/danlooo/fairsendd_stage_out) for uploading the results to S3 compatible object storage.
 
-  - GitHub is the biggest platform to host open-source software, making the code findable and accessible.
-  - git is the de facto standard version control system, allowing interoperability.
-
-- dockerhub
-  -Create a custom example dataset with correct annotations to test the
-  deforestation software
-
-- [<span
-      class="underline">https://github.com/meggart/RQADeforestationTestData</span>](https://github.com/meggart/RQADeforestationTestData)
-  -Setup CI/CD infrastructure
-
-- [<span
-  class="underline">https://github.com/EarthyScience/FAIRSenDD/tree/main/.github/workflows</span>](https://github.com/EarthyScience/FAIRSenDD/tree/main/.github/workflows)
-
-- [<span
-  class="underline">https://github.com/EarthyScience/RQADeforestation.jl/tree/main/.github/workflows</span>](https://github.com/EarthyScience/RQADeforestation.jl/tree/main/.github/workflows)
-
-- Terraform for openStack for VM deployment
+We built Continuous Integration (CI) pipelines to automatically build and test the code and its corresponding container images and websites for documentation.
+Execution is performed on VMs at EODC using GitHub Actions.
+We used Terraform and openStack to deploy those VMs in a reproducible way independently of the selected cloud provider.
 
 ### 2.2 Make workflow FAIR
 
@@ -294,35 +282,24 @@ Actual: done
 
 #### Status
 
--FAIR Principles promote Findability, Accessibility, Interoperability, and Reuse of digital assets [Wilkinson et al 2016](https://www.nature.com/articles/sdata201618)
+FAIR principles extend the principles of open source software with interoperability and reusability so that software improvement is not only allowed but also encouraged and simplified.
+Therefore, we focused on using well established standards making our code more compatible with other tools.
+RQADeforestation.jl uses YAXArrays.jl that uses Zarr format by default.
+We ensured that the result data cubes comply with the xcube specification.
 
-- originally used in the context of scientific data
-- This project is about software development in which the terms open-source and free software are more common which focus on the freedom to use and improve the software.
-- FAIR principles extend these principles on interoperability and reusability so that improvement is not only allowed but also encouraged and simplified.
-- This is done by using well-established open standards.
-  -we chose MIT licence, ensuring free use including commercial one. This also fits well in the license ecosystem of most Julia packages.
-  -Export deforestation events as a Zarr Data Cube according to the xcube specification
-  - RQADeforestation.jl uses YAXArrays.jl that uses zarr by default
-- Describe output with STAC metadata
+We added staging out procedure that uploads the result data with its own STAC catalog as static JSON files as recommended by [OGC Best Practice for Earth Observation Application Package](https://docs.ogc.org/bp/20-089r1.html#toc27).
+However, STAC catalogs were designed to solve a problem that exists with GeoTIF but not with Zarr, i.e. having different file structures and ways to declare spatiotemporal dimensions.
+A Zarr dataset is more similar to a STAC catalog that it is to an STAC asset or item [(Pangeo 2023)](https://discourse.pangeo.io/t/metadata-duplication-on-stac-zarr-collections/3193).
+STAC for Zarr is still useful to provide a unified API for spatiotemporal querying.
 
-  - added staging out procedure that uploads the result data with its own STAC catalog as static JSON files as recommended by [OGC Best Practice for Earth Observation Application Package](https://docs.ogc.org/bp/20-089r1.html#toc27)
-    -Develop the CWL file and docker images describing the entire
-    workflow using OGC Best Practice for Earth Observation Application
-    Package
+We developed the CWL workflow and published it in [our repository](https://github.com/EarthyScience/FAIRSenDD/tree/main/ogc-app-cwl).
+Docker images [danlooo/fairsendd_rqa](https://hub.docker.com/r/danlooo/fairsendd_rqa) and [danlooo/fairsendd_stage_out](https://hub.docker.com/r/danlooo/fairsendd_stage_out) were automatically created and tested within our CI pipeline.
+Overall, this forms an Earth Observation Application Package according to OGC Best Practices, suitable for future publishing in Open Science Catalog of EarthCODE, like the [POLARIS example](https://opensciencedata.esa.int/workflows/polaris-workflow/record).
+In addition, we added meta data about code, authors and license according to the FAIR Application Package recommendation [(terradue 2023)](https://terradue.github.io/app-package-training-bids23/).
 
-  - Added CWL workflow [here](https://github.com/EarthyScience/FAIRSenDD/tree/main/ogc-app-cwl)
-  - Docker images are build on CI at RQADeforestation (danlooo/fairsendd_rqa, danlooo/fairsendd_stage_out, and danlooo/julia_package_compiler_dev)
-    -Create unit tests for the individual functions and integration tests
-    for the entire workflow
-
-  - We used [TestItemRunner.jl](https://github.com/julia-vscode/TestItemRunner.jl) to put tests directly next to the function, results displayed within
-    VSCode
-
-  - Integration test that runs the main function on the real world test dataset [meggart/RQADeforestationTestData](https://github.com/meggart/RQADeforestationTestData) on every code change as part of the CI test workflow.
-    -Ensure data formats comply well with the ones used in the EarthCODE community and FAIR principles
-  - Add meta data about code, authors and license according to FAIR Application Packages recommendation [(terradue 2023)](https://terradue.github.io/app-package-training-bids23/).
-  - added codemeta.json, AUTHORS, MIT LICENSE
-  - OGC Application Package suitable for future publishing in Open Science Catalog of EarthCODE, like the [POLARIS example](https://opensciencedata.esa.int/workflows/polaris-workflow/record)
+Testing is a crucial part of software development.
+We created unit tests for the individual functions using [TestItemRunner.jl](https://github.com/julia-vscode/TestItemRunner.jl), allowing us to run tests in parallel with a clear integration in VSCode.
+In addition, we performed integration tests that runs the main function on the real world test dataset [meggart/RQADeforestationTestData](https://github.com/meggart/RQADeforestationTestData) whenever the code has changed.
 
 ### 2.3 Document workflow
 
