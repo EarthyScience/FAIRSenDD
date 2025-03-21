@@ -460,6 +460,7 @@ Finally, we wrote this mid term report.
 # Challenges and Solutions
 
 Here we present any obstacles encountered in this project so far and how we addressed them.
+Up to know, there weren't any major unsolved challenges that would interfere with our project schedule.
 
 ## Making underlying function free of memory allocations
 
