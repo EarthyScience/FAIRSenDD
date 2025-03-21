@@ -240,6 +240,7 @@ We with that there will be more Julia offerings in the NoR portfolio in the futu
 ## WP2: End-to-end FAIR Workflow
 
 Expected: done
+
 Actual: done
 
 #### Deliverables
@@ -324,6 +325,7 @@ Please note that the documentation will probably change during the course of WP3
 ## WP3: Code performance enhancement & Cloud platform integration
 
 Expected: in progress
+
 Actual: in progress
 
 #### Deliverables
@@ -408,7 +410,8 @@ This was archived in version v0.2 of our Julia library.
 
 ## WP4: Deployment as on-demand operational service
 
-Expected: Start in the future  
+Expected: Start in the future
+
 Actual: Start in the future
 
 #### Deliverables
@@ -434,6 +437,7 @@ As scheduled, this working package hasn't started yet.
 ## WP5: Project Coordination and Cooperation
 
 Expected: Ongoing
+
 Actual: Ongoing
 
 #### Deliverables
@@ -451,12 +455,11 @@ No deliverables are associated to this work package.
 
 #### Status
 
-Done:
-
-- Biweekly meetings
-- Every second meeting: with ESA TO
-- Stephan Sahm from jolin.io joined meetings during WP3 to discuss
-  code enhancements
+We set up a nextcloud share containing deliverables, presentation slides, reports and Minutes of Meetings form the 4-weekly progress meetings.
+In addition, we held 4-weekly internal meetings to discuss technical challenges and to organize the work.
+Part of the code review was conducted during those technical meetings.
+Individual work was organized in totalling 31 issues and 101 pull requests on GitHub.
+Finally, we wrote this mid term report.
 
 # Challenges and Solutions
 
