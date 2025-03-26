@@ -1,18 +1,21 @@
 # <img src='website/content/public/assets/logo-fairsendd.png' align="right" height="120px" /> FAIRSenDD: FAIR workflow for Sentinel-1 based Deforestation Detection
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/earthyscience/fairsendd/HEAD)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://earthyscience.github.io/fairsendd)
+
 A project from the Max-Planck-Institute for Biogeochemistry to create a FAIR deforestation detection SaaS as a scientific long-term availability demonstrator for the European Space Agency.
 
 ## Overview
 
 This repository contains code and documentation for a FAIR workflow based on the Julia package [RQADeforestation.jl](https://github.com/EarthyScience/RQADeforestation.jl).
 
-| directory                                    | description                                   |
-| -------------------------------------------- | --------------------------------------------- |
-| [`RQADeforestation.jl`](RQADeforestation.jl) | git submodule to the underlying Julia package |
-| [`infrastructure`](infrastructure)           | VM setup description using Terraform          |
-| [`ogc-api`](ogc-api)                         | OGC API using pygeoapi                        |
-| [`ogc-app-cwl`](ogc-app-cwl)                 | OGC Application Package as a CWL workflow     |
-| [`website`](website)                         | [Project website](http://fairsendd.eodchosting.eu) with documentation and workflow GUI|
+| directory                                    | description                                                                            |
+| -------------------------------------------- | -------------------------------------------------------------------------------------- |
+| [`RQADeforestation.jl`](RQADeforestation.jl) | git submodule to the underlying Julia package                                          |
+| [`infrastructure`](infrastructure)           | VM setup description using Terraform                                                   |
+| [`ogc-api`](ogc-api)                         | OGC API using pygeoapi                                                                 |
+| [`ogc-app-cwl`](ogc-app-cwl)                 | OGC Application Package as a CWL workflow                                              |
+| [`website`](website)                         | [Project website](http://fairsendd.eodchosting.eu) with documentation and workflow GUI |
 
 ## Funding
 
