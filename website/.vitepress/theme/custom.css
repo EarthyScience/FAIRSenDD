@@ -1,3 +1,17 @@
+:root {
+  --vp-c-brand-1: #306966;
+  --vp-c-brand-2: #00677e;
+  --vp-c-brand-3: #306966;
+}
+
+.footer-logo {
+  height: 3em;
+  display: initial;
+  margin-right: 1.5em;
+  margin-left: 1.5em;
+  filter: brightness(0) invert(1) brightness(0.5);
+}
+
 code {
   font-size: small;
   white-space: pre-wrap;
