@@ -59,4 +59,10 @@ COPY --from=python /root/miniconda3/ /root/miniconda3/
 COPY --from=julia /usr/local/bin/julia /usr/local/bin/julia
 COPY --from=julia /usr/local/lib/julia /usr/local/lib/julia
 COPY --from=julia /root/.julia /root/.julia
+
+COPY envs/fix_gdal.sh .
+RUN bash fix_gdal.sh
+
+RUN apt-get install -y cwltool git
+
 ENTRYPOINT [ "/bin/bash" ]

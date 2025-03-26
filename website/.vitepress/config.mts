@@ -96,7 +96,7 @@ const customElements = [
 export default defineConfig({
   title: "FAIRSenDD",
   srcDir: './docs',
-  base: '/FAIRSenDD',
+  base: '/fairsendd',
   markdown: {
     config: (md) => {
       md.use(mathjax3);
@@ -112,8 +112,8 @@ export default defineConfig({
   vite: {
     server: {
       allowedHosts: [
-        'earthyscience.github.io',
         'fairsendd.eodchosting.eu',
+        'earthyscience.github.io',
       ],
     }
   },

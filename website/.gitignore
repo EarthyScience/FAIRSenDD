@@ -1,0 +1,10 @@
+!overview.md
+!background.md
+
+node_modules
+.quarto
+.html
+*.md
+*ipynb
+/.quarto/
+/renv

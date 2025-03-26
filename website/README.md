@@ -1,7 +1,7 @@
-# vitepress-quarto-docker: Reproducible polyglot documentation
+# fairsendd_environment: Reproducible polyglot documentation
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/danlooo/vitepress-quarto-docker/HEAD)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://danlooo.github.io/vitepress-quarto-docker)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/danlooo/fairsendd_environment/HEAD)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://danlooo.github.io/fairsendd_environment)
 
 Writing static websites containing code notebooks in various programming languages.
 
@@ -15,8 +15,8 @@ Writing static websites containing code notebooks in various programming languag
 1. Clone the repository:
 
 ```{bash}
-git clone https://github.com/danlooo/vitepress-quarto-docker
-cd vitepress-quarto-docker
+git clone https://github.com/danlooo/fairsendd_environment
+cd fairsendd_environment
 ```
 
 2. Update code, e.g. add quarto files to the docs directory
@@ -30,4 +30,4 @@ npm run docs:dev
 
 4. Setup GitHub: Set source to GitHub Actions in Pages repo settings
 
-5. pushing changes to GitHuB will automatically render and deploy all quarto websites at https://danlooo.github.io/vitepress-quarto-docker
+5. pushing changes to GitHuB will automatically render and deploy all quarto websites at https://danlooo.github.io/fairsendd_environment

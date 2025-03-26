@@ -3,6 +3,15 @@ title: "Julia Library"
 format: gfm
 ---
 
+```{r}
+#| label: setup
+#| echo: false
+#| output: false
+
+JuliaCall::julia_setup("/usr/local/bin")
+#reticulate::use_condaenv("base")
+```
+
 The underlying algorithm of the FAIRSenDD workflow is implemented in the Julia package [RQADeforestation.jl](https://github.com/EarthyScience/RQADeforestation.jl).
 This page shows how to use this package. 
 
@@ -48,13 +57,6 @@ mock_trend = rqatrend(mock_cube; thresh=0.5)
 mock_trend
 ```
 
-View the results:
-
-```{julia}
-using GLMakie
-heatmap(mock_trend)
-```
-
 ## Real world data set
 
 This example is using Sentinel-1 Sigma Nought backscatter data as processed using [Wagner et al. 2021](https://www.mdpi.com/2072-4292/13/22/4622) in [Equi7Grid projection](https://github.com/TUW-GEO/Equi7Grid).
@@ -85,7 +87,7 @@ function unzip(file,exdir="")
     close(zarchive)
 end
 
-url = "https://github.com/meggart/RQADeforestationTestData/archive/refs/tags/v2.0.zip"
+url = "https://github.com/EarthyScience/RQADeforestationTestData/archive/refs/tags/v2.0.zip"
 tmp_dir = mktempdir()
 zip_path = joinpath(tmp_dir, "downloaded.zip")
 Downloads.download(url, zip_path)
@@ -121,11 +123,4 @@ Examine the output data cube using YAXArrays:
 ```{julia}
 a = open_dataset(out_dir * "/E051N018T3_rqatrend_VH_D022_thresh_3.0.zarr").layer
 a
-```
-
-Plot the output data cube:
-
-```{julia}
-using GLMakie
-heatmap(a)
 ```

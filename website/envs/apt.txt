@@ -1,1 +1,8 @@
 zip
+libpng-dev
+libcurl4-openssl-dev
+libudunits2-dev
+libgdal-dev
+libgeos-dev
+libproj-dev
+libxml2-dev
