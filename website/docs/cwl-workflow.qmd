@@ -26,10 +26,4 @@ cwltool https://raw.githubusercontent.com/EarthyScience/FAIRSenDD/refs/heads/mai
 find out.zarr
 ```
 
-List output files:
-
-```{bash}
-find $dir/out.zarr -maxdepth 2
-```
-
 The directory `out.zarr` forms a [Zarr Dataset](https://zarr.dev/datasets/) that can be opened as an n dimensional array in various ways, e.g. [xarray](https://docs.xarray.dev/en/stable/) in Python and [YAXArrays](https://juliadatacubes.github.io/YAXArrays.jl/stable/) in Julia.

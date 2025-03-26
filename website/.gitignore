@@ -6,5 +6,6 @@ node_modules
 .html
 *.md
 *ipynb
+*rmarkdown
 /.quarto/
 /renv
