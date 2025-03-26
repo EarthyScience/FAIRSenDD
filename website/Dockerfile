@@ -63,6 +63,4 @@ COPY --from=julia /root/.julia /root/.julia
 COPY envs/fix_gdal.sh .
 RUN bash fix_gdal.sh
 
-RUN apt-get install -y cwltool git
-
 ENTRYPOINT [ "/bin/bash" ]

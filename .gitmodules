@@ -3,4 +3,4 @@ path = RQADeforestation.jl
 url = https://github.com/EarthyScience/RQADeforestation.jl
 [submodule "RQADeforestationTestData"]
 path = RQADeforestationTestData
-url = https://github.com/meggart/RQADeforestationTestData
+	url = https://github.com/EarthyScience/RQADeforestationTestData

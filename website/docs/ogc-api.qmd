@@ -4,11 +4,15 @@ format: gfm
 engine: knitr
 ---
 
+
 ```{r}
+#| label: setup
 #| echo: false
-library(reticulate)
-use_condaenv("xarray")
+#| output: false
+
+reticulate::use_condaenv("base")
 ```
+
 
 This page shows how to use the workflow using web APIs.
 

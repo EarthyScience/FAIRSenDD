@@ -9,3 +9,4 @@ node_modules
 *rmarkdown
 /.quarto/
 /renv
+*_files
