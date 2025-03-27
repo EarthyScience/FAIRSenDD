@@ -15,6 +15,7 @@ Similar world wide data can be accessed via the [EODC STAC catalog](https://serv
 The following test dataset contains only a subset of a tile to make it faster to process.
 
 ```{bash}
+cd $(mktemp -d)
 git clone https://github.com/meggart/RQADeforestationTestData
 cwltool https://raw.githubusercontent.com/EarthyScience/FAIRSenDD/refs/heads/main/ogc-app-cwl/fairsendd.cwl#cmd-rqa \
     --continent EU \
@@ -22,12 +23,7 @@ cwltool https://raw.githubusercontent.com/EarthyScience/FAIRSenDD/refs/heads/mai
     --start-date 2021-01-01 \
     --end-date 2022-01-01 \
     --in-dir RQADeforestationTestData
+find out.zarr
 ```
 
-List output files:
-
-```{bash}
-find out.zarr -maxdepth 2
-```
-
-The directory `out.zarr` forms a [Zarr Dataset](https://zarr.dev/datasets/) that can be opened as an n dimensional array in various ways, e.g. [xarray](https://docs.xarray.dev/en/stable/) in Pxthon and [YAXArrays](https://juliadatacubes.github.io/YAXArrays.jl/stable/) in Julia.
+The directory `out.zarr` forms a [Zarr Dataset](https://zarr.dev/datasets/) that can be opened as an n dimensional array in various ways, e.g. [xarray](https://docs.xarray.dev/en/stable/) in Python and [YAXArrays](https://juliadatacubes.github.io/YAXArrays.jl/stable/) in Julia.

@@ -1,0 +1,10 @@
+cwltool
+git
+libcurl4-openssl-dev
+libgdal-dev
+libgeos-dev
+libpng-dev
+libproj-dev
+libudunits2-dev
+libxml2-dev
+zip

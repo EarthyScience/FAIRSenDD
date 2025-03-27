@@ -1,0 +1,12 @@
+!overview.md
+!background.md
+
+node_modules
+.quarto
+.html
+*.md
+*ipynb
+*rmarkdown
+/.quarto/
+/renv
+*_files

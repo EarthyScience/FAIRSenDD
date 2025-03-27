@@ -1,5 +1,9 @@
-#!/bin/sh
-
-rm -rf content/out.zarr
-ls content/*.qmd | xargs -i -P 4 quarto render {}
-docker compose up --build
+set -e
+docker build -t danlooo/fairsendd_environment .
+# cwltool needs to mount docker service and /tmp data dir
+docker run \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /tmp:/tmp \
+    -v $PWD/docs:/work \
+    danlooo/fairsendd_environment quarto render .
+npm run docs:dev

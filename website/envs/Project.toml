@@ -1,0 +1,7 @@
+[deps]
+DimensionalData = "0703355e-b756-11e9-17c0-8b28908087d0"
+GDAL = "add2ef01-049f-52c4-9ee2-e494f65e021a"
+RQADeforestation = "3f1d9318-18cc-4ffd-9937-04025ce33b74"
+YAXArrays = "c21b50f5-aa40-41ea-b809-c0f5e47bfa5c"
+Zarr = "0a941bbe-ad1d-11e8-39d9-ab76183a1d99"
+ZipFile = "a5390f91-8eb1-5f08-bee0-b1d1ffed6cea"
