@@ -23,6 +23,10 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+defaults:
+  run:
+    working-directory: website
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -51,13 +55,12 @@ jobs:
           tags: danlooo/fairsendd_environment:latest, danlooo/fairsendd_environment:${{ github.sha }}
           cache-from: type=registry,ref=danlooo/fairsendd_environment:latest
           cache-to: type=inline
-          context: website
       - name: Render quarto
         run: |
           docker run \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v /tmp:/tmp \
-            -v $PWD/website/docs:/work  \
+            -v $PWD/docs:/work  \
             danlooo/fairsendd_environment:latest \
             quarto render .
 
@@ -75,7 +78,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: website/.vitepress/dist
+          path: .vitepress/dist
 
   deploy:
     environment:
