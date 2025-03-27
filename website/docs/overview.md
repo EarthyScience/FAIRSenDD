@@ -38,7 +38,7 @@ ds.layer.plot()
 plt.show()
 ```
 
-![](assets/example-result.png)
+![](public/assets/example-result.png)
 
 ## Citation
 

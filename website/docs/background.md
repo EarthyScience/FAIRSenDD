@@ -19,7 +19,7 @@ The underlying algorithm is based on Recurrence quantification analysis (RQA).
 Hereby, one counts signal change across every possible time point pair.
 Recurrence plots visualize all comparisons:
 
-![](assets/creme1-3019333-large.gif)
+![](public/assets/creme1-3019333-large.gif)
 Recurrence plots for (a) the sum of two sine waves with different frequencies, (b) a step function with noise, and (c) a sine wave with trend. (b) shows a deforestation event whereas the other two just show seasonal effects or trends.
 
 A location is considered as deforested if a change was detected often enough (threshold approach).
