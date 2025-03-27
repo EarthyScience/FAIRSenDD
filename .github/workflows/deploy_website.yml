@@ -55,6 +55,7 @@ jobs:
           tags: danlooo/fairsendd_environment:latest, danlooo/fairsendd_environment:${{ github.sha }}
           cache-from: type=registry,ref=danlooo/fairsendd_environment:latest
           cache-to: type=inline
+          context: website
       - name: Render quarto
         run: |
           docker run \
