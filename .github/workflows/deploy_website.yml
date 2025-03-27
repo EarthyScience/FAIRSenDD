@@ -23,10 +23,6 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
-defaults:
-  run:
-    working-directory: website
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -57,29 +53,33 @@ jobs:
           cache-to: type=inline
           context: website
       - name: Render quarto
+        working-directory: website
         run: |
           docker run \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v /tmp:/tmp \
             -v $PWD/docs:/work  \
-            danlooo/fairsendd_environment:latest \
+            danlooo/fairsendd_environment:${{ github.sha }} \
             quarto render .
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm # or pnpm / yarn
+          cache: npm
+          cache-dependency-path: website/package-lock.json
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Install dependencies
-        run: npm ci # or pnpm install / yarn install / bun install
+        run: npm ci
+        working-directory: website
       - name: Build with VitePress
-        run: npm run docs:build # or pnpm docs:build / yarn docs:build / bun run docs:build
+        working-directory: website
+        run: npm run docs:build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .vitepress/dist
+          path: website/.vitepress/dist
 
   deploy:
     environment:
