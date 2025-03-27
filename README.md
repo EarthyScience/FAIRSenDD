@@ -1,4 +1,4 @@
-# <img src='website/docs/public/assets/logo-fairsendd.png' align="right" height="120px" /> FAIRSenDD: FAIR workflow for Sentinel-1 based Deforestation Detection
+# <img src='website/docs/assets/logo-fairsendd.png' align="right" height="120px" /> FAIRSenDD: FAIR workflow for Sentinel-1 based Deforestation Detection
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/earthyscience/fairsendd/HEAD)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://earthyscience.github.io/fairsendd)
@@ -19,8 +19,8 @@ This repository contains code and documentation for a FAIR workflow based on the
 
 ## Funding
 
-<img src="website/docs/public/assets/ESA_logo.svg" align="left" height="50px"/>
-<img src="website/docs/public/assets/ESA_NoR_logo.svg" align="left" height="50px" style="filter: contrast(0);"/>
+<img src="website/docs/assets/ESA_logo.svg" align="left" height="50px"/>
+<img src="website/docs/assets/ESA_NoR_logo.svg" align="left" height="50px" style="filter: contrast(0);"/>
 
 This project was funded by the European Space Agency in the Science Result Long-Term Availability & Reusability Demonstrator Initiative.
 In addition, this project was supported by the ESA Network of Resources.
