@@ -32,9 +32,8 @@ $$
 
 Hereby, $\tilde{N}$ is the number of time steps and $RR_i$ is the number of recurrent values on the ith diagonal.
 It represents the linear regression coefficient over the $RR$ of the diagonals in comparison to their distance to the main diagonal.
-It indicates whether the process is drifting or not. 
+It indicates whether the process is drifting or not.
 The $TREND$ value is computed for each location individually and reported in the final result data cube.
-
 
 ## Data
 
@@ -47,4 +46,15 @@ First, the workflow is executed on a given spatiotemporal extent.
 The spatial extent doesn't influence the result of individual locations, since neighboring pixels are not considered.
 For the Sentinel-1 Sigma Nought dataset in Equi7Grid projection, the area to be analyzed is given as a list of tiles.
 The time span should be a multiple of a year to reduce potential seasonal bias.
-The algorithm itself can be tuned by setting the threshold value that determines whether to count a time point par change or not.
+The algorithm itself can be tuned by setting the threshold value that determines whether to count a time point pair change or not.
+
+| name       | description                                                                       | format                            | example      |
+| ---------- | --------------------------------------------------------------------------------- | --------------------------------- | ------------ |
+| continent  | Continent ID within Equi7Grid. Part of the spatial extent.                        | one of AF, AN, AS, EU, NA, OC, SA | `EU`         |
+| tiles      | tile IDs of the area to be analyzed within Equi7Grid- Part of the spatial extent. |                                   | `E036N075T3` |
+| start-date | Start date of the time series to analyze.                                         | ISO 8601: YYYY-MM-DD              | `2024-01-31` |
+| end-date   | End date of the time series to analyze.                                           | ISO 8601: YYYY-MM-DD              | `2025-01-31` |
+| in-dir     | Path to input directory containing Sentinel-1 Sigma0 tile data                    | directory path                    | `/data/in`   |
+| out-dir    | Path to output directory containing the zarr data cubes of TREND metric values    | directory path                    | `/data/out`  |
+| access-key | Access key to upload results in AWS S3 or MINIO                                   | string                            | `abcABC123`  |
+| secret-key | Secret key to upload results in AWS S3 or MINIO                                   | string                            | `defDEF123`  |
