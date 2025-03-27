@@ -96,7 +96,7 @@ const customElements = [
 export default defineConfig({
   title: "FAIRSenDD",
   srcDir: './docs',
-  base: '/fairsendd',
+  base: '/FAIRSenDD',
   markdown: {
     config: (md) => {
       md.use(mathjax3);
