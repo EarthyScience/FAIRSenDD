@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: <img src="assets/logo-fairsendd.png" style="height:7rem"/>
+  name: <img src="logo-fairsendd.png" style="height:7rem"/>
   description: FAIR workflow for Sentinel-1 based Deforestation Detection
   tagline: "FAIR workflow for Sentinel-1 based\nDeforestation Detection"
   actions:

@@ -134,7 +134,6 @@ export default defineConfig({
           {text: "Julia Library", link: "julia-library.md"},
           {text: "CWL Workflow", link: "cwl-workflow.md"},
           {text: "OGC API - Processes", link: "ogc-api.md"},
-          {text: "Development", link: "development.md"},
         ]
       }
     ],
@@ -149,9 +148,9 @@ export default defineConfig({
 
     footer: {
       message: `
-        <a href="https://www.bgc-jena.mpg.de/en"><img src="assets/logo-mpi-bgc.svg" class = "footer-logo"/></a>
-        <a href="https://www.esa.int/About_Us/ESRIN"><img src="assets/ESA_logo.svg" class = "footer-logo"/></a>
-        <a href="https://nor-discover.org/"><img src="assets/ESA_NoR_logo.svg" class = "footer-logo"/></a>
+        <a href="https://www.bgc-jena.mpg.de/en"><img src="logo-mpi-bgc.svg" class = "footer-logo"/></a>
+        <a href="https://www.esa.int/About_Us/ESRIN"><img src="ESA_logo.svg" class = "footer-logo"/></a>
+        <a href="https://nor-discover.org/"><img src="ESA_NoR_logo.svg" class = "footer-logo"/></a>
         `,
       copyright: `© Copyright ${new Date().getUTCFullYear()}.`
     },
