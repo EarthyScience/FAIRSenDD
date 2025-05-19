@@ -10,3 +10,4 @@ node_modules
 /.quarto/
 /renv
 *_files
+RQADeforestationTestData

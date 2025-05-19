@@ -11,11 +11,11 @@ hero:
       text: Documentation
       link: /overview
     - theme: alt
+      text: Run the workflow
+      link: /run
+    - theme: alt
       text: GitHub
       link: https://github.com/EarthyScience/FAIRSenDD
-    - theme: alt
-      text: OGC API
-      link: http://ogc.api.fairsendd.eodchosting.eu/
 
 features:
   - title: Fair
