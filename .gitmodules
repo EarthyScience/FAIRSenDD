@@ -3,7 +3,7 @@ path = RQADeforestation.jl
 url = https://github.com/EarthyScience/RQADeforestation.jl
 [submodule "RQADeforestationTestData"]
 path = RQADeforestationTestData
-	url = https://github.com/EarthyScience/RQADeforestationTestData
+url = https://github.com/EarthyScience/RQADeforestationTestData
 [submodule "RQADeforestation.py"]
-	path = RQADeforestation.py
-	url = ./RQADeforestation.py
+path = RQADeforestation.py
+url = https://github.com/EarthyScience/RQADeforestation.py
