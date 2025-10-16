@@ -38,7 +38,7 @@ jobs:
         with:
           python-version: "3.13.1"
           architecture: "x64"
-      - run: pip install cwltool git+https://github.com/EOEPCA/app-package-validation
+      - run: pip install cwltool git+https://github.com/EOEPCA/app-package-validation pyyaml
 
       - name: Validate CWL workflow
         run: cwltool --validate ogc-app-cwl/fairsendd.cwl
