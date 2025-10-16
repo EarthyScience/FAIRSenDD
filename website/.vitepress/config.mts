@@ -129,11 +129,10 @@ export default defineConfig({
     sidebar: [
       {
         items: [
-          {text: "Overview", link: "overview.md"},
-          {text: "Background", link: "background.md"},
-          {text: "Julia Library", link: "julia-library.md"},
-          {text: "CWL Workflow", link: "cwl-workflow.md"},
-          {text: "OGC API - Processes", link: "ogc-api.md"},
+          { text: "Overview", link: "overview.md" },
+          { text: "Background", link: "background.md" },
+          { text: "Julia Library", link: "julia-library.md" },
+          { text: "CWL Workflow", link: "cwl-workflow.md" },
         ]
       }
     ],
