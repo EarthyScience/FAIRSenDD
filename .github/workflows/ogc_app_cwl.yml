@@ -38,7 +38,7 @@ jobs:
         with:
           python-version: "3.13.1"
           architecture: "x64"
-      - run: pip install cwltool git+https://github.com/EOEPCA/app-package-validation
+      - run: pip install cwltool git+https://github.com/EOEPCA/app-package-validation pyyaml
 
       - name: Validate CWL workflow
         run: cwltool --validate ogc-app-cwl/fairsendd.cwl
@@ -48,15 +48,12 @@ jobs:
 
       - name: Run test CWL workflow
         run: |
-          cwltool ogc-app-cwl/fairsendd.cwl#rqa \
+          cwltool ogc-app-cwl/fairsendd.cwl#cmd-rqa \
            --continent EU \
            --tiles E051N018T3 \
            --start-date 2021-01-01 \
            --end-date 2022-01-01 \
-           --in-dir RQADeforestationTestData \
-           --out-dir test1 \
-           --access-key $AWS_ACCESS_KEY_ID \
-           --secret-key $AWS_SECRET_ACCESS_KEY
+           --in-dir RQADeforestationTestData
         env:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
