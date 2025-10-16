@@ -72,7 +72,7 @@ $graph:
       run: '#cmd-stage_out'
       out:
       - stac
-  id: rqa
+  id: main
 - class: CommandLineTool
 
   requirements:
@@ -112,6 +112,8 @@ $graph:
       outputBinding:
         glob: out.zarr
   id: cmd-rqa
+  baseCommand: []
+
 - class: CommandLineTool
 
   requirements:
@@ -158,14 +160,15 @@ $graph:
       type: Directory
       outputBinding:
         glob: .
+  baseCommand: []
   id: cmd-stage_out
 $namespaces:
   edam: http://edamontology.org/
   s: https://schema.org/
 $schemas:
 - https://schema.org/version/latest/schemaorg-current-https.rdf
-- http://edamontology.org/EDAM_1.18.owl
 cwlVersion: v1.0
+s:softwareVersion: 0.2.0
 s:author:
 - hints:
   cwltool:Secrets:
