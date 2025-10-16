@@ -48,7 +48,7 @@ jobs:
 
       - name: Run test CWL workflow
         run: |
-          cwltool ogc-app-cwl/fairsendd.cwl#rqa \
+          cwltool ogc-app-cwl/fairsendd.cwl \
            --continent EU \
            --tiles E051N018T3 \
            --start-date 2021-01-01 \
