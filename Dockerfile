@@ -3,7 +3,7 @@
 
 FROM debian:stable-slim AS base
 ENV JULIA_VERSION=1.11.4
-COPY apt.txt .
+COPY env/apt.txt .
 RUN \
     # base
     apt-get update && \
@@ -23,12 +23,12 @@ RUN \
 ENV PATH="/root/miniconda3/bin:$PATH"
 
 FROM base AS python
-COPY environment.yml .
+COPY env/environment.yml .
 RUN conda env update --file environment.yml --prune --name base
 
 FROM base AS julia
-COPY Project.toml /root/.julia/environments/v1.11/Project.toml
-COPY Manifest.toml /root/.julia/environments/v1.11/Manifest.toml
+COPY env/Project.toml /root/.julia/environments/v1.11/Project.toml
+COPY env/Manifest.toml /root/.julia/environments/v1.11/Manifest.toml
 RUN julia -e 'using Pkg; Pkg.instantiate(); Pkg.status()'
 
 FROM base AS final
@@ -37,6 +37,6 @@ COPY --from=python /root/miniconda3/ /root/miniconda3/
 COPY --from=julia /usr/local/bin/julia /usr/local/bin/julia
 COPY --from=julia /usr/local/lib/julia /usr/local/lib/julia
 COPY --from=julia /root/.julia /root/.julia
-COPY fix_gdal.sh .
+COPY env/fix_gdal.sh .
 RUN bash fix_gdal.sh
 CMD ["jupyter", "notebook", "--allow-root"]
