@@ -39,4 +39,5 @@ COPY --from=julia /usr/local/lib/julia /usr/local/lib/julia
 COPY --from=julia /root/.julia /root/.julia
 COPY env/fix_gdal.sh .
 RUN bash fix_gdal.sh
-CMD ["jupyter", "notebook", "--allow-root"]
+EXPOSE 8888
+CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
