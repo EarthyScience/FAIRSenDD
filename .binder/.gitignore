@@ -1,0 +1,7 @@
+*
+!*.toml
+!*.yml
+!apt.txt
+!*.sh
+!Dockerfile
+!.gitignore
