@@ -8,9 +8,6 @@ permissions:
     packages: write
     pages: write
     id-token: write
-concurrency:
-    group: pages
-    cancel-in-progress: false
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -34,7 +31,7 @@ jobs:
               with:
                   push: true
                   tags: |
-                      ghcr.io/${{ github.repository }}:latest
-                      ghcr.io/${{ github.repository }}:${{ github.sha }}
-                  cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:latest
+                      ghcr.io/earthyscience/fairsendd:latest
+                      ghcr.io/earthyscience/fairsendd:${{ github.sha }}
+                  cache-from: type=registry,ref=ghcr.io/earthyscience/fairsendd:latest
                   cache-to: type=inline
