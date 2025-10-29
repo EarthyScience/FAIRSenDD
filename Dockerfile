@@ -40,4 +40,16 @@ COPY --from=julia /root/.julia /root/.julia
 COPY env/fix_gdal.sh .
 RUN bash fix_gdal.sh
 EXPOSE 8888
-CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
+
+# allow jupyter binder
+ARG NB_USER=jovyan
+ARG NB_UID=1000
+ENV USER=${NB_USER}
+ENV HOME=/home/${NB_USER}
+RUN adduser --disabled-password \
+    --gecos "Default user" \
+    --uid ${NB_UID} \
+    ${NB_USER}
+WORKDIR ${HOME}
+USER ${USER}
+CMD ["/bin/bash"]
