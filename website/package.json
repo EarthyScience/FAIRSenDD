@@ -8,6 +8,7 @@
     "docs:preview": "vitepress preview"
   },
   "dependencies": {
+    "bootstrap": "^5.3.8",
     "markdown-it-mathjax3": "^4.3.2"
   }
 }
