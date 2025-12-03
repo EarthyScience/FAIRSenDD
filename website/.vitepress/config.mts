@@ -133,6 +133,7 @@ export default defineConfig({
           { text: "Background", link: "background.md" },
           { text: "Julia Library", link: "julia-library.md" },
           { text: "CWL Workflow", link: "cwl-workflow.md" },
+          { text: "Pricing", link: "pricing.md" },
         ]
       }
     ],
