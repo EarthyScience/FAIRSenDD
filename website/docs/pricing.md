@@ -2,21 +2,23 @@
 
 This project is creating free and open-source software under the MIT license.
 There are plenty of ways to run the workflow locally after downloading the [data](/background-gfm.html#data).
-However, the workflow can be also be executed with [openEO at EODC](https://editor.openeo.org/?server=openeo.eodc.eu%2Fopeneo%2F1.2.0%2F) by enabling experimental processes and searching for 'rqadeforestation'.
+However, the workflow can also be executed with [openEO at EODC](https://editor.openeo.org/?server=openeo.eodc.eu%2Fopeneo%2F1.2.0%2F) by enabling experimental processes and searching for 'rqadeforestation'.
 
 ## Price calculator
 
 Please enter the spatio-temporal extent to be processed.
 The price will be estimated automatically.
 
-Ressource estimation were based on the following assumptions:
+Resource estimations were based on the following assumptions:
 
 - Sentinel-1 Sigma0 collection at 20m resolution in Equi7 projection
-- Satellite revisit period of 6 days, e.g., coverage in Europe
-- data is available in GeoTIFF format
-- files are located on a network share in the same data center
-- execution on a  AMD EPIC MILAN CPU with 32GB RAM
-- execution of the Julia package within a REPL
+- Tile size is 15000x15000 pixels
+- Satellite revisit period of 6 days
+- Data is available in GeoTIFF format
+- Files are located on a network share in the same data center
+- Execution on an AMD EPIC MILAN CPU on 32 threads with 32GB RAM
+- 100% utilization of CPU and RAM (4 workers with 8 threads each)
+- execution of the Julia library [RQADeforestation.jl](https://github.com/EarthyScience/RQADeforestation.jl) within a REPL
 
 <ClientOnly>
 
@@ -48,13 +50,13 @@ Ressource estimation were based on the following assumptions:
 
   <div v-if="error" style="color:#b00020;margin-top:0.4rem">{{ error }}</div>
 
-  <strong>Estimated runtime: {{ price }} min</strong>
+  <strong>Estimated runtime: {{ runtime }} s</strong>
 </form>
 </ClientOnly>
 
 <div class = "alert alert-warning">
 Please note that these results are not official offerings from any cloud provider.
-Estimates may vary depend on the area of interest, orbits to be analysed, and execution platform.
+Estimates may vary depending on the area of interest, orbits to be analysed, and execution platform.
 </div>
 
 <script setup>
@@ -65,7 +67,7 @@ const end = ref('')
 const n_tiles = ref(1)
 const submitted = ref(false)
 const error = ref('')
-let price = 0
+let runtime = 0
 
 const valid = computed(() => {
   if (!start.value || !end.value) return false
@@ -87,13 +89,11 @@ watch([start, end, n_tiles], () => {
   }
 
 
-  const satellite_revisit_days = 6
-  const runtime_per_tile = 0.12
-  let duration_days = (Date.parse(end.value) - Date.parse(start.value)) * 1e-3 / 60 / 60 / 24
-  let satellite_time_steps = duration_days / satellite_revisit_days
-  
-  price = n_tiles.value * (satellite_time_steps^2) * runtime_per_tile
-  price = Math.round(price * 10) / 10
+const runtime_per_year_per_tile_in_s = 384.673805
+const satellite_revisit_days = 6
+
+let duration_years = (Date.parse(end.value) - Date.parse(start.value)) * 1e-3 / 60 / 60 / 24 / 365
+runtime = n_tiles.value * (duration_years*runtime_per_year_per_tile_in_s)^2
 })
 
 onMounted(() => {
