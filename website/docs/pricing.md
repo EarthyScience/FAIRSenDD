@@ -1,14 +1,13 @@
 # Pricing
 
 This project is creating free and open-source software under the MIT license.
-There are plenty of ways to run the workflow locally after downloading the [data](/background-gfm.html#data).
-However, the workflow can also be executed with [openEO at EODC](https://editor.openeo.org/?server=openeo.eodc.eu%2Fopeneo%2F1.2.0%2F) by enabling experimental processes and searching for 'rqadeforestation'.
+There are plenty of ways to run the workflow locally after downloading the [data](background.html#data).
+However, the workflow can also be executed using [openEO at EODC](https://editor.openeo.org/?server=openeo.eodc.eu%2Fopeneo%2F1.2.0%2F) by enabling experimental processes and searching for 'rqadeforestation'.
 
 ## Price calculator
 
 Please enter the spatio-temporal extent to be processed.
 The price will be estimated automatically.
-
 Resource estimations were based on the following assumptions:
 
 - Sentinel-1 Sigma0 collection at 20m resolution in Equi7 projection
@@ -18,7 +17,7 @@ Resource estimations were based on the following assumptions:
 - Files are located on a network share in the same data center
 - Execution on an AMD EPIC MILAN CPU on 32 threads with 32GB RAM
 - 100% utilization of CPU and RAM (4 workers with 8 threads each)
-- execution of the Julia library [RQADeforestation.jl](https://github.com/EarthyScience/RQADeforestation.jl) within a REPL
+- Workflow is executed inside a Julia REPL using [RQADeforestation.jl](https://github.com/EarthyScience/RQADeforestation.jl)
 
 <ClientOnly>
 
@@ -30,7 +29,6 @@ Resource estimations were based on the following assumptions:
 
   <div class="form-floating">
     <label for="end">End date</label><br />
-    <!-- enforce end >= start on the client -->
     <input id="end" type="date" v-model="end" :min="start" class="form-control" required />
   </div>
 
