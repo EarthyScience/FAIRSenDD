@@ -8,8 +8,15 @@ However, the workflow can be also be executed with [openEO at EODC](https://edit
 
 Please enter the spatio-temporal extent to be processed.
 The price will be estimated automatically.
-Please note that these results are not official offerings from any cloud provider.
-Ressource estimation were based on the Sentinel-1 Sigma0 collection at 20m resolution in Equi7 projection at the EODC cloud.
+
+Ressource estimation were based on the following assumptions:
+
+- Sentinel-1 Sigma0 collection at 20m resolution in Equi7 projection
+- Satellite revisit period of 6 days, e.g., coverage in Europe
+- data is available in GeoTIFF format
+- files are located on a network share in the same data center
+- execution on a  AMD EPIC MILAN CPU with 32GB RAM
+- execution of the Julia package within a REPL
 
 <ClientOnly>
 
@@ -41,28 +48,14 @@ Ressource estimation were based on the Sentinel-1 Sigma0 collection at 20m resol
 
   <div v-if="error" style="color:#b00020;margin-top:0.4rem">{{ error }}</div>
 
-  <tbody class="form-floating mt-3 ">
-    <tr>
-    <td>
-    <strong>Estimated memory usage:</strong>
-    </td>
-    <td>
-      {{ price }} GB
-    </td>
-    </tr>
-    <tr>
-    <td>
-    <strong>Estimated runtime on one vCPU:</strong>
-    </td>
-    <td>
-      {{ price }} min
-    </td>
-  </tr>
-  </tbody>
+  <strong>Estimated runtime: {{ price }} min</strong>
 </form>
-
-
 </ClientOnly>
+
+<div class = "alert alert-warning">
+Please note that these results are not official offerings from any cloud provider.
+Estimates may vary depend on the area of interest, orbits to be analysed, and execution platform.
+</div>
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
@@ -72,7 +65,7 @@ const end = ref('')
 const n_tiles = ref(1)
 const submitted = ref(false)
 const error = ref('')
-let price = 1337
+let price = 0
 
 const valid = computed(() => {
   if (!start.value || !end.value) return false
@@ -82,18 +75,25 @@ const valid = computed(() => {
 })
 
 watch([start, end, n_tiles], () => {
-  error.value = ''
+  error.value = ""
   if (start.value && end.value && start.value > end.value) {
-    error.value = 'Start date must be on or before end date.'
+    error.value = "Start date must be on or before end date."
+  }
+  if (Date.parse(start.value) < Date.parse("2014-10-01")) {
+    error.value = "Data only available after Oct 2014"
   }
   if (!Number.isInteger(n_tiles.value)) {
-    error.value = 'Count must be an integer.'
+    error.value = "Count must be an integer."
   }
 
-  let days = (Date.parse(end.value) - Date.parse(start.value)) * 1e-3 / 60 / 60 / 24 / 365
 
-  price = n_tiles.value * days * 100 * 1.00123
-  price = Math.round(price * 100) / 100
+  const satellite_revisit_days = 6
+  const runtime_per_tile = 0.12
+  let duration_days = (Date.parse(end.value) - Date.parse(start.value)) * 1e-3 / 60 / 60 / 24
+  let satellite_time_steps = duration_days / satellite_revisit_days
+  
+  price = n_tiles.value * (satellite_time_steps^2) * runtime_per_tile
+  price = Math.round(price * 10) / 10
 })
 
 onMounted(() => {
