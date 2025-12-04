@@ -24,7 +24,7 @@ Resource estimations were based on the following assumptions:
 <form @submit.prevent="onSubmit" class="form-horizontal">
   <div class="form-floating">
     <label for="start">Start date</label><br />
-    <input id="start" type="date" v-model="start" class="form-control" value="01/01/2024" required />
+    <input id="start" type="date" v-model="start" class="form-control" required />
   </div>
 
   <div class="form-floating">
