@@ -1,3 +1,50 @@
+---
+include-before-body:
+  text: |
+    <script setup>
+    import { ref, computed, onMounted, watch } from 'vue'
+    const start = ref('')
+    const end = ref('')
+    const n_tiles = ref(1)
+    const submitted = ref(false)
+    const error = ref('')
+    let runtime = 0
+
+    const valid = computed(() => {
+      if (!start.value || !end.value) return false
+      if (start.value > end.value) return false
+      if (!Number.isInteger(n_tiles.value) || n_tiles.value < 0) return false
+      return true
+    })
+
+    watch([start, end, n_tiles], () => {
+      error.value = ""
+      if (start.value && end.value && start.value > end.value) {
+        error.value = "Start date must be on or before end date."
+      }
+      if (Date.parse(start.value) < Date.parse("2014-10-01")) {
+        error.value = "Data only available after Oct 2014"
+      }
+      if (!Number.isInteger(n_tiles.value)) {
+        error.value = "Count must be an integer."
+      }
+
+
+    const runtime_per_year_per_tile_in_s = 384.673805
+    const satellite_revisit_days = 6
+
+    let duration_years = (Date.parse(end.value) - Date.parse(start.value)) * 1e-3 / 60 / 60 / 24 / 365
+    runtime = n_tiles.value * (duration_years*runtime_per_year_per_tile_in_s)^2
+    })
+
+    onMounted(() => {
+      start.value = "2022-01-01"
+      end.value = "2023-01-01"
+    })
+    </script> 
+---
+
+
 # Pricing
 
 This project is creating free and open-source software under the MIT license.
@@ -57,45 +104,3 @@ Please note that these results are not official offerings from any cloud provide
 Estimates may vary depending on the area of interest, orbits to be analysed, and execution platform.
 </div>
 
-<script setup>
-import { ref, computed, onMounted, watch } from 'vue'
-
-const start = ref('')
-const end = ref('')
-const n_tiles = ref(1)
-const submitted = ref(false)
-const error = ref('')
-let runtime = 0
-
-const valid = computed(() => {
-  if (!start.value || !end.value) return false
-  if (start.value > end.value) return false
-  if (!Number.isInteger(n_tiles.value) || n_tiles.value < 0) return false
-  return true
-})
-
-watch([start, end, n_tiles], () => {
-  error.value = ""
-  if (start.value && end.value && start.value > end.value) {
-    error.value = "Start date must be on or before end date."
-  }
-  if (Date.parse(start.value) < Date.parse("2014-10-01")) {
-    error.value = "Data only available after Oct 2014"
-  }
-  if (!Number.isInteger(n_tiles.value)) {
-    error.value = "Count must be an integer."
-  }
-
-
-const runtime_per_year_per_tile_in_s = 384.673805
-const satellite_revisit_days = 6
-
-let duration_years = (Date.parse(end.value) - Date.parse(start.value)) * 1e-3 / 60 / 60 / 24 / 365
-runtime = n_tiles.value * (duration_years*runtime_per_year_per_tile_in_s)^2
-})
-
-onMounted(() => {
-  start.value = "2022-01-01"
-  end.value = "2023-01-01"
-})
-</script> 
