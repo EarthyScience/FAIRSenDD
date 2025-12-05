@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
 import mathjax3 from 'markdown-it-mathjax3';
 
+
 const customElements = [
   'mjx-container',
   'mjx-assistive-mml',
@@ -102,6 +103,10 @@ export default defineConfig({
       md.use(mathjax3);
     },
   },
+  // head: [
+  //   ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' }],
+  //   ['script', { src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js', defer: 'defer' }]
+  // ],
   vue: {
     template: {
       compilerOptions: {
@@ -133,6 +138,7 @@ export default defineConfig({
           { text: "Background", link: "background.md" },
           { text: "Julia Library", link: "julia-library.md" },
           { text: "CWL Workflow", link: "cwl-workflow.md" },
+          { text: "Pricing", link: "pricing.md" },
         ]
       }
     ],

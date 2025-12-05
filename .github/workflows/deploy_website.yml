@@ -60,7 +60,7 @@ jobs:
             -v /tmp:/tmp \
             -v $PWD/docs:/work  \
             danlooo/fairsendd_environment:${{ github.sha }} \
-            quarto render .
+            quarto render *.qmd
 
       - name: Setup Node
         uses: actions/setup-node@v4
